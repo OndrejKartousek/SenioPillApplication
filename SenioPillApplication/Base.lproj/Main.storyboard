@@ -25,13 +25,13 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PHR-4w-J6S" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-503" y="254"/>
+            <point key="canvasLocation" x="-242" y="226"/>
         </scene>
-        <!--Item-->
+        <!--Nástěnka-->
         <scene sceneID="FB4-5A-5SU">
             <objects>
                 <navigationController id="6Hw-dH-D8Z" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="GlI-19-mpr"/>
+                    <tabBarItem key="tabBarItem" title="Nástěnka" id="GlI-19-mpr"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GZq-14-MPc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -64,7 +64,6 @@
         <!--Seznam pacientů-->
         <scene sceneID="mEZ-Hz-Hog">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BQd-ke-aqs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="5uj-x1-1k8" customClass="ViewController" customModule="SenioPillApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zuq-ER-2QP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -86,6 +85,7 @@
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BQd-ke-aqs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-242" y="1702"/>
         </scene>
@@ -115,13 +115,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b9c-GB-DeT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="448" y="1702"/>
+            <point key="canvasLocation" x="447.82608695652175" y="1701.5625"/>
         </scene>
-        <!--Item-->
+        <!--Pacienti-->
         <scene sceneID="lHS-P6-vND">
             <objects>
                 <navigationController id="1I2-iA-2fy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ZqA-9z-gpg"/>
+                    <tabBarItem key="tabBarItem" title="Pacienti" id="ZqA-9z-gpg"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YjE-AW-XAI">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -134,11 +134,11 @@
             </objects>
             <point key="canvasLocation" x="-242" y="954"/>
         </scene>
-        <!--Item-->
+        <!--Léky-->
         <scene sceneID="yXb-FI-kvC">
             <objects>
                 <navigationController id="5FR-kR-KK1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="BMV-nu-hKy"/>
+                    <tabBarItem key="tabBarItem" title="Léky" id="BMV-nu-hKy"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="A6y-oQ-a7H">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
