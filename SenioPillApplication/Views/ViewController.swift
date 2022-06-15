@@ -14,6 +14,16 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additiona l setup after loading the view.
     }
+    
+    @IBAction func addPatient(){
+        let vc = UIViewController()
+        vc.view.backgroundColor = .lightGray
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    
+    
 
 
 }
