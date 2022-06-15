@@ -13,6 +13,7 @@
 		115D1BD82859B7B900D5741D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD62859B7B900D5741D /* Main.storyboard */; };
 		115D1BDA2859B7B900D5741D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD92859B7B900D5741D /* Assets.xcassets */; };
 		115D1BDD2859B7B900D5741D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */; };
+		11EEA1AB2859FCBD00F81B22 /* DrugsControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEA1AA2859FCBD00F81B22 /* DrugsControllerViewController.swift */; };
 		ABB3B5B031CE574FB452FE5A /* Pods_SenioPillApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		115D1BD92859B7B900D5741D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		115D1BDC2859B7B900D5741D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		115D1BDE2859B7B900D5741D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		11EEA1AA2859FCBD00F81B22 /* DrugsControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsControllerViewController.swift; sourceTree = "<group>"; };
 		19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SenioPillApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90BE54630364714CAE3F31C9 /* Pods-SenioPillApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenioPillApplication.debug.xcconfig"; path = "Target Support Files/Pods-SenioPillApplication/Pods-SenioPillApplication.debug.xcconfig"; sourceTree = "<group>"; };
 		F93BF610CCC79BAF8E372A0A /* Pods-SenioPillApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenioPillApplication.release.xcconfig"; path = "Target Support Files/Pods-SenioPillApplication/Pods-SenioPillApplication.release.xcconfig"; sourceTree = "<group>"; };
@@ -63,15 +65,24 @@
 		115D1BCF2859B7B900D5741D /* SenioPillApplication */ = {
 			isa = PBXGroup;
 			children = (
+				11EEA1AC285A00AC00F81B22 /* Views */,
 				115D1BD02859B7B900D5741D /* AppDelegate.swift */,
 				115D1BD22859B7B900D5741D /* SceneDelegate.swift */,
-				115D1BD42859B7B900D5741D /* ViewController.swift */,
 				115D1BD62859B7B900D5741D /* Main.storyboard */,
 				115D1BD92859B7B900D5741D /* Assets.xcassets */,
 				115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */,
 				115D1BDE2859B7B900D5741D /* Info.plist */,
 			);
 			path = SenioPillApplication;
+			sourceTree = "<group>";
+		};
+		11EEA1AC285A00AC00F81B22 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				115D1BD42859B7B900D5741D /* ViewController.swift */,
+				11EEA1AA2859FCBD00F81B22 /* DrugsControllerViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3F3E284D11CF1AB25FA697D4 /* Frameworks */ = {
@@ -88,7 +99,6 @@
 				90BE54630364714CAE3F31C9 /* Pods-SenioPillApplication.debug.xcconfig */,
 				F93BF610CCC79BAF8E372A0A /* Pods-SenioPillApplication.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -209,6 +219,7 @@
 			files = (
 				115D1BD52859B7B900D5741D /* ViewController.swift in Sources */,
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
+				11EEA1AB2859FCBD00F81B22 /* DrugsControllerViewController.swift in Sources */,
 				115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
