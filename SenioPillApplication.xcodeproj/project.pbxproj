@@ -7,26 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */; };
+		111E66EC285C9738004EF32D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66EB285C9738004EF32D /* TabBarController.swift */; };
+		111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66ED285C9840004EF32D /* DashboardViewController.swift */; };
 		115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D1BD02859B7B900D5741D /* AppDelegate.swift */; };
 		115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D1BD22859B7B900D5741D /* SceneDelegate.swift */; };
-		115D1BD52859B7B900D5741D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D1BD42859B7B900D5741D /* ViewController.swift */; };
+		115D1BD52859B7B900D5741D /* PatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D1BD42859B7B900D5741D /* PatientViewController.swift */; };
 		115D1BD82859B7B900D5741D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD62859B7B900D5741D /* Main.storyboard */; };
 		115D1BDA2859B7B900D5741D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD92859B7B900D5741D /* Assets.xcassets */; };
 		115D1BDD2859B7B900D5741D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */; };
-		11EEA1AB2859FCBD00F81B22 /* DrugsControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEA1AA2859FCBD00F81B22 /* DrugsControllerViewController.swift */; };
+		11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */; };
 		ABB3B5B031CE574FB452FE5A /* Pods_SenioPillApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
+		111E66EB285C9738004EF32D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		111E66ED285C9840004EF32D /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		115D1BCD2859B7B900D5741D /* SenioPillApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SenioPillApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		115D1BD02859B7B900D5741D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		115D1BD22859B7B900D5741D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		115D1BD42859B7B900D5741D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		115D1BD42859B7B900D5741D /* PatientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientViewController.swift; sourceTree = "<group>"; };
 		115D1BD72859B7B900D5741D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		115D1BD92859B7B900D5741D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		115D1BDC2859B7B900D5741D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		115D1BDE2859B7B900D5741D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		11EEA1AA2859FCBD00F81B22 /* DrugsControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsControllerViewController.swift; sourceTree = "<group>"; };
+		11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsViewController.swift; sourceTree = "<group>"; };
 		19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SenioPillApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90BE54630364714CAE3F31C9 /* Pods-SenioPillApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenioPillApplication.debug.xcconfig"; path = "Target Support Files/Pods-SenioPillApplication/Pods-SenioPillApplication.debug.xcconfig"; sourceTree = "<group>"; };
 		F93BF610CCC79BAF8E372A0A /* Pods-SenioPillApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenioPillApplication.release.xcconfig"; path = "Target Support Files/Pods-SenioPillApplication/Pods-SenioPillApplication.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,8 +85,11 @@
 		11EEA1AC285A00AC00F81B22 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				115D1BD42859B7B900D5741D /* ViewController.swift */,
-				11EEA1AA2859FCBD00F81B22 /* DrugsControllerViewController.swift */,
+				115D1BD42859B7B900D5741D /* PatientViewController.swift */,
+				11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */,
+				111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */,
+				111E66EB285C9738004EF32D /* TabBarController.swift */,
+				111E66ED285C9840004EF32D /* DashboardViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,9 +226,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				115D1BD52859B7B900D5741D /* ViewController.swift in Sources */,
+				115D1BD52859B7B900D5741D /* PatientViewController.swift in Sources */,
+				111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */,
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
-				11EEA1AB2859FCBD00F81B22 /* DrugsControllerViewController.swift in Sources */,
+				111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */,
+				11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */,
+				111E66EC285C9738004EF32D /* TabBarController.swift in Sources */,
 				115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,18 +7,26 @@
 
 import UIKit
 
-class DrugsControllerViewController: UIViewController {
+class DrugsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        prepareView()
     }
-    @IBAction func addDrug(){
-        let vc = UIViewController()
-        vc.view.backgroundColor = .lightGray
-        
-        navigationController?.pushViewController(vc, animated: true)
+    
+    open func prepareView(){
+        view.backgroundColor = .white
+        prepareLabel()
+    }
+    
+    func prepareLabel(){
+        let label = UILabel()
+        label.text = "Léky"
+        view.addSubview(label)
+        label.snp.makeConstraints{make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.centerX.equalToSuperview()
+        }
     }
     
 
