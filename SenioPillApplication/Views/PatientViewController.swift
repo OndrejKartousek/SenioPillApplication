@@ -5,11 +5,14 @@
 //  Created by Ondřej Kartousek on 15.06.2022.
 //
 
-import UIKit
 import SnapKit
+import Foundation
+import UIKit
 
-class PatientViewController: UIViewController {
 
+class PatientViewController: UITableViewController {
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -17,17 +20,17 @@ class PatientViewController: UIViewController {
     
     open func prepareView(){
         view.backgroundColor = .white
-        prepareLabel()
+        self.title = "Seznam pacientů"
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
     }
     
-    func prepareLabel(){
-        let label = UILabel()
-        label.text = "Pacienti"
-        view.addSubview(label)
-        label.snp.makeConstraints{make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.centerX.equalToSuperview()
-        }
+    func prepareTableView(){
     }
+    
+    @objc func addTapped() {
+        let vc = AddPatientViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 

@@ -17,16 +17,7 @@ class DashboardViewController : UIViewController{
     
     open func prepareView(){
         view.backgroundColor = .white
-        prepareLabel()
+        self.title = "Nástěnka"
     }
     
-    func prepareLabel(){
-        let label = UILabel()
-        label.text = "Nástěnka"
-        view.addSubview(label)
-        label.snp.makeConstraints{make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.centerX.equalToSuperview()
-        }
-    }
 }

@@ -15,29 +15,16 @@ class DrugsViewController: UIViewController {
     }
     
     open func prepareView(){
+        self.title = "Seznam léků"
         view.backgroundColor = .white
-        prepareLabel()
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
     }
     
-    func prepareLabel(){
-        let label = UILabel()
-        label.text = "Léky"
-        view.addSubview(label)
-        label.snp.makeConstraints{make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.centerX.equalToSuperview()
-        }
+    @objc func addTapped() {
+        let vc = AddDrugViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
 
 }
