@@ -16,6 +16,13 @@
 		115D1BD82859B7B900D5741D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD62859B7B900D5741D /* Main.storyboard */; };
 		115D1BDA2859B7B900D5741D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD92859B7B900D5741D /* Assets.xcassets */; };
 		115D1BDD2859B7B900D5741D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */; };
+		116EE5C82860512B0074576C /* AddDrugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5C72860512B0074576C /* AddDrugViewController.swift */; };
+		116EE5CA2860526F0074576C /* AddPatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5C92860526F0074576C /* AddPatientViewController.swift */; };
+		116EE5CD2860533F0074576C /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5CC2860533F0074576C /* Patient.swift */; };
+		116EE5CF286055630074576C /* Drugs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5CE286055630074576C /* Drugs.swift */; };
+		116EE5D1286056D00074576C /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5D0286056D00074576C /* Allocation.swift */; };
+		116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5D328605A1F0074576C /* BaseTextField.swift */; };
+		116EE5D62860873D0074576C /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5D52860873D0074576C /* PatientList.swift */; };
 		11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */; };
 		ABB3B5B031CE574FB452FE5A /* Pods_SenioPillApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */; };
 /* End PBXBuildFile section */
@@ -32,6 +39,13 @@
 		115D1BD92859B7B900D5741D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		115D1BDC2859B7B900D5741D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		115D1BDE2859B7B900D5741D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		116EE5C72860512B0074576C /* AddDrugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrugViewController.swift; sourceTree = "<group>"; };
+		116EE5C92860526F0074576C /* AddPatientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientViewController.swift; sourceTree = "<group>"; };
+		116EE5CC2860533F0074576C /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
+		116EE5CE286055630074576C /* Drugs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drugs.swift; sourceTree = "<group>"; };
+		116EE5D0286056D00074576C /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
+		116EE5D328605A1F0074576C /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
+		116EE5D52860873D0074576C /* PatientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
 		11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsViewController.swift; sourceTree = "<group>"; };
 		19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SenioPillApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90BE54630364714CAE3F31C9 /* Pods-SenioPillApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenioPillApplication.debug.xcconfig"; path = "Target Support Files/Pods-SenioPillApplication/Pods-SenioPillApplication.debug.xcconfig"; sourceTree = "<group>"; };
@@ -71,6 +85,8 @@
 		115D1BCF2859B7B900D5741D /* SenioPillApplication */ = {
 			isa = PBXGroup;
 			children = (
+				116EE5D228605A050074576C /* Core */,
+				116EE5CB286053240074576C /* Model */,
 				11EEA1AC285A00AC00F81B22 /* Views */,
 				115D1BD02859B7B900D5741D /* AppDelegate.swift */,
 				115D1BD22859B7B900D5741D /* SceneDelegate.swift */,
@@ -82,6 +98,25 @@
 			path = SenioPillApplication;
 			sourceTree = "<group>";
 		};
+		116EE5CB286053240074576C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				116EE5CC2860533F0074576C /* Patient.swift */,
+				116EE5CE286055630074576C /* Drugs.swift */,
+				116EE5D0286056D00074576C /* Allocation.swift */,
+				116EE5D52860873D0074576C /* PatientList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		116EE5D228605A050074576C /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				116EE5D328605A1F0074576C /* BaseTextField.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		11EEA1AC285A00AC00F81B22 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +125,8 @@
 				111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */,
 				111E66EB285C9738004EF32D /* TabBarController.swift */,
 				111E66ED285C9840004EF32D /* DashboardViewController.swift */,
+				116EE5C72860512B0074576C /* AddDrugViewController.swift */,
+				116EE5C92860526F0074576C /* AddPatientViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,13 +263,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				116EE5C82860512B0074576C /* AddDrugViewController.swift in Sources */,
 				115D1BD52859B7B900D5741D /* PatientViewController.swift in Sources */,
+				116EE5CF286055630074576C /* Drugs.swift in Sources */,
 				111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */,
+				116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */,
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
 				111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */,
 				11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */,
+				116EE5CA2860526F0074576C /* AddPatientViewController.swift in Sources */,
 				111E66EC285C9738004EF32D /* TabBarController.swift in Sources */,
+				116EE5D1286056D00074576C /* Allocation.swift in Sources */,
 				115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */,
+				116EE5CD2860533F0074576C /* Patient.swift in Sources */,
+				116EE5D62860873D0074576C /* PatientList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

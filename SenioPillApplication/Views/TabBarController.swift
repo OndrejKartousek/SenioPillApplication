@@ -10,6 +10,9 @@ import UIKit
 
 open class BaseTabBarController: UITabBarController {
 
+    let mainGreenColor = UIColor(rgb: 0xA9FFBA)
+
+
     public init() {
         super.init(nibName: nil, bundle: nil)
         prepareViewControllers()
@@ -33,6 +36,9 @@ open class BaseTabBarController: UITabBarController {
     // MARK: - Sets tabBarItem to view controller and creates UINavigtaionController
     open func prepareViewController(title: String?, imageName: String?, viewController: UIViewController) -> UINavigationController {
         viewController.tabBarItem = prepareTabBarItem(title: title, imageName: imageName)
+        UITabBar.appearance().barTintColor = .orange
+        UITabBar.appearance().tintColor = .black
+
         return UINavigationController(rootViewController: viewController)
     }
 
