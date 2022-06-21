@@ -146,9 +146,7 @@ class AddDrugViewController : UIViewController {
         let drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
         
         DrugsList.sharedDrugs.setDrugsList(drugs: drug)
-        //PatientList.shared.setPatientList(patient: pacient)
         //prepareInput(nameInput, placeholder: drug.PrescriptedDosage)
-        //prepareInput(patientInfo , placeholder: pacient.name)
     }
     
 }
