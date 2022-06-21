@@ -12,4 +12,11 @@ public struct Drugs : Codable{
     public var name : String
     public var description : String
     public var PrescriptedDosage : String
+    
+    init(id : Int, name : String, description : String, PrescriptedDosage : String){
+        self.id = 1
+        self.name = name
+        self.description = description
+        self.PrescriptedDosage = PrescriptedDosage
+    }
 }

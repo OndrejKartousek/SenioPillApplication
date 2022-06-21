@@ -111,7 +111,7 @@ class AddDrugViewController : UIViewController {
         addDrugButton.layer.cornerRadius = 30
         addDrugButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor
         addDrugButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        //addPatientButton.addTarget(self, action: #selector(performLogin), for: .primaryActionTriggered)
+        addDrugButton.addTarget(self, action: #selector(addDrug), for: .primaryActionTriggered)
         view.addSubview(addDrugButton)
         addDrugButton.snp.makeConstraints {make in
             make.leading.trailing.equalToSuperview().inset(60)
@@ -136,6 +136,17 @@ class AddDrugViewController : UIViewController {
         // MARK: - Login button is enabled when username and password is filled
         addDrugButton.isEnabled = nameInput.text?.isEmpty == false && PrescriptedDosage.text?.isEmpty == false 
     }
-
+    
+    @objc open func addDrug(){
+        view.endEditing(true)
+        addDrugRequest()
+    }
+    
+    func addDrugRequest(){
+        let drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
+        
+        DrugsList.sharedDrugs.setDrugsList(drugs: drug)
+        //prepareInput(nameInput, placeholder: drug.PrescriptedDosage)
+    }
     
 }
