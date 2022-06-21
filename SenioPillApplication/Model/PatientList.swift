@@ -15,6 +15,7 @@ public class PatientList{
     
     init (arrayOfPatiens : [Patient]){
         self.patientList = arrayOfPatiens
+    
     }
     
     public func getPatientList() -> [Patient]{

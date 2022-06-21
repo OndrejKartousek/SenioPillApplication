@@ -11,7 +11,7 @@ import UIKit
 
 
 class PatientViewController: UITableViewController {
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +27,14 @@ class PatientViewController: UITableViewController {
     func prepareTableView(){
     }
     
+    /*open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PatientList.shared, for: indexPath) as? PatientList else {
+            return UITableViewCell()
+        }
+        cell.data = dataSource.getTasks()[indexPath.row]
+        return cell
+    }
+    */
     @objc func addTapped() {
         let vc = AddPatientViewController()
         self.navigationController?.pushViewController(vc, animated: true)
