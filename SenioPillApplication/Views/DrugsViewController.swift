@@ -33,6 +33,7 @@ class DrugsViewController: UITableViewController {
         tableView.register(DrugListTVCell.self, forCellReuseIdentifier: DrugListTVCell.description())
         tableView.rowHeight = 80
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .green
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
