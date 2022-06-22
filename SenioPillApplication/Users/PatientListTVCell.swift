@@ -14,7 +14,11 @@ public class PatientListTVCell : UITableViewCell{
         return String(describing: Self.self)
     }
     
+    
     var titleLabel = UILabel()
+    var infoLabel = UILabel()
+    
+    
     
     open var data : Any? {
         didSet{
@@ -34,20 +38,35 @@ public class PatientListTVCell : UITableViewCell{
     
     open func prepareView(){
         prepareTitleLabel()
+        prepareInfoLabel()
     }
     open func updateView(){
         guard let dataUnwrapped = data as? Patient else{
             return
         }
+        
         titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
+        infoLabel.text = "Pokoj : \(dataUnwrapped.room) Postel : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
     }
     
     open func prepareTitleLabel(){
         contentView.addSubview(titleLabel)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         titleLabel.snp.remakeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.bottom.equalToSuperview()
+            make.height.bottom.equalToSuperview().offset(-30)
+            
+        }
+    }
+    
+    open func prepareInfoLabel(){
+        contentView.addSubview(infoLabel)
+        infoLabel.snp.makeConstraints{ (make) in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.bottom.equalToSuperview().offset(30)
+            
         }
     }
 }

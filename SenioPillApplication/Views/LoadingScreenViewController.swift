@@ -100,7 +100,6 @@ class LoadingScreenViewController: UIViewController {
         let tabBarController = BaseTabBarController()
         tabBarController.modalPresentationStyle = .fullScreen
         self.present(tabBarController, animated: true, completion: nil)
-        
     }
 
     /*

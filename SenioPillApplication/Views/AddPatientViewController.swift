@@ -19,10 +19,18 @@ class AddPatientViewController : UIViewController {
     let patientInfo = BaseTextField()
 
     var buttonBottomConstraint : Constraint!
-    
+    var dataSource: PatientList?
     let mainGreenColor = UIColor(rgb: 0xA9FFBA)
 
+    init(dataSource: PatientList){
+        super.init(nibName: nil, bundle: nil)
+        self.dataSource = dataSource
+        
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -32,6 +40,8 @@ class AddPatientViewController : UIViewController {
         prepareBedInput()
         prepareInfoInput()
         prepareAddPatientBUtton()
+        //let patient = Patient(id: 1, name: "Jméno", surname: "Příjmení", room: "Pokoj 206", bed: "Lůžko 3", patientInfo: "yy")
+        //dataSource?.addPatient(patient: patient)
     }
     
     open func prepareView(){
@@ -61,6 +71,8 @@ class AddPatientViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
         
     }
@@ -71,7 +83,7 @@ class AddPatientViewController : UIViewController {
         let inputTitle = getInputTitle(text : "Příjmení")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(90)
+            make.top.equalTo(nameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(surnameInput, placeholder: "Příjmení pacienta")
@@ -82,6 +94,8 @@ class AddPatientViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
     }
     
@@ -90,7 +104,7 @@ class AddPatientViewController : UIViewController {
         let inputTitle = getInputTitle(text : "Pokoj")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
+            make.top.equalTo(surnameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(roomInput, placeholder: "Pokoj 206")
@@ -101,6 +115,8 @@ class AddPatientViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
     }
 
@@ -108,17 +124,18 @@ class AddPatientViewController : UIViewController {
         let inputTitle = getInputTitle(text : "Lůžko")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(210)
+            make.top.equalTo(roomInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(bedInput, placeholder: "Lůžko 3")
         bedInput.autocapitalizationType = .none
         bedInput.autocorrectionType = .no
         view.addSubview(bedInput)
-        bedInput.snp.remakeConstraints{ make in
+        bedInput.snp.makeConstraints{ make in
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
         }
     }
     
@@ -126,7 +143,7 @@ class AddPatientViewController : UIViewController {
         let inputTitle = getInputTitle(text : "Informace")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(270)
+            make.top.equalTo(bedInput.snp.bottom).offset(20)//(self.view.safeAreaLayoutGuide.snp.top).offset(270)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(patientInfo, placeholder: "Handicap, nesoběstačný")
@@ -137,6 +154,8 @@ class AddPatientViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
     }
     
@@ -183,8 +202,12 @@ class AddPatientViewController : UIViewController {
     
     func addPatientRequest(){
         let pacient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!)
-        PatientList.shared.setPatientList(patient: pacient)
-        prepareInput(patientInfo , placeholder: pacient.name)
+        dataSource?.addPatient(patient: pacient)
+        PatientViewController.isPatientAddedBool = true;
+
+        //PatientList.shared.setPatientList(patient: pacient)
+        //prepareInput(patientInfo , placeholder: pacient.name)
+        
     }
     
 
