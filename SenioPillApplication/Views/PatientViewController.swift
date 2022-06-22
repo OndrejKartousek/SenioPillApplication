@@ -12,13 +12,19 @@ import UIKit
 
 class PatientViewController: UITableViewController {
     
+    public static var isPatientAddedBool: Bool = false
     public var dataSource = PatientList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Seznam pacientů"
@@ -28,8 +34,9 @@ class PatientViewController: UITableViewController {
     func prepareTableView() {
         tableView.register(PatientListTVCell.self, forCellReuseIdentifier: PatientListTVCell.description())
         tableView.rowHeight = 80
-        tableView.separatorStyle = .none
+        tableView.separatorStyle = .singleLine
     }
+    
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
         return dataSource.getPatients().count
     }
@@ -41,11 +48,15 @@ class PatientViewController: UITableViewController {
         cell.data = dataSource.getPatients()[indexPath.row]
         return cell
     }
+    
+
 
     @objc func addTapped() {
-        let vc = AddPatientViewController()
+        let vc = AddPatientViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
+        tableView.reloadData()
     }
+    
     
 }
 

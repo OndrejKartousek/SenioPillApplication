@@ -57,6 +57,8 @@ class AddDrugViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
         
     }
@@ -67,7 +69,7 @@ class AddDrugViewController : UIViewController {
         let inputTitle = getInputTitle(text : "Popis")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(90)
+            make.top.equalTo(nameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(DescriptionInput, placeholder: "Stručný popis léku")
@@ -78,6 +80,8 @@ class AddDrugViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
     }
     
@@ -86,7 +90,7 @@ class AddDrugViewController : UIViewController {
         let inputTitle = getInputTitle(text : "Dávkování")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(150)
+            make.top.equalTo(DescriptionInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(PrescriptedDosage, placeholder: "Doporučené dávkování")
@@ -97,6 +101,8 @@ class AddDrugViewController : UIViewController {
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
+            make.height.equalTo(50)
+
         }
     }
 
@@ -118,6 +124,7 @@ class AddDrugViewController : UIViewController {
             self.buttonBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint.update(offset: -30)
             make.bottom.equalToSuperview().offset(50)
             make.height.equalTo(60)
+            
             
         }
         addDrugButton.isEnabled = false

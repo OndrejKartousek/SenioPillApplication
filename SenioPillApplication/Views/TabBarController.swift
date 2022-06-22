@@ -36,7 +36,7 @@ open class BaseTabBarController: UITabBarController {
     // MARK: - Sets tabBarItem to view controller and creates UINavigtaionController
     open func prepareViewController(title: String?, imageName: String?, viewController: UIViewController) -> UINavigationController {
         viewController.tabBarItem = prepareTabBarItem(title: title, imageName: imageName)
-        UITabBar.appearance().barTintColor = .orange
+        //UITabBar.appearance().barTintColor = .orange
         UITabBar.appearance().tintColor = .black
 
         return UINavigationController(rootViewController: viewController)

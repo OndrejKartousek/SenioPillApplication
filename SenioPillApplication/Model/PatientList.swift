@@ -13,9 +13,9 @@ public class PatientList : PatientRepository{
     private let patientCount = 3
     
     public init(){
-        for index in 0...patientCount {
-            patients.append(Patient(id: index, name: "Jméno", surname: "Příjmení", room: "Pokoj 206", bed: "Lůžko 3", patientInfo: "yy"))
-        }
+        //for index in 0...patientCount {
+        //    patients.append(Patient(id: index, name: "Jméno", surname: "Příjmení", room: "Pokoj 206", bed: "Lůžko 3", patientInfo: "yy"))
+        //}
     }
     
     
