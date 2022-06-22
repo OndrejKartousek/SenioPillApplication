@@ -27,9 +27,9 @@ open class BaseTabBarController: UITabBarController {
             self.viewControllers = [
                 prepareViewController(title: "Nástěnka", imageName: "house",
                                       viewController: DashboardViewController()),
-                prepareViewController(title: "Pacienti", imageName: "figure.roll",
+                prepareViewController(title: "Seznam pacientů", imageName: "figure.roll",
                                       viewController: PatientViewController()),
-                prepareViewController(title: "Léky", imageName: "pills",
+                prepareViewController(title: "Seznam léků", imageName: "pills",
                                       viewController: DrugsViewController())]
     }
 
