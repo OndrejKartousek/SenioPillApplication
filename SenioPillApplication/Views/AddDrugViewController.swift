@@ -164,6 +164,8 @@ class AddDrugViewController : UIViewController {
         let Drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
         dataSource?.addDrug(drug: Drug)
         print(Drug)
+        _ = navigationController?.popToRootViewController(animated: true)
+
         //prepareInput(nameInput, placeholder: drug.PrescriptedDosage)
     }
     

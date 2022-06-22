@@ -205,6 +205,9 @@ class AddPatientViewController : UIViewController {
         dataSource?.addPatient(patient: pacient)
         PatientViewController.isEmpty = false
         print(PatientViewController.isEmpty)
+        
+        //let vc = PatientViewController()
+        _ = navigationController?.popToRootViewController(animated: true)
 
         //PatientList.shared.setPatientList(patient: pacient)
         //prepareInput(patientInfo , placeholder: pacient.name)
