@@ -40,6 +40,7 @@ public class PatientListTVCell : UITableViewCell{
     open func prepareView(){
         prepareTitleLabel()
         prepareInfoLabel()
+        prepareEmptyPageTitle()
     }
     open func updateView(){
         guard let dataUnwrapped = data as? Patient else{
@@ -47,7 +48,24 @@ public class PatientListTVCell : UITableViewCell{
         }
         
         titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        infoLabel.text = "Pokoj : \(dataUnwrapped.room) Postel : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
+        infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
+    }
+    
+    open func prepareEmptyPageTitle(){
+        contentView.addSubview(emptyPage)
+        emptyPage.text = "Zatím nebyli přidáni žádní pacienti"
+        emptyPage.snp.makeConstraints{make in
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(350)
+            make.leading.equalToSuperview().offset(67)
+            make.centerX.equalToSuperview()
+        }
+        if(PatientViewController.isEmpty == true){
+            emptyPage.isHidden = false
+        }else{
+            emptyPage.isHidden = true
+            
+        }
+        
     }
     
     open func prepareTitleLabel(){
