@@ -203,7 +203,8 @@ class AddPatientViewController : UIViewController {
     func addPatientRequest(){
         let pacient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!)
         dataSource?.addPatient(patient: pacient)
-        PatientViewController.isPatientAddedBool = true;
+        PatientViewController.isEmpty = false
+        print(PatientViewController.isEmpty)
 
         //PatientList.shared.setPatientList(patient: pacient)
         //prepareInput(patientInfo , placeholder: pacient.name)

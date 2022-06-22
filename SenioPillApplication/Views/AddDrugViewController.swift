@@ -15,12 +15,23 @@ class AddDrugViewController : UIViewController {
     let nameInput = BaseTextField()
     let DescriptionInput = BaseTextField()
     let PrescriptedDosage = BaseTextField()
+    
+    var dataSource: DrugsList?
 
     var buttonBottomConstraint : Constraint!
     
     let mainGreenColor = UIColor(rgb: 0xA9FFBA)
 
-    
+    init(dataSource: DrugsList){
+        super.init(nibName: nil, bundle: nil)
+        self.dataSource = dataSource
+        
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -127,7 +138,7 @@ class AddDrugViewController : UIViewController {
             
             
         }
-        addDrugButton.isEnabled = false
+        //addDrugButton.isEnabled = false
     }
 
     
@@ -150,9 +161,9 @@ class AddDrugViewController : UIViewController {
     }
     
     func addDrugRequest(){
-        let drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
-        
-        DrugsList.sharedDrugs.setDrugsList(drugs: drug)
+        let Drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
+        dataSource?.addDrug(drug: Drug)
+        print(Drug)
         //prepareInput(nameInput, placeholder: drug.PrescriptedDosage)
     }
     

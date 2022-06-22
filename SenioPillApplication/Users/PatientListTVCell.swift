@@ -17,7 +17,7 @@ public class PatientListTVCell : UITableViewCell{
     
     var titleLabel = UILabel()
     var infoLabel = UILabel()
-    
+    var emptyPage = UILabel()
     
     
     open var data : Any? {
@@ -25,6 +25,7 @@ public class PatientListTVCell : UITableViewCell{
             if data != nil{
                 updateView()
             }
+            
         }
     }
     override public init (style: UITableViewCell.CellStyle = .default, reuseIdentifier : String?){
@@ -35,7 +36,7 @@ public class PatientListTVCell : UITableViewCell{
     required init?(coder : NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     open func prepareView(){
         prepareTitleLabel()
         prepareInfoLabel()

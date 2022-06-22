@@ -27,6 +27,7 @@
 		11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA02861A353006C742E /* PatientListTVCell.swift */; };
 		11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA22861AFFF006C742E /* PatientRepository.swift */; };
 		11E85DA52861E74D006C742E /* DrugsListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA42861E74D006C742E /* DrugsListTVCell.swift */; };
+		11E85DA72862F67E006C742E /* DrugsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA62862F67E006C742E /* DrugsRepository.swift */; };
 		11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */; };
 		ABB3B5B031CE574FB452FE5A /* Pods_SenioPillApplication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		11E85DA02861A353006C742E /* PatientListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListTVCell.swift; sourceTree = "<group>"; };
 		11E85DA22861AFFF006C742E /* PatientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRepository.swift; sourceTree = "<group>"; };
 		11E85DA42861E74D006C742E /* DrugsListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsListTVCell.swift; sourceTree = "<group>"; };
+		11E85DA62862F67E006C742E /* DrugsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsRepository.swift; sourceTree = "<group>"; };
 		11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsViewController.swift; sourceTree = "<group>"; };
 		19786C2801E6776708069692 /* Pods_SenioPillApplication.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SenioPillApplication.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		90BE54630364714CAE3F31C9 /* Pods-SenioPillApplication.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenioPillApplication.debug.xcconfig"; path = "Target Support Files/Pods-SenioPillApplication/Pods-SenioPillApplication.debug.xcconfig"; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				116EE5D52860873D0074576C /* PatientList.swift */,
 				11E85D9D28619C63006C742E /* DrugsList.swift */,
 				11E85DA22861AFFF006C742E /* PatientRepository.swift */,
+				11E85DA62862F67E006C742E /* DrugsRepository.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				116EE5CF286055630074576C /* Drugs.swift in Sources */,
 				111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */,
 				116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */,
+				11E85DA72862F67E006C742E /* DrugsRepository.swift in Sources */,
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
 				111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */,
 				11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */,

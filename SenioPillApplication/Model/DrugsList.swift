@@ -7,23 +7,38 @@
 
 import Foundation
 
-public class DrugsList{
-    static let sharedDrugs = DrugsList(arrayOfDrugs: [])
-    private var drugsList : [Drugs]
+public class DrugsList : DrugsRepository{
     
+    private var drugs: [Drugs] = []
+
+    public init(){
+        
+    }
     
+    func getDrugs(id: Int) -> Drugs? {
+        return drugs.first
+    }
+        
+    func getDrugs() -> [Drugs] {
+        return drugs
+    }
     
+    func addDrug(drug: Drugs) -> Drugs? {
+        self.drugs.append(drug)
+        return drug
+    }
+
     init (arrayOfDrugs : [Drugs]){
-        self.drugsList = arrayOfDrugs
+        self.drugs = arrayOfDrugs
     
     }
     
     public func getDrugsList() -> [Drugs]{
-        return drugsList
+        return drugs
     }
     
-    public func setDrugsList(drugs : Drugs){
-        drugsList.append(drugs)
+    public func setDrugsList(drug : Drugs){
+        drugs.append(drug)
     }
     
 }
