@@ -15,8 +15,8 @@ public class DrugListTVCell : UITableViewCell{
     }
     
     var titleLabel = UILabel()
+    var dosageLabel = UILabel()
     var infoLabel = UILabel()
-    
     
     
     open var data : Any? {
@@ -37,14 +37,17 @@ public class DrugListTVCell : UITableViewCell{
     
     open func prepareView(){
         prepareTitleLabel()
+        prepareDosageLabel()
         prepareInfoLabel()
     }
+
     open func updateView(){
         guard let dataUnwrapped = data as? Drugs else{
             return
         }
         
         titleLabel.text = "\(dataUnwrapped.name)"
+        dosageLabel.text = "Dávkování \(dataUnwrapped.PrescriptedDosage)"
         infoLabel.text = "Info : \(dataUnwrapped.description)"
         print(dataUnwrapped.name)
         print(dataUnwrapped.description)
@@ -52,11 +55,21 @@ public class DrugListTVCell : UITableViewCell{
     
     open func prepareTitleLabel(){
         contentView.addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
         titleLabel.snp.remakeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.bottom.equalToSuperview().offset(-30)
+            make.height.bottom.equalToSuperview().offset(-50)
+            
+        }
+    }
+    
+    open func prepareDosageLabel(){
+        contentView.addSubview(dosageLabel)
+        dosageLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.bottom.equalToSuperview().offset(10)
             
         }
     }
@@ -66,7 +79,7 @@ public class DrugListTVCell : UITableViewCell{
         infoLabel.snp.makeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.bottom.equalToSuperview().offset(30)
+            make.height.bottom.equalToSuperview().offset(50)
             
         }
     }

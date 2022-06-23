@@ -23,6 +23,9 @@
 		116EE5D1286056D00074576C /* Allocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5D0286056D00074576C /* Allocation.swift */; };
 		116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5D328605A1F0074576C /* BaseTextField.swift */; };
 		116EE5D62860873D0074576C /* PatientList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5D52860873D0074576C /* PatientList.swift */; };
+		1187497228643C13001CA200 /* PatientProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1187497128643C13001CA200 /* PatientProfileViewController.swift */; };
+		1187497428644A1B001CA200 /* LabelValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1187497328644A1B001CA200 /* LabelValueView.swift */; };
+		11874976286479BD001CA200 /* DrugsInfoProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */; };
 		11E85D9E28619C63006C742E /* DrugsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85D9D28619C63006C742E /* DrugsList.swift */; };
 		11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA02861A353006C742E /* PatientListTVCell.swift */; };
 		11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA22861AFFF006C742E /* PatientRepository.swift */; };
@@ -51,6 +54,9 @@
 		116EE5D0286056D00074576C /* Allocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Allocation.swift; sourceTree = "<group>"; };
 		116EE5D328605A1F0074576C /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		116EE5D52860873D0074576C /* PatientList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientList.swift; sourceTree = "<group>"; };
+		1187497128643C13001CA200 /* PatientProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfileViewController.swift; sourceTree = "<group>"; };
+		1187497328644A1B001CA200 /* LabelValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelValueView.swift; sourceTree = "<group>"; };
+		11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsInfoProfileViewController.swift; sourceTree = "<group>"; };
 		11E85D9D28619C63006C742E /* DrugsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsList.swift; sourceTree = "<group>"; };
 		11E85DA02861A353006C742E /* PatientListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListTVCell.swift; sourceTree = "<group>"; };
 		11E85DA22861AFFF006C742E /* PatientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRepository.swift; sourceTree = "<group>"; };
@@ -150,6 +156,9 @@
 				111E66ED285C9840004EF32D /* DashboardViewController.swift */,
 				116EE5C72860512B0074576C /* AddDrugViewController.swift */,
 				116EE5C92860526F0074576C /* AddPatientViewController.swift */,
+				1187497128643C13001CA200 /* PatientProfileViewController.swift */,
+				1187497328644A1B001CA200 /* LabelValueView.swift */,
+				11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,6 +301,7 @@
 				11E85DA52861E74D006C742E /* DrugsListTVCell.swift in Sources */,
 				116EE5CF286055630074576C /* Drugs.swift in Sources */,
 				111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */,
+				1187497228643C13001CA200 /* PatientProfileViewController.swift in Sources */,
 				116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */,
 				11E85DA72862F67E006C742E /* DrugsRepository.swift in Sources */,
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
@@ -302,8 +312,10 @@
 				116EE5D1286056D00074576C /* Allocation.swift in Sources */,
 				115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */,
 				11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */,
+				1187497428644A1B001CA200 /* LabelValueView.swift in Sources */,
 				116EE5CD2860533F0074576C /* Patient.swift in Sources */,
 				11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */,
+				11874976286479BD001CA200 /* DrugsInfoProfileViewController.swift in Sources */,
 				116EE5D62860873D0074576C /* PatientList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
