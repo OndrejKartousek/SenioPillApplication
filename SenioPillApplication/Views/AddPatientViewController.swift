@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class AddPatientViewController : UIViewController {
+class AddPatientViewController: UIViewController {
 
     let addPatientButton = UIButton()
     let nameInput = BaseTextField()

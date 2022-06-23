@@ -38,6 +38,8 @@ open class BaseTabBarController: UITabBarController {
         viewController.tabBarItem = prepareTabBarItem(title: title, imageName: imageName)
         //UITabBar.appearance().barTintColor = .orange
         UITabBar.appearance().tintColor = .black
+        //UITabBar.appearance().barTintColor = .white
+        UITabBar.appearance().backgroundColor = .systemGray6
 
         return UINavigationController(rootViewController: viewController)
     }

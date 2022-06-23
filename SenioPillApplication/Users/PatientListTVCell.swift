@@ -8,16 +8,12 @@
 import Foundation
 import UIKit
 
-public class PatientListTVCell : UITableViewCell{
-    
-    open class var reuseIdentifier : String{
-        return String(describing: Self.self)
-    }
-    
+public class PatientListTVCell: UITableViewCell{
     
     var titleLabel = UILabel()
-    var infoLabel = UILabel()
-    
+    var roomLabel = UILabel()
+    var bedLabel = UILabel()
+    var descriptionLabel = UILabel()
     
     open var data : Any? {
         didSet{
@@ -28,6 +24,9 @@ public class PatientListTVCell : UITableViewCell{
         }
     }
 
+    open class var reuseIdentifier : String{
+        return String(describing: Self.self)
+    }
     
     override public init (style: UITableViewCell.CellStyle = .default, reuseIdentifier : String?){
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,7 +39,9 @@ public class PatientListTVCell : UITableViewCell{
 
     open func prepareView(){
         prepareTitleLabel()
-        prepareInfoLabel()
+        prepareRoomLabel()
+        prepareBedLabel()
+        prepareDescriptionLabel()
     }
     open func updateView(){
         guard let dataUnwrapped = data as? Patient else{
@@ -48,28 +49,46 @@ public class PatientListTVCell : UITableViewCell{
         }
         
         titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
+        roomLabel.text = "Pokoj : \(dataUnwrapped.room)"
+        bedLabel.text = "Lůžko : \(dataUnwrapped.bed)"
+        descriptionLabel.text = "Informace : \(dataUnwrapped.patientInfo)"
     }
-    
     
     open func prepareTitleLabel(){
         contentView.addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
         titleLabel.snp.remakeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.bottom.equalToSuperview().offset(-30)
+            make.height.bottom.equalToSuperview().offset(-80)
+            
+        }
+    }
+    open func prepareRoomLabel(){
+        contentView.addSubview(roomLabel)
+        roomLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.bottom.equalToSuperview().offset(-25)
+        }
+    }
+    
+    open func prepareBedLabel(){
+        contentView.addSubview(bedLabel)
+        bedLabel.snp.makeConstraints{ (make) in
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.height.bottom.equalToSuperview().offset(25)
             
         }
     }
     
-    open func prepareInfoLabel(){
-        contentView.addSubview(infoLabel)
-        infoLabel.snp.makeConstraints{ (make) in
+    open func prepareDescriptionLabel(){
+        contentView.addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.height.bottom.equalToSuperview().offset(30)
-            
+            make.height.bottom.equalToSuperview().offset(70)
         }
     }
 }
