@@ -17,15 +17,15 @@ class AddPatientViewController: UIViewController {
     let roomInput = BaseTextField()
     let bedInput = BaseTextField()
     let patientInfo = BaseTextField()
-
+    var segmentedControll = UISegmentedControl()
+    let items = ["Muž 👨🏼‍🦳","Žena 👵🏼","Jiné 🚁"]
     var buttonBottomConstraint : Constraint!
     var dataSource: PatientList?
-    let mainGreenColor = UIColor(rgb: 0xA9FFBA)
-
+    let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
+    
     init(dataSource: PatientList){
         super.init(nibName: nil, bundle: nil)
         self.dataSource = dataSource
-        
     }
     
     required init?(coder: NSCoder) {
@@ -39,7 +39,9 @@ class AddPatientViewController: UIViewController {
         prepareRoomInput()
         prepareBedInput()
         prepareInfoInput()
+        prepareSegmentedControll()
         prepareAddPatientBUtton()
+        
         //let patient = Patient(id: 1, name: "Jméno", surname: "Příjmení", room: "Pokoj 206", bed: "Lůžko 3", patientInfo: "yy")
         //dataSource?.addPatient(patient: patient)
     }
@@ -47,6 +49,7 @@ class AddPatientViewController: UIViewController {
     open func prepareView(){
         self.title = "Přidat pacienta"
         view.backgroundColor = .white
+        
     }
     
     func getInputTitle(text: String?) -> UILabel {
@@ -99,12 +102,37 @@ class AddPatientViewController: UIViewController {
         }
     }
     
+    func prepareSegmentedControll(){
+        let deviceWidth = UIScreen.main.bounds.size.width
+        let segmentWidth = (deviceWidth - 50) / 3
+        segmentedControll = UISegmentedControl(items: items)
+        let genderTitle = getInputTitle(text: "Pohlaví")
+        view.addSubview(genderTitle)
+        segmentedControll.backgroundColor = .clear
+        segmentedControll.selectedSegmentTintColor = mainGreenColor
+        segmentedControll.setWidth(segmentWidth, forSegmentAt: 0)
+        segmentedControll.setWidth(segmentWidth, forSegmentAt: 1)
+        segmentedControll.setWidth(segmentWidth, forSegmentAt: 2)
+
+        
+        genderTitle.snp.makeConstraints { make in
+            make.top.equalTo(surnameInput.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(24)
+        }
+        view.addSubview(segmentedControll)
+        segmentedControll.snp.makeConstraints { make in
+            make.top.equalTo(genderTitle.snp.bottom).offset(7)
+            make.leading.trailing.equalToSuperview().offset(25)
+        }
+        
+    }
+
     
     func prepareRoomInput(){
         let inputTitle = getInputTitle(text : "Pokoj")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(surnameInput.snp.bottom).offset(20)
+            make.top.equalTo(segmentedControll.numberOfSegments).offset(400)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(roomInput, placeholder: "Pokoj 206")
@@ -158,6 +186,7 @@ class AddPatientViewController: UIViewController {
 
         }
     }
+
     
     func prepareAddPatientBUtton() {
         addPatientButton.setTitle("Přidat pacienta!", for: .normal)
@@ -180,9 +209,6 @@ class AddPatientViewController: UIViewController {
         addPatientButton.isEnabled = false
     }
     
-
-    
-    
     func prepareInput(_ textField: UITextField, placeholder: String?) {
         textField.placeholder = placeholder
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
@@ -192,26 +218,38 @@ class AddPatientViewController: UIViewController {
     }
     @objc open func textFieldChanged() {
         // MARK: - Login button is enabled when username and password is filled
-        addPatientButton.isEnabled = nameInput.text?.isEmpty == false && roomInput.text?.isEmpty == false && bedInput.text?.isEmpty == false && surnameInput.text?.isEmpty == false
+        addPatientButton.isEnabled = nameInput.text?.isEmpty == false && roomInput.text?.isEmpty == false && bedInput.text?.isEmpty == false && surnameInput.text?.isEmpty == false && segmentedControll.selectedSegmentIndex != UISegmentedControl.noSegment
     }
     
     @objc open func addPatient(){
         view.endEditing(true)
         addPatientRequest()
+        //self.Gender = getGender(sender: segmentedControll)
+        //print("Pohlaví ydsfjh \(Gender)")
+    }
+    
+    func getGender(sender : UISegmentedControl) -> String{
+        print("kokot")
+        switch(sender.selectedSegmentIndex){
+        case 0:
+            return "Muž"
+        case 1:
+            return "Žena"
+        case 2:
+            return "Jiné"
+        default:
+            break
+        }
+        return ""
     }
     
     func addPatientRequest(){
-        let pacient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!)
+        //print("ejefhjds \(self.Gender)")
+        let pacient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll))
         dataSource?.addPatient(patient: pacient)
         PatientViewController.isEmpty = false
         print(PatientViewController.isEmpty)
-        
-        //let vc = PatientViewController()
         _ = navigationController?.popToRootViewController(animated: true)
-
-        //PatientList.shared.setPatientList(patient: pacient)
-        //prepareInput(patientInfo , placeholder: pacient.name)
-        
     }
     
 

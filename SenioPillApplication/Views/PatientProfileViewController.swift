@@ -18,6 +18,7 @@ class PatientProfileViewController: UIViewController{
     var roomLabel = UILabel()
     var bedLabel = UILabel()
     var descrptionLabel = UILabel()
+    var genderLabel = UILabel()
     var image = UIImage(systemName: "person.circle")
     
     open var data : Any? {
@@ -49,20 +50,27 @@ class PatientProfileViewController: UIViewController{
     
     open func prepareView(){
         view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+
         //self.title = "Detail pacienta"
         prepareTopImage()
+        prepareGenderLabel()
         prepareRoomLabel()
         prepareBedLabel()
         prepareDescLabel()
+        //print(genderLabel.text)
     }
     
     open func updateView(){
         guard let dataUnwrapped = data as? Patient else{
             return
         }
+        
+        print (dataUnwrapped.Gender)
         roomLabel.text = "Pokoj pacienta : \(dataUnwrapped.room)"
         bedLabel.text = "Lůžko pacienta : \(dataUnwrapped.bed)"
         descrptionLabel.text = "Informace o pacientovi : \(dataUnwrapped.patientInfo)"
+        genderLabel.text = "Pohlaví : \(dataUnwrapped.Gender)"
         self.title = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
         //titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
         //infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
@@ -80,12 +88,23 @@ class PatientProfileViewController: UIViewController{
             make.width.equalTo(200)
         }
     }
-
+    
+    func prepareGenderLabel(){
+        view.addSubview(genderLabel)
+        genderLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        genderLabel.numberOfLines = 1
+        genderLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(250)
+            make.leading.equalToSuperview().offset(20)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
     func prepareRoomLabel(){
         view.addSubview(roomLabel)
         roomLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
         roomLabel.snp.makeConstraints{make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(250)
+            make.top.equalTo(genderLabel).offset(50)
             make.leading.equalToSuperview().offset(20)
             make.centerX.equalToSuperview()
         }
@@ -95,7 +114,7 @@ class PatientProfileViewController: UIViewController{
         view.addSubview(bedLabel)
         bedLabel.font = UIFont.boldSystemFont(ofSize: 20)
         bedLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(300)
+            make.top.equalTo(roomLabel).offset(50)
             make.leading.equalToSuperview().offset(20)
             make.centerX.equalToSuperview()
         }
@@ -106,10 +125,16 @@ class PatientProfileViewController: UIViewController{
         descrptionLabel.font = UIFont.boldSystemFont(ofSize: 20)
         descrptionLabel.numberOfLines = 7
         descrptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(350)
+            make.top.equalTo(bedLabel).offset(50)
             make.leading.equalToSuperview().offset(20)
             make.centerX.equalToSuperview()
         }
+    }
+
+    
+    @objc func addTapped(){
+        let vc = AddDrugToPacientVC()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

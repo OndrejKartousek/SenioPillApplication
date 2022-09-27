@@ -15,22 +15,22 @@ class AddDrugViewController : UIViewController {
     let nameInput = BaseTextField()
     let DescriptionInput = BaseTextField()
     let PrescriptedDosage = BaseTextField()
-    
+    let genderArray = ["Muž", "Žena", "Jiné"]
     var dataSource: DrugsList?
 
     var buttonBottomConstraint : Constraint!
     
-    let mainGreenColor = UIColor(rgb: 0xA9FFBA)
+    let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
 
     init(dataSource: DrugsList){
         super.init(nibName: nil, bundle: nil)
         self.dataSource = dataSource
         
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +60,7 @@ class AddDrugViewController : UIViewController {
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(30)
             make.leading.equalToSuperview().offset(24)
         }
+        
         prepareInput(nameInput, placeholder: "Název léku")
         nameInput.autocapitalizationType = .none
         nameInput.autocorrectionType = .no
@@ -69,12 +70,8 @@ class AddDrugViewController : UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
-        
     }
-    
-    
     
     func prepareDescriptionInput(){
         let inputTitle = getInputTitle(text : "Popis")
@@ -83,6 +80,7 @@ class AddDrugViewController : UIViewController {
             make.top.equalTo(nameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
+        
         prepareInput(DescriptionInput, placeholder: "Stručný popis léku")
         DescriptionInput.autocapitalizationType = .none
         DescriptionInput.autocorrectionType = .no
@@ -92,10 +90,8 @@ class AddDrugViewController : UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
     }
-    
     
     func preparePrescriptedDosageInput(){
         let inputTitle = getInputTitle(text : "Dávkování")
@@ -113,12 +109,9 @@ class AddDrugViewController : UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
     }
 
-
-    
     func prepareAddDrugBUtton() {
         addDrugButton.setTitle("Přidat lék!", for: .normal)
         addDrugButton.setTitleColor(.black, for: .normal)
@@ -135,13 +128,8 @@ class AddDrugViewController : UIViewController {
             self.buttonBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint.update(offset: -30)
             make.bottom.equalToSuperview().offset(50)
             make.height.equalTo(60)
-            
-            
         }
-        //addDrugButton.isEnabled = false
     }
-
-    
     
     func prepareInput(_ textField: UITextField, placeholder: String?) {
         textField.placeholder = placeholder
@@ -150,6 +138,7 @@ class AddDrugViewController : UIViewController {
             make.height.equalTo(45)
         }
     }
+    
     @objc open func textFieldChanged() {
         // MARK: - Login button is enabled when username and password is filled
         addDrugButton.isEnabled = nameInput.text?.isEmpty == false && PrescriptedDosage.text?.isEmpty == false 
@@ -165,8 +154,5 @@ class AddDrugViewController : UIViewController {
         dataSource?.addDrug(drug: Drug)
         print(Drug)
         _ = navigationController?.popToRootViewController(animated: true)
-
-        //prepareInput(nameInput, placeholder: drug.PrescriptedDosage)
     }
-    
 }

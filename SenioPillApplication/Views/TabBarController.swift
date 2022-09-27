@@ -10,7 +10,7 @@ import UIKit
 
 open class BaseTabBarController: UITabBarController {
 
-    let mainGreenColor = UIColor(rgb: 0xA9FFBA)
+    let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
 
 
     public init() {
@@ -27,9 +27,9 @@ open class BaseTabBarController: UITabBarController {
             self.viewControllers = [
                 prepareViewController(title: "Nástěnka", imageName: "house",
                                       viewController: DashboardViewController()),
-                prepareViewController(title: "Seznam pacientů", imageName: "figure.roll",
+                prepareViewController(title: "Pacienti", imageName: "figure.roll",
                                       viewController: PatientViewController()),
-                prepareViewController(title: "Seznam léků", imageName: "pills",
+                prepareViewController(title: "Léky", imageName: "pills",
                                       viewController: DrugsViewController())]
     }
 

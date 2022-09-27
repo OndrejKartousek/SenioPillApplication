@@ -26,7 +26,7 @@ extension UIColor {
        )
    }
 }
-let mainGreenColor = UIColor(rgb: 0xA9FFBA)
+let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
 
 
 class LoadingScreenViewController: UIViewController {
