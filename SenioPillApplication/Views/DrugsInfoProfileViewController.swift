@@ -50,8 +50,8 @@ class DrugsInfoViewController: UIViewController{
         view.backgroundColor = .white
         //self.title = "Detail pacienta"
         prepareTopImage()
-        prepareDosageLabel()
         prepareInfoLabel()
+        prepareDosageLabel()
     }
     
     open func updateView(){
@@ -81,6 +81,7 @@ class DrugsInfoViewController: UIViewController{
     func prepareDosageLabel(){
         view.addSubview(dosageLabel)
         dosageLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        dosageLabel.numberOfLines = 3
         dosageLabel.snp.makeConstraints{make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(250)
             make.leading.equalToSuperview().offset(20)
@@ -91,6 +92,7 @@ class DrugsInfoViewController: UIViewController{
     func prepareInfoLabel(){
         view.addSubview(InfoLabel)
         InfoLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        InfoLabel.numberOfLines = 7
         InfoLabel.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(300)
             make.leading.equalToSuperview().offset(20)

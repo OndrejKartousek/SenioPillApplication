@@ -34,44 +34,27 @@ class PatientViewController: UITableViewController {
     
     open func prepareView(){
         view.backgroundColor = .white
-        self.title = "Seznam pacientů"
+        self.title = "Pacienti"
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareLicenceAgreementText()
-        
     }
     
     func prepareTableView() {
         tableView.register(PatientListTVCell.self, forCellReuseIdentifier: PatientListTVCell.description())
         tableView.rowHeight = 120
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .green
+        tableView.separatorColor = mainGreenColor
+        print("xy")
     }
     
     func prepareLicenceAgreementText(){
         noDataLabel.isHidden = true
         noDataLabel.text = "Zatím nebyl přidán žádný pacient"
-        /*if(PatientViewController.isEmpty == true){
-            label.text =
-            label.isHidden = false
-        }
-        else{
-            label.text = ""
-            label.isHidden = true
-
-        }*/
-        
-        
         tableView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints{make in
             make.center.equalToSuperview()
         }
-       /* view.addSubview(label)
-        label.snp.makeConstraints{make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(350)
-            make.leading.equalToSuperview().offset(70)
-            make.centerX.equalToSuperview()
-        }*/
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
@@ -97,7 +80,6 @@ class PatientViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.reloadData()
         PatientViewController.isEmpty = false
-        //viewDidLoad()
         print(PatientViewController.isEmpty)
     }
     
