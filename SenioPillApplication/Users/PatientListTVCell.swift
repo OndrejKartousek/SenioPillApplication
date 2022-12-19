@@ -49,9 +49,9 @@ public class PatientListTVCell: UITableViewCell{
         }
         
         titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        roomLabel.text = "Pokoj : \(dataUnwrapped.room)"
-        bedLabel.text = "Lůžko : \(dataUnwrapped.bed)"
-        descriptionLabel.text = "Informace : \(dataUnwrapped.patientInfo)"
+        roomLabel.text = "Room : \(dataUnwrapped.room)"
+        bedLabel.text = "Bed : \(dataUnwrapped.bed)"
+        descriptionLabel.text = "Information : \(dataUnwrapped.patientInfo)"
     }
     
     open func prepareTitleLabel(){

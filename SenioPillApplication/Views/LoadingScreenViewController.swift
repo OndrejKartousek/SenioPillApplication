@@ -26,7 +26,7 @@ extension UIColor {
        )
    }
 }
-let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
+let blueColor = UIColor(red: 24, green: 146, blue: 250)
 
 
 class LoadingScreenViewController: UIViewController {
@@ -44,7 +44,6 @@ class LoadingScreenViewController: UIViewController {
     open func prepareView(){
         view.backgroundColor = .white
         prepareTopImage()
-        prepareLicenceAgreementText()
         prepareSwitcher()
         prepareContinueButton()
         
@@ -52,7 +51,7 @@ class LoadingScreenViewController: UIViewController {
     }
     
     func prepareTopImage(){
-        let image = UIImage(named: "SenioPill-logo")
+        let image = UIImage(named: "logoblue")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
@@ -63,26 +62,17 @@ class LoadingScreenViewController: UIViewController {
             make.width.equalTo(600)
         }
     }
-    func prepareLicenceAgreementText(){
-        let label = UILabel()
-        label.text = "Made by B2A Digital Inovation s.r.o"
-        view.addSubview(label)
-        label.snp.makeConstraints{make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(450)
-            make.leading.equalToSuperview().offset(67)
-            make.centerX.equalToSuperview()
-        }
-    }
+    
     
     func prepareSwitcher(){
         
     }
     
     func prepareContinueButton(){
-        continueButton.setTitle("Pokračovat", for: .normal)
+        continueButton.setTitle("Continue", for: .normal)
         continueButton.setTitleColor(.black, for: .normal)
         continueButton.setTitleColor(.black.withAlphaComponent(0.7), for: .disabled)
-        continueButton.backgroundColor = mainGreenColor
+        continueButton.backgroundColor = blueColor
         continueButton.layer.borderWidth = 1
         continueButton.layer.cornerRadius = 30
         continueButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor

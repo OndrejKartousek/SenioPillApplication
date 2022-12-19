@@ -34,7 +34,7 @@ class PatientViewController: UITableViewController {
     
     open func prepareView(){
         view.backgroundColor = .white
-        self.title = "Pacienti"
+        self.title = "Patients"
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareLicenceAgreementText()
@@ -44,13 +44,13 @@ class PatientViewController: UITableViewController {
         tableView.register(PatientListTVCell.self, forCellReuseIdentifier: PatientListTVCell.description())
         tableView.rowHeight = 120
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = mainGreenColor
+        tableView.separatorColor = blueColor
         print("xy")
     }
     
     func prepareLicenceAgreementText(){
         noDataLabel.isHidden = true
-        noDataLabel.text = "Zatím nebyl přidán žádný pacient"
+        noDataLabel.text = "No patients added yet."
         tableView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints{make in
             make.center.equalToSuperview()
@@ -68,6 +68,7 @@ class PatientViewController: UITableViewController {
         cell.data = dataSource.getPatients()[indexPath.row]
         return cell
     }
+    
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = PatientProfileViewController(dataSource: dataSource)

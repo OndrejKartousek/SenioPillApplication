@@ -58,8 +58,8 @@ class DrugsInfoViewController: UIViewController{
         guard let dataUnwrapped = data as? Drugs else{
             return
         }
-        dosageLabel.text = "Doporučené dávkování : \(dataUnwrapped.PrescriptedDosage)"
-        InfoLabel.text = "Informace k léku : \(dataUnwrapped.description)"
+        dosageLabel.text = "Recommended dosage : \(dataUnwrapped.PrescriptedDosage)"
+        InfoLabel.text = "Drug info : \(dataUnwrapped.description)"
         self.title = "\(dataUnwrapped.name)"
         //titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
         //infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"

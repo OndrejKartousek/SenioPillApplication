@@ -10,7 +10,7 @@ import UIKit
 
 class PatientProfileViewController: UIViewController{
     
-    public var titleLabelView = LabelValueView(title: "Název")
+    public var titleLabelView = LabelValueView(title: "Name")
     public var dataSource = PatientList()
 
     //public var data : Patient?
@@ -20,6 +20,12 @@ class PatientProfileViewController: UIViewController{
     var descrptionLabel = UILabel()
     var genderLabel = UILabel()
     var image = UIImage(systemName: "person.circle")
+    
+    
+    let boldRoom = "Patient's room"
+    let boldBed = "Patient's bed"
+    let boldGender = "Gender"
+    let boldDesc = "Information"
     
     open var data : Any? {
         didSet{
@@ -41,7 +47,7 @@ class PatientProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView()
+        prepareView()        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -58,6 +64,7 @@ class PatientProfileViewController: UIViewController{
         prepareRoomLabel()
         prepareBedLabel()
         prepareDescLabel()
+        
         //print(genderLabel.text)
     }
     
@@ -67,10 +74,10 @@ class PatientProfileViewController: UIViewController{
         }
         
         print (dataUnwrapped.Gender)
-        roomLabel.text = "Pokoj pacienta : \(dataUnwrapped.room)"
-        bedLabel.text = "Lůžko pacienta : \(dataUnwrapped.bed)"
-        descrptionLabel.text = "Informace o pacientovi : \(dataUnwrapped.patientInfo)"
-        genderLabel.text = "Pohlaví : \(dataUnwrapped.Gender)"
+        roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
+        bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
+        descrptionLabel.text = "Patient's info : \(dataUnwrapped.patientInfo)"
+        genderLabel.text = "Gender : \(dataUnwrapped.Gender)"
         self.title = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
         //titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
         //infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
