@@ -10,8 +10,7 @@ import UIKit
 
 open class BaseTabBarController: UITabBarController {
 
-    let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
-
+    let blueColor = UIColor(red: 24, green: 146, blue: 250)
 
     public init() {
         super.init(nibName: nil, bundle: nil)
@@ -22,35 +21,30 @@ open class BaseTabBarController: UITabBarController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Function sets view controllers to this UITabBarController
-    open func prepareViewControllers() {
-            self.viewControllers = [
-                prepareViewController(title: "Nástěnka", imageName: "house",
-                                      viewController: DashboardViewController()),
-                prepareViewController(title: "Pacienti", imageName: "figure.roll",
-                                      viewController: PatientViewController()),
-                prepareViewController(title: "Léky", imageName: "pills",
-                                      viewController: DrugsViewController())]
-    }
+    public func prepareViewControllers(){
+        self.viewControllers = [
+            prepareViewController(title: "Dashboard", imageName: "house",
+                                  viewController: DashboardViewController()),
+            prepareViewController(title: "Patients", imageName: "figure.roll",
+                                  viewController: PatientViewController()),
+            prepareViewController(title: "Drugs", imageName: "pills",
+                                  viewController: DrugsViewController()),
+            prepareViewController(title: "Profile", imageName: "person.crop.circle.badge",
+                                  viewController: UserProfileViewController())
+            
+        ]}
 
-    // MARK: - Sets tabBarItem to view controller and creates UINavigtaionController
     open func prepareViewController(title: String?, imageName: String?, viewController: UIViewController) -> UINavigationController {
         viewController.tabBarItem = prepareTabBarItem(title: title, imageName: imageName)
-        //UITabBar.appearance().barTintColor = .orange
         UITabBar.appearance().tintColor = .black
-        //UITabBar.appearance().barTintColor = .white
-        UITabBar.appearance().backgroundColor = .systemGray6
-
+        UITabBar.appearance().backgroundColor = .white
         return UINavigationController(rootViewController: viewController)
     }
 
-    // MARK - Creates bottom tab bar item
     open func prepareTabBarItem(title: String?, imageName: String?) -> UITabBarItem {
         let tabBarItem = UITabBarItem()
         tabBarItem.title = title
-        // MARK - Image is taken from SF Symbols
         tabBarItem.image = UIImage(systemName: imageName ?? "")
-
         return tabBarItem
     }
 }

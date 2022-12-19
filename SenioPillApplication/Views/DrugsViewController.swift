@@ -22,6 +22,7 @@ class DrugsViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateData()
+        print(dataSource.getDrugs())
     }
     
     func updateData(){
@@ -31,7 +32,7 @@ class DrugsViewController: UITableViewController {
     
     open func prepareView(){
         view.backgroundColor = .white
-        self.title = "Léky"
+        self.title = "Drugs"
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNodataText()
@@ -41,12 +42,12 @@ class DrugsViewController: UITableViewController {
         tableView.register(DrugListTVCell.self, forCellReuseIdentifier: DrugListTVCell.description())
         tableView.rowHeight = 90
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .green
+        tableView.separatorColor = blueColor
     }
     
     func prepareNodataText(){
         noDataLabel.isHidden = true
-        noDataLabel.text = "Zatím nebyl přidán žádný lék"
+        noDataLabel.text = "No drugs added yet."
         tableView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints{make in
             make.center.equalToSuperview()

@@ -20,7 +20,7 @@ class AddDrugViewController : UIViewController {
 
     var buttonBottomConstraint : Constraint!
     
-    let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
+    let blueColor = UIColor(red: 24, green: 146, blue: 250)
 
     init(dataSource: DrugsList){
         super.init(nibName: nil, bundle: nil)
@@ -42,7 +42,7 @@ class AddDrugViewController : UIViewController {
     }
     
     open func prepareView(){
-        self.title = "Přidat lék"
+        self.title = "Add drug"
         view.backgroundColor = .white
     }
     
@@ -54,14 +54,14 @@ class AddDrugViewController : UIViewController {
     }
     
     func prepareNameInput(){
-        let inputTitle = getInputTitle(text : "Název")
+        let inputTitle = getInputTitle(text : "Name")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(30)
             make.leading.equalToSuperview().offset(24)
         }
         
-        prepareInput(nameInput, placeholder: "Název léku")
+        prepareInput(nameInput, placeholder: "Drug name")
         nameInput.autocapitalizationType = .none
         nameInput.autocorrectionType = .no
         view.addSubview(nameInput)
@@ -74,14 +74,14 @@ class AddDrugViewController : UIViewController {
     }
     
     func prepareDescriptionInput(){
-        let inputTitle = getInputTitle(text : "Popis")
+        let inputTitle = getInputTitle(text : "Description")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(nameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         
-        prepareInput(DescriptionInput, placeholder: "Stručný popis léku")
+        prepareInput(DescriptionInput, placeholder: "Short description")
         DescriptionInput.autocapitalizationType = .none
         DescriptionInput.autocorrectionType = .no
         view.addSubview(DescriptionInput)
@@ -94,13 +94,13 @@ class AddDrugViewController : UIViewController {
     }
     
     func preparePrescriptedDosageInput(){
-        let inputTitle = getInputTitle(text : "Dávkování")
+        let inputTitle = getInputTitle(text : "Dosage")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(DescriptionInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
-        prepareInput(PrescriptedDosage, placeholder: "Doporučené dávkování")
+        prepareInput(PrescriptedDosage, placeholder: "Recommended dosage")
         PrescriptedDosage.autocapitalizationType = .none
         PrescriptedDosage.autocorrectionType = .no
         view.addSubview(PrescriptedDosage)
@@ -113,10 +113,10 @@ class AddDrugViewController : UIViewController {
     }
 
     func prepareAddDrugBUtton() {
-        addDrugButton.setTitle("Přidat lék!", for: .normal)
+        addDrugButton.setTitle("Add drug!", for: .normal)
         addDrugButton.setTitleColor(.black, for: .normal)
         addDrugButton.setTitleColor(.black.withAlphaComponent(0.2), for: .disabled)
-        addDrugButton.backgroundColor = mainGreenColor
+        addDrugButton.backgroundColor = blueColor
         addDrugButton.layer.borderWidth = 1
         addDrugButton.layer.cornerRadius = 30
         addDrugButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor

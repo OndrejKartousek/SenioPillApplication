@@ -18,10 +18,10 @@ class AddPatientViewController: UIViewController {
     let bedInput = BaseTextField()
     let patientInfo = BaseTextField()
     var segmentedControll = UISegmentedControl()
-    let items = ["Muž 👨🏼‍🦳","Žena 👵🏼","Jiné 🚁"]
+    let items = ["Man 👨🏼‍🦳","Woman 👵🏼","Other 🚁"]
     var buttonBottomConstraint : Constraint!
     var dataSource: PatientList?
-    let mainGreenColor = UIColor(red: 129, green: 199, blue: 132)
+    let blueColor = UIColor(red: 24, green: 146, blue: 250)
     
     init(dataSource: PatientList){
         super.init(nibName: nil, bundle: nil)
@@ -41,15 +41,11 @@ class AddPatientViewController: UIViewController {
         prepareInfoInput()
         prepareSegmentedControll()
         prepareAddPatientBUtton()
-        
-        //let patient = Patient(id: 1, name: "Jméno", surname: "Příjmení", room: "Pokoj 206", bed: "Lůžko 3", patientInfo: "yy")
-        //dataSource?.addPatient(patient: patient)
     }
     
     open func prepareView(){
-        self.title = "Přidat pacienta"
+        self.title = "Add patient"
         view.backgroundColor = .white
-        
     }
     
     func getInputTitle(text: String?) -> UILabel {
@@ -60,13 +56,13 @@ class AddPatientViewController: UIViewController {
     }
     
     func prepareNameInput(){
-        let inputTitle = getInputTitle(text : "Jméno")
+        let inputTitle = getInputTitle(text : "Name")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(30)
             make.leading.equalToSuperview().offset(24)
         }
-        prepareInput(nameInput, placeholder: "Jméno pacienta")
+        prepareInput(nameInput, placeholder: "Patient's name")
         nameInput.autocapitalizationType = .none
         nameInput.autocorrectionType = .no
         view.addSubview(nameInput)
@@ -75,21 +71,18 @@ class AddPatientViewController: UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
-        
     }
     
     
-    
     func prepareSurnameInput(){
-        let inputTitle = getInputTitle(text : "Příjmení")
+        let inputTitle = getInputTitle(text : "Surname")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(nameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
-        prepareInput(surnameInput, placeholder: "Příjmení pacienta")
+        prepareInput(surnameInput, placeholder: "Patient's surname")
         surnameInput.autocapitalizationType = .none
         surnameInput.autocorrectionType = .no
         view.addSubview(surnameInput)
@@ -98,7 +91,6 @@ class AddPatientViewController: UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
     }
     
@@ -106,15 +98,14 @@ class AddPatientViewController: UIViewController {
         let deviceWidth = UIScreen.main.bounds.size.width
         let segmentWidth = (deviceWidth - 50) / 3
         segmentedControll = UISegmentedControl(items: items)
-        let genderTitle = getInputTitle(text: "Pohlaví")
+        let genderTitle = getInputTitle(text: "Gender")
         view.addSubview(genderTitle)
         segmentedControll.backgroundColor = .clear
-        segmentedControll.selectedSegmentTintColor = mainGreenColor
+        segmentedControll.selectedSegmentTintColor = blueColor
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 0)
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 1)
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 2)
 
-        
         genderTitle.snp.makeConstraints { make in
             make.top.equalTo(surnameInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
@@ -124,18 +115,17 @@ class AddPatientViewController: UIViewController {
             make.top.equalTo(genderTitle.snp.bottom).offset(7)
             make.leading.trailing.equalToSuperview().offset(25)
         }
-        
     }
 
     
     func prepareRoomInput(){
-        let inputTitle = getInputTitle(text : "Pokoj")
+        let inputTitle = getInputTitle(text : "Room")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(segmentedControll.numberOfSegments).offset(400)
             make.leading.equalToSuperview().offset(24)
         }
-        prepareInput(roomInput, placeholder: "Pokoj 206")
+        prepareInput(roomInput, placeholder: "Room 206")
         roomInput.autocapitalizationType = .none
         roomInput.autocorrectionType = .no
         view.addSubview(roomInput)
@@ -144,18 +134,17 @@ class AddPatientViewController: UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
     }
 
     func prepareBedInput(){
-        let inputTitle = getInputTitle(text : "Lůžko")
+        let inputTitle = getInputTitle(text : "Bed")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(roomInput.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(24)
         }
-        prepareInput(bedInput, placeholder: "Lůžko 3")
+        prepareInput(bedInput, placeholder: "Bed 3")
         bedInput.autocapitalizationType = .none
         bedInput.autocorrectionType = .no
         view.addSubview(bedInput)
@@ -168,13 +157,13 @@ class AddPatientViewController: UIViewController {
     }
     
     func prepareInfoInput(){
-        let inputTitle = getInputTitle(text : "Informace")
+        let inputTitle = getInputTitle(text : "Information")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
             make.top.equalTo(bedInput.snp.bottom).offset(20)//(self.view.safeAreaLayoutGuide.snp.top).offset(270)
             make.leading.equalToSuperview().offset(24)
         }
-        prepareInput(patientInfo, placeholder: "Handicap, nesoběstačný")
+        prepareInput(patientInfo, placeholder: "Additional information")
         patientInfo.autocapitalizationType = .none
         patientInfo.autocorrectionType = .no
         view.addSubview(patientInfo)
@@ -183,16 +172,15 @@ class AddPatientViewController: UIViewController {
             make.leading.equalToSuperview().offset(24)
             make.trailing.equalToSuperview().offset(-24)
             make.height.equalTo(50)
-
         }
     }
 
     
     func prepareAddPatientBUtton() {
-        addPatientButton.setTitle("Přidat pacienta!", for: .normal)
+        addPatientButton.setTitle("Add patient!", for: .normal)
         addPatientButton.setTitleColor(.black, for: .normal)
         addPatientButton.setTitleColor(.black.withAlphaComponent(0.2), for: .disabled)
-        addPatientButton.backgroundColor = mainGreenColor
+        addPatientButton.backgroundColor = blueColor
         addPatientButton.layer.borderWidth = 1
         addPatientButton.layer.cornerRadius = 30
         addPatientButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor
@@ -204,7 +192,6 @@ class AddPatientViewController: UIViewController {
             self.buttonBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint.update(offset: -30)
             make.bottom.equalToSuperview().offset(50)
             make.height.equalTo(60)
-            
         }
         addPatientButton.isEnabled = false
     }
@@ -216,6 +203,7 @@ class AddPatientViewController: UIViewController {
             make.height.equalTo(45)
         }
     }
+    
     @objc open func textFieldChanged() {
         // MARK: - Login button is enabled when username and password is filled
         addPatientButton.isEnabled = nameInput.text?.isEmpty == false && roomInput.text?.isEmpty == false && bedInput.text?.isEmpty == false && surnameInput.text?.isEmpty == false && segmentedControll.selectedSegmentIndex != UISegmentedControl.noSegment
@@ -224,19 +212,16 @@ class AddPatientViewController: UIViewController {
     @objc open func addPatient(){
         view.endEditing(true)
         addPatientRequest()
-        //self.Gender = getGender(sender: segmentedControll)
-        //print("Pohlaví ydsfjh \(Gender)")
     }
     
     func getGender(sender : UISegmentedControl) -> String{
-        print("kokot")
         switch(sender.selectedSegmentIndex){
         case 0:
-            return "Muž"
+            return "Man"
         case 1:
-            return "Žena"
+            return "Woman"
         case 2:
-            return "Jiné"
+            return "Other"
         default:
             break
         }
@@ -244,14 +229,10 @@ class AddPatientViewController: UIViewController {
     }
     
     func addPatientRequest(){
-        //print("ejefhjds \(self.Gender)")
         let pacient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll))
         dataSource?.addPatient(patient: pacient)
         PatientViewController.isEmpty = false
         print(PatientViewController.isEmpty)
         _ = navigationController?.popToRootViewController(animated: true)
     }
-    
-
-    
 }

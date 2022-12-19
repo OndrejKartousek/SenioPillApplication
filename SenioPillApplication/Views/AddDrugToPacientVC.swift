@@ -22,7 +22,7 @@ class AddDrugToPacientVC: UITableViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateData()
-        print(dataSource.getDrugs())
+        //print(dataSource.getDrugs(), "oko")
     }
     
     func updateData(){
@@ -32,14 +32,14 @@ class AddDrugToPacientVC: UITableViewController{
     
     open func prepareView(){
         view.backgroundColor = .white
-        self.title = "Přiřadit lék"
+        self.title = "Assing a drug"
         prepareTableView()
         prepareLicenceAgreementText()
     }
     
     func prepareLicenceAgreementText(){
         noDataLabel.isHidden = true
-        noDataLabel.text = "Zatím nebyl přidán žádný lék"
+        noDataLabel.text = "No drug added yet."
         tableView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints{make in
             make.center.equalToSuperview()
@@ -51,7 +51,6 @@ class AddDrugToPacientVC: UITableViewController{
         tableView.rowHeight = 90
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .green
-        print("xy")
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
@@ -71,4 +70,11 @@ class AddDrugToPacientVC: UITableViewController{
         vc.data = dataSource.getDrugs()[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @objc func addTapped() {
+        let vc = AddDrugViewController(dataSource: dataSource)
+        self.navigationController?.pushViewController(vc, animated: true)
+        prepareTableView()
+    }
+    
 }

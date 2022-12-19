@@ -18,6 +18,22 @@
 		115D1BD82859B7B900D5741D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD62859B7B900D5741D /* Main.storyboard */; };
 		115D1BDA2859B7B900D5741D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BD92859B7B900D5741D /* Assets.xcassets */; };
 		115D1BDD2859B7B900D5741D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */; };
+		115DCC03294E693000455727 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC02294E693000455727 /* LoginController.swift */; };
+		115DCC05294E694C00455727 /* ForgotPasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC04294E694C00455727 /* ForgotPasswordController.swift */; };
+		115DCC07294E696500455727 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC06294E696500455727 /* RegisterController.swift */; };
+		115DCC09294E698B00455727 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC08294E698B00455727 /* HomeController.swift */; };
+		115DCC0B294E6AE000455727 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC0A294E6AE000455727 /* AuthHeaderView.swift */; };
+		115DCC0E294E723300455727 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC0D294E723300455727 /* CustomTextField.swift */; };
+		115DCC10294E76EC00455727 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC0F294E76EC00455727 /* CustomButton.swift */; };
+		115DCC12294E868300455727 /* WebViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC11294E868300455727 /* WebViewerController.swift */; };
+		115DCC15294F28B900455727 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC14294F28B900455727 /* AlertManager.swift */; };
+		115DCC17294F326600455727 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 115DCC16294F326600455727 /* GoogleService-Info.plist */; };
+		115DCC19294F999500455727 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC18294F999500455727 /* AuthService.swift */; };
+		115DCC1B294F9A9600455727 /* RegisterUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC1A294F9A9600455727 /* RegisterUserRequest.swift */; };
+		115DCC1D294FA0C900455727 /* LoginUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC1C294FA0C900455727 /* LoginUserRequest.swift */; };
+		115DCC1F294FA8B500455727 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC1E294FA8B500455727 /* Validator.swift */; };
+		115DCC21294FCD3A00455727 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC20294FCD3A00455727 /* User.swift */; };
+		115DCC232950B7D900455727 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC222950B7D900455727 /* UserProfileViewController.swift */; };
 		116EE5C82860512B0074576C /* AddDrugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5C72860512B0074576C /* AddDrugViewController.swift */; };
 		116EE5CA2860526F0074576C /* AddPatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5C92860526F0074576C /* AddPatientViewController.swift */; };
 		116EE5CD2860533F0074576C /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5CC2860533F0074576C /* Patient.swift */; };
@@ -51,6 +67,22 @@
 		115D1BD92859B7B900D5741D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		115D1BDC2859B7B900D5741D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		115D1BDE2859B7B900D5741D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		115DCC02294E693000455727 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		115DCC04294E694C00455727 /* ForgotPasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordController.swift; sourceTree = "<group>"; };
+		115DCC06294E696500455727 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
+		115DCC08294E698B00455727 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
+		115DCC0A294E6AE000455727 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
+		115DCC0D294E723300455727 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		115DCC0F294E76EC00455727 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		115DCC11294E868300455727 /* WebViewerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewerController.swift; sourceTree = "<group>"; };
+		115DCC14294F28B900455727 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		115DCC16294F326600455727 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		115DCC18294F999500455727 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		115DCC1A294F9A9600455727 /* RegisterUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRequest.swift; sourceTree = "<group>"; };
+		115DCC1C294FA0C900455727 /* LoginUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRequest.swift; sourceTree = "<group>"; };
+		115DCC1E294FA8B500455727 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		115DCC20294FCD3A00455727 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		115DCC222950B7D900455727 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		116EE5C72860512B0074576C /* AddDrugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrugViewController.swift; sourceTree = "<group>"; };
 		116EE5C92860526F0074576C /* AddPatientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientViewController.swift; sourceTree = "<group>"; };
 		116EE5CC2860533F0074576C /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
@@ -87,6 +119,7 @@
 		115D1BC42859B7B900D5741D = {
 			isa = PBXGroup;
 			children = (
+				115DCC16294F326600455727 /* GoogleService-Info.plist */,
 				115D1BCF2859B7B900D5741D /* SenioPillApplication */,
 				115D1BCE2859B7B900D5741D /* Products */,
 				60EEE1C043BDFE4E69CD1BAF /* Pods */,
@@ -105,6 +138,9 @@
 		115D1BCF2859B7B900D5741D /* SenioPillApplication */ = {
 			isa = PBXGroup;
 			children = (
+				115DCC18294F999500455727 /* AuthService.swift */,
+				115DCC14294F28B900455727 /* AlertManager.swift */,
+				115DCC01294E68DF00455727 /* RegLog */,
 				11E85D9F2861A341006C742E /* Users */,
 				116EE5D228605A050074576C /* Core */,
 				116EE5CB286053240074576C /* Model */,
@@ -115,8 +151,32 @@
 				115D1BD92859B7B900D5741D /* Assets.xcassets */,
 				115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */,
 				115D1BDE2859B7B900D5741D /* Info.plist */,
+				115DCC11294E868300455727 /* WebViewerController.swift */,
+				115DCC1E294FA8B500455727 /* Validator.swift */,
 			);
 			path = SenioPillApplication;
+			sourceTree = "<group>";
+		};
+		115DCC01294E68DF00455727 /* RegLog */ = {
+			isa = PBXGroup;
+			children = (
+				115DCC02294E693000455727 /* LoginController.swift */,
+				115DCC04294E694C00455727 /* ForgotPasswordController.swift */,
+				115DCC06294E696500455727 /* RegisterController.swift */,
+				115DCC08294E698B00455727 /* HomeController.swift */,
+				115DCC0C294E720C00455727 /* Views */,
+			);
+			path = RegLog;
+			sourceTree = "<group>";
+		};
+		115DCC0C294E720C00455727 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				115DCC0A294E6AE000455727 /* AuthHeaderView.swift */,
+				115DCC0D294E723300455727 /* CustomTextField.swift */,
+				115DCC0F294E76EC00455727 /* CustomButton.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		116EE5CB286053240074576C /* Model */ = {
@@ -129,6 +189,9 @@
 				11E85D9D28619C63006C742E /* DrugsList.swift */,
 				11E85DA22861AFFF006C742E /* PatientRepository.swift */,
 				11E85DA62862F67E006C742E /* DrugsRepository.swift */,
+				115DCC1A294F9A9600455727 /* RegisterUserRequest.swift */,
+				115DCC1C294FA0C900455727 /* LoginUserRequest.swift */,
+				115DCC20294FCD3A00455727 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -165,6 +228,7 @@
 				1187497328644A1B001CA200 /* LabelValueView.swift */,
 				11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */,
 				1155479228658FAB0019E840 /* AddDrugToPacientVC.swift */,
+				115DCC222950B7D900455727 /* UserProfileViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -247,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				115D1BDD2859B7B900D5741D /* LaunchScreen.storyboard in Resources */,
+				115DCC17294F326600455727 /* GoogleService-Info.plist in Resources */,
 				115D1BDA2859B7B900D5741D /* Assets.xcassets in Resources */,
 				115D1BD82859B7B900D5741D /* Main.storyboard in Resources */,
 			);
@@ -301,6 +366,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				115DCC0B294E6AE000455727 /* AuthHeaderView.swift in Sources */,
+				115DCC07294E696500455727 /* RegisterController.swift in Sources */,
 				11E85D9E28619C63006C742E /* DrugsList.swift in Sources */,
 				116EE5C82860512B0074576C /* AddDrugViewController.swift in Sources */,
 				1155479328658FAB0019E840 /* AddDrugToPacientVC.swift in Sources */,
@@ -311,18 +378,31 @@
 				1187497228643C13001CA200 /* PatientProfileViewController.swift in Sources */,
 				116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */,
 				11E85DA72862F67E006C742E /* DrugsRepository.swift in Sources */,
+				115DCC05294E694C00455727 /* ForgotPasswordController.swift in Sources */,
+				115DCC1B294F9A9600455727 /* RegisterUserRequest.swift in Sources */,
+				115DCC1D294FA0C900455727 /* LoginUserRequest.swift in Sources */,
+				115DCC1F294FA8B500455727 /* Validator.swift in Sources */,
+				115DCC10294E76EC00455727 /* CustomButton.swift in Sources */,
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
+				115DCC21294FCD3A00455727 /* User.swift in Sources */,
+				115DCC0E294E723300455727 /* CustomTextField.swift in Sources */,
 				111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */,
 				11554795286593D30019E840 /* AddDrugToPatientTVCell.swift in Sources */,
+				115DCC03294E693000455727 /* LoginController.swift in Sources */,
 				11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */,
 				116EE5CA2860526F0074576C /* AddPatientViewController.swift in Sources */,
+				115DCC12294E868300455727 /* WebViewerController.swift in Sources */,
 				111E66EC285C9738004EF32D /* TabBarController.swift in Sources */,
+				115DCC15294F28B900455727 /* AlertManager.swift in Sources */,
+				115DCC09294E698B00455727 /* HomeController.swift in Sources */,
 				116EE5D1286056D00074576C /* Allocation.swift in Sources */,
 				115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */,
 				11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */,
 				1187497428644A1B001CA200 /* LabelValueView.swift in Sources */,
 				116EE5CD2860533F0074576C /* Patient.swift in Sources */,
+				115DCC232950B7D900455727 /* UserProfileViewController.swift in Sources */,
 				11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */,
+				115DCC19294F999500455727 /* AuthService.swift in Sources */,
 				11874976286479BD001CA200 /* DrugsInfoProfileViewController.swift in Sources */,
 				116EE5D62860873D0074576C /* PatientList.swift in Sources */,
 			);
@@ -477,7 +557,6 @@
 				INFOPLIST_FILE = SenioPillApplication/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -506,7 +585,6 @@
 				INFOPLIST_FILE = SenioPillApplication/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
