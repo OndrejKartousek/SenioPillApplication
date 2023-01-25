@@ -72,6 +72,14 @@ class DrugsViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            dataSource.deleteDrug(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
+        }
+    }
+    
     @objc func addTapped() {
         let vc = AddDrugViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)

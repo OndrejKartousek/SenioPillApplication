@@ -1,10 +1,3 @@
-//
-//  AddDrugToPacientVC.swift
-//  SenioPillApplication
-//
-//  Created by Ondřej Kartousek on 24.06.2022.
-//
-
 import Foundation
 import UIKit
 import SnapKit
@@ -22,7 +15,6 @@ class AddDrugToPacientVC: UITableViewController{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateData()
-        //print(dataSource.getDrugs(), "oko")
     }
     
     func updateData(){
@@ -32,14 +24,15 @@ class AddDrugToPacientVC: UITableViewController{
     
     open func prepareView(){
         view.backgroundColor = .white
-        self.title = "Assing a drug"
+        self.title = "Assign a drug"
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
-        prepareLicenceAgreementText()
+        prepareNoDataLabel()
     }
     
-    func prepareLicenceAgreementText(){
+    func prepareNoDataLabel(){
         noDataLabel.isHidden = true
-        noDataLabel.text = "No drug added yet."
+        noDataLabel.text = "No drugs added yet."
         tableView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints{make in
             make.center.equalToSuperview()
@@ -74,7 +67,5 @@ class AddDrugToPacientVC: UITableViewController{
     @objc func addTapped() {
         let vc = AddDrugViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
-        prepareTableView()
     }
-    
 }

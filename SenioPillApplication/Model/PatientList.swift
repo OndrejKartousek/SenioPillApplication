@@ -18,6 +18,9 @@ public class PatientList : PatientRepository{
         //}
     }
     
+    func deletePatient(at index: Int) {
+         patients.remove(at: index)
+     }
     
     func getPatients() -> [Patient] {
         return patients
