@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import FirebaseFirestore
 
 class AddDrugViewController : UIViewController {
 
@@ -153,6 +154,20 @@ class AddDrugViewController : UIViewController {
         let Drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
         dataSource?.addDrug(drug: Drug)
         print(Drug)
+        
+        saveData(name: Drug.name, description: Drug.description, prescriptedDosage: Drug.PrescriptedDosage)
         _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func saveData(name : String, description : String, prescriptedDosage : String){
+        let db = Firestore.firestore()
+        
+        db.collection("Drugs").document().setData(["name": name, "description" : description, "prescriptedDosage" : prescriptedDosage]) { (err) in
+            
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+        }
     }
 }

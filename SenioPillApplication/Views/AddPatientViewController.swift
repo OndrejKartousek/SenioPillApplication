@@ -8,9 +8,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class AddPatientViewController: UIViewController {
-
+    let userID: String = (Auth.auth().currentUser?.uid)!
+    let userEmail : String = (Auth.auth().currentUser?.email)!
+    
     let addPatientButton = UIButton()
     let nameInput = BaseTextField()
     let surnameInput = BaseTextField()
@@ -41,6 +45,7 @@ class AddPatientViewController: UIViewController {
         prepareInfoInput()
         prepareSegmentedControll()
         prepareAddPatientBUtton()
+        print(userEmail)
     }
     
     open func prepareView(){
@@ -227,12 +232,25 @@ class AddPatientViewController: UIViewController {
         }
         return ""
     }
+   
     
     func addPatientRequest(){
-        let pacient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll))
-        dataSource?.addPatient(patient: pacient)
-        PatientViewController.isEmpty = false
-        print(PatientViewController.isEmpty)
+        let Patient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll))
+        dataSource?.addPatient(patient: Patient)
+        
+        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo)
         _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String){
+        let db = Firestore.firestore()
+        
+        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo]) { (err) in
+            
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+        }
     }
 }
