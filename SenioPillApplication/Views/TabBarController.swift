@@ -15,6 +15,7 @@ open class BaseTabBarController: UITabBarController {
     public init() {
         super.init(nibName: nil, bundle: nil)
         prepareViewControllers()
+
     }
 
     required public init?(coder: NSCoder) {
@@ -22,6 +23,7 @@ open class BaseTabBarController: UITabBarController {
     }
 
     public func prepareViewControllers(){
+    
         self.viewControllers = [
             prepareViewController(title: "Dashboard", imageName: "house",
                                   viewController: DashboardViewController()),

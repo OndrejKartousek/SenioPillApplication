@@ -15,6 +15,10 @@ public class DrugsList : DrugsRepository{
         
     }
     
+    func deleteDrug(at index : Int){
+        drugs.remove(at: index)
+    }
+    
     func getDrugs(id: Int) -> Drugs? {
         return drugs.first
     }

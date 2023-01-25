@@ -79,7 +79,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Surname")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(nameInput.snp.bottom).offset(20)
+            make.top.equalTo(nameInput.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(surnameInput, placeholder: "Patient's surname")
@@ -107,7 +107,7 @@ class AddPatientViewController: UIViewController {
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 2)
 
         genderTitle.snp.makeConstraints { make in
-            make.top.equalTo(surnameInput.snp.bottom).offset(20)
+            make.top.equalTo(surnameInput.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(24)
         }
         view.addSubview(segmentedControll)
@@ -122,7 +122,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Room")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(segmentedControll.numberOfSegments).offset(400)
+            make.top.equalTo(segmentedControll.numberOfSegments).offset(410)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(roomInput, placeholder: "Room 206")
@@ -141,7 +141,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Bed")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(roomInput.snp.bottom).offset(20)
+            make.top.equalTo(roomInput.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(bedInput, placeholder: "Bed 3")
@@ -160,7 +160,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Information")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(bedInput.snp.bottom).offset(20)//(self.view.safeAreaLayoutGuide.snp.top).offset(270)
+            make.top.equalTo(bedInput.snp.bottom).offset(10)//(self.view.safeAreaLayoutGuide.snp.top).offset(270)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(patientInfo, placeholder: "Additional information")

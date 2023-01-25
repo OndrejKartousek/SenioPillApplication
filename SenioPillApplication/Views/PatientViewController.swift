@@ -76,6 +76,18 @@ class PatientViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+            return true
+        }
+        
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            dataSource.deletePatient(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            noDataLabel.isHidden = !dataSource.getPatients().isEmpty
+        }
+    }
+    
     @objc func addTapped() {
         let vc = AddPatientViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)

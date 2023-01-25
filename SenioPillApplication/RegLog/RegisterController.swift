@@ -88,7 +88,7 @@ class RegisterController: UIViewController {
             self.usernameField.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             self.usernameField.heightAnchor.constraint(equalToConstant: 55),
             self.usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
-            
+             
             self.emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 12),
             self.emailField.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             self.emailField.heightAnchor.constraint(equalToConstant: 55),
