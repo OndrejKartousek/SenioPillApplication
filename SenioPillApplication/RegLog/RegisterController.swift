@@ -66,7 +66,6 @@ class RegisterController: UIViewController {
         self.view.addSubview(passwordField)
         self.view.addSubview(passwordConfirmField)
         self.view.addSubview(signUpButton)
-        //self.view.addSubview(termsTextView)
         self.view.addSubview(signInButton)
 
         self.headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,7 +73,6 @@ class RegisterController: UIViewController {
         self.emailField.translatesAutoresizingMaskIntoConstraints = false
         self.passwordField.translatesAutoresizingMaskIntoConstraints = false
         self.passwordConfirmField.translatesAutoresizingMaskIntoConstraints = false
-        //self.termsTextView.translatesAutoresizingMaskIntoConstraints = false
         self.signUpButton.translatesAutoresizingMaskIntoConstraints = false
         self.signInButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -108,10 +106,6 @@ class RegisterController: UIViewController {
             self.signUpButton.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
             self.signUpButton.heightAnchor.constraint(equalToConstant: 55),
             self.signUpButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
-            
-            //self.termsTextView.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: 22),
-            //self.termsTextView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            //self.termsTextView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
             
             self.signInButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 12),
             self.signInButton.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),

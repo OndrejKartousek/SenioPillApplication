@@ -54,8 +54,9 @@ public class DrugListTVCell : UITableViewCell{
     }
     
     open func prepareTitleLabel(){
+        titleLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .heavy)
+        titleLabel.textColor = blueColor
         contentView.addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
         titleLabel.snp.remakeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -66,6 +67,7 @@ public class DrugListTVCell : UITableViewCell{
     
     open func prepareDosageLabel(){
         contentView.addSubview(dosageLabel)
+        dosageLabel.font = UIFont.boldSystemFont(ofSize: 16)
         dosageLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -75,6 +77,7 @@ public class DrugListTVCell : UITableViewCell{
     }
     
     open func prepareInfoLabel(){
+        infoLabel.font = UIFont.boldSystemFont(ofSize: 16)
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)

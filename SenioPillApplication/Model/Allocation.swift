@@ -7,10 +7,10 @@
 
 import Foundation
 
-public struct Allocation : Codable{
+/*public struct Allocation : Codable{
     public var patient : Patient
     public var drug : Drugs
     public var dosage : String
     public var givingDate : Date
     public var givingTime : Date
-}
+}*/

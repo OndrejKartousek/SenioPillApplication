@@ -14,7 +14,8 @@ public class PatientListTVCell: UITableViewCell{
     var roomLabel = UILabel()
     var bedLabel = UILabel()
     var descriptionLabel = UILabel()
-    
+    var newColor = UIColor.lightGray.cgColor
+
     open var data : Any? {
         didSet{
             if data != nil{
@@ -56,7 +57,9 @@ public class PatientListTVCell: UITableViewCell{
     
     open func prepareTitleLabel(){
         contentView.addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
+        titleLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .heavy)
+        titleLabel.backgroundColor = .white
+        titleLabel.textColor = blueColor
         titleLabel.snp.remakeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -66,6 +69,7 @@ public class PatientListTVCell: UITableViewCell{
     }
     open func prepareRoomLabel(){
         contentView.addSubview(roomLabel)
+        roomLabel.font = UIFont.boldSystemFont(ofSize: 16)
         roomLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -75,6 +79,7 @@ public class PatientListTVCell: UITableViewCell{
     
     open func prepareBedLabel(){
         contentView.addSubview(bedLabel)
+        bedLabel.font = UIFont.boldSystemFont(ofSize: 16)
         bedLabel.snp.makeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -84,6 +89,7 @@ public class PatientListTVCell: UITableViewCell{
     }
     
     open func prepareDescriptionLabel(){
+        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 16)
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)

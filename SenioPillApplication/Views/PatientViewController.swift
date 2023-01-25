@@ -8,10 +8,11 @@
 import SnapKit
 import Foundation
 import UIKit
-
+import FirebaseFirestore
+import SwiftUI
 
 class PatientViewController: UITableViewController {
-    
+        
     public var dataSource = PatientList()
     static var isEmpty:Bool = true
     public var noDataLabel = UILabel()
@@ -23,6 +24,8 @@ class PatientViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
         updateData()
         print(PatientViewController.isEmpty)
     }
@@ -30,14 +33,15 @@ class PatientViewController: UITableViewController {
     func updateData(){
         tableView.reloadData()
         noDataLabel.isHidden = !dataSource.getPatients().isEmpty
-    }
+        }
+    
     
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Patients"
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
-        prepareLicenceAgreementText()
+        prepareNoPatientsLabel()
     }
     
     func prepareTableView() {
@@ -48,7 +52,7 @@ class PatientViewController: UITableViewController {
         print("xy")
     }
     
-    func prepareLicenceAgreementText(){
+    func prepareNoPatientsLabel(){
         noDataLabel.isHidden = true
         noDataLabel.text = "No patients added yet."
         tableView.addSubview(noDataLabel)
@@ -103,4 +107,8 @@ class PatientViewController: UITableViewController {
     
     
 }
+
+
+
+
 

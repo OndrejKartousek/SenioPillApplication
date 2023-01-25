@@ -34,6 +34,7 @@ class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+        prepareTopImage()
         setupUI()
         self.logoutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
         
@@ -46,6 +47,7 @@ class UserProfileViewController: UIViewController {
             if let user = user{
                 self.usernameLabel.text = "\(user.username)"
                 self.emailLabel.text = "\(user.email)"
+                
             }
         }
     }
@@ -53,6 +55,18 @@ class UserProfileViewController: UIViewController {
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "User Profile"
+    }
+    func prepareTopImage(){
+        let image = UIImage(named: "person.crop.square")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        view.addSubview(imageView)
+        imageView.snp.makeConstraints{ make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(200)
+            make.width.equalTo(200)
+        }
     }
     
     private func setupUI(){
