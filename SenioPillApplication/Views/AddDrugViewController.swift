@@ -9,9 +9,13 @@ import Foundation
 import UIKit
 import SnapKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class AddDrugViewController : UIViewController {
 
+    
+    let currentUser = Auth.auth().currentUser?.uid
+    
     let addDrugButton = UIButton()
     let nameInput = BaseTextField()
     let DescriptionInput = BaseTextField()
@@ -151,18 +155,18 @@ class AddDrugViewController : UIViewController {
     }
     
     func addDrugRequest(){
-        let Drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!)
+        let Drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!)
         dataSource?.addDrug(drug: Drug)
         print(Drug)
         
-        saveData(name: Drug.name, description: Drug.description, prescriptedDosage: Drug.PrescriptedDosage)
+        saveData(name: Drug.name, description: Drug.description, prescriptedDosage: Drug.PrescriptedDosage, addedByUser: Drug.addedByUser)
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
-    func saveData(name : String, description : String, prescriptedDosage : String){
+    func saveData(name : String, description : String, prescriptedDosage : String, addedByUser : String){
         let db = Firestore.firestore()
         
-        db.collection("Drugs").document().setData(["name": name, "description" : description, "prescriptedDosage" : prescriptedDosage]) { (err) in
+        db.collection("Drugs").document().setData(["name": name, "description" : description, "prescriptedDosage" : prescriptedDosage, "added_by_user" : addedByUser]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)
