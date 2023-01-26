@@ -15,10 +15,10 @@ public struct Patient : Identifiable {
     public var bed : String
     public var patientInfo : String
     public var Gender : String
-    //public var addedByUser : String
+    public var addedByUser : String
     
     
-    init(id : Int, name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String/*, addedByUser : String*/){
+    init(id : Int, name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String){
         self.id = 1
         self.name = name
         self.surname = surname
@@ -26,7 +26,7 @@ public struct Patient : Identifiable {
         self.bed = bed
         self.patientInfo = patientInfo
         self.Gender = Gender
-        //self.addedByUser = addedByUser
+        self.addedByUser = addedByUser
     }
 }
 

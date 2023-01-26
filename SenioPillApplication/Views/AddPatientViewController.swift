@@ -12,9 +12,9 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class AddPatientViewController: UIViewController {
-    let userID: String = (Auth.auth().currentUser?.uid)!
-    let userEmail : String = (Auth.auth().currentUser?.email)!
     
+    let currentUser = Auth.auth().currentUser?.uid
+
     let addPatientButton = UIButton()
     let nameInput = BaseTextField()
     let surnameInput = BaseTextField()
@@ -45,7 +45,6 @@ class AddPatientViewController: UIViewController {
         prepareInfoInput()
         prepareSegmentedControll()
         prepareAddPatientBUtton()
-        print(userEmail)
     }
     
     open func prepareView(){
@@ -235,17 +234,17 @@ class AddPatientViewController: UIViewController {
    
     
     func addPatientRequest(){
-        let Patient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll))
+        let Patient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!)
         dataSource?.addPatient(patient: Patient)
         
-        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo)
+        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
-    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String){
+    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
         let db = Firestore.firestore()
         
-        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo]) { (err) in
+        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)
