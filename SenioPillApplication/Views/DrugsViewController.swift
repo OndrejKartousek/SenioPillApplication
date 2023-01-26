@@ -8,9 +8,10 @@
 import UIKit
 import SnapKit
 import Foundation
+import FirebaseFirestore
 
 class DrugsViewController: UITableViewController {
-
+   
     public var noDataLabel = UILabel()
     public var dataSource = DrugsList()
     
@@ -74,6 +75,8 @@ class DrugsViewController: UITableViewController {
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let db = Firestore.firestore()
+            db.collection("Drugs").document().delete()
             dataSource.deleteDrug(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
