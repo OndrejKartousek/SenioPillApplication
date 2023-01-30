@@ -73,7 +73,7 @@ class PatientProfileViewController: UIViewController{
             return
         }
         
-        print (dataUnwrapped.Gender)
+        //print (dataUnwrapped.Gender)
         roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
         bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
         descrptionLabel.text = "Patient's info : \(dataUnwrapped.patientInfo)"

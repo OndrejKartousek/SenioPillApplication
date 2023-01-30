@@ -15,7 +15,7 @@ open class BaseTabBarController: UITabBarController {
     public init() {
         super.init(nibName: nil, bundle: nil)
         prepareViewControllers()
-
+        
     }
 
     required public init?(coder: NSCoder) {

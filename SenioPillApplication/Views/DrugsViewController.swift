@@ -9,21 +9,28 @@ import UIKit
 import SnapKit
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 class DrugsViewController: UITableViewController {
-   
+    
+    let currentUser = Auth.auth().currentUser?.uid
+
     public var noDataLabel = UILabel()
     public var dataSource = DrugsList()
     
     override func viewDidLoad() {
+        updateData()
         super.viewDidLoad()
         prepareView()
+        getDrugs()
+        updateData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        updateData()
         super.viewDidAppear(animated)
         updateData()
-        print(dataSource.getDrugs())
+        //print(dataSource.getDrugs())
     }
     
     func updateData(){
@@ -37,6 +44,7 @@ class DrugsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNodataText()
+        updateData()
     }
     
     func prepareTableView() {
@@ -44,6 +52,7 @@ class DrugsViewController: UITableViewController {
         tableView.rowHeight = 90
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = blueColor
+        updateData()
     }
     
     func prepareNodataText(){
@@ -76,12 +85,13 @@ class DrugsViewController: UITableViewController {
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let db = Firestore.firestore()
-            db.collection("Drugs").document().delete()
+            let drug = dataSource.getDrugs()[indexPath.row]
             dataSource.deleteDrug(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
         }
     }
+
     
     @objc func addTapped() {
         let vc = AddDrugViewController(dataSource: dataSource)
@@ -89,6 +99,29 @@ class DrugsViewController: UITableViewController {
         prepareTableView()
     }
     
+    public func getDrugs(){
+        let db = Firestore.firestore();
+        let ref = db.collection("Drugs");
+        ref.getDocuments{snapshot, error in
+                         guard error == nil else {
+            print(error!.localizedDescription)
+            return
+        }
+            if let snapshot = snapshot {
+                for document in snapshot.documents{
+                    let data = document.data()
+                    let drugName = data["name"] as? String ?? ""
+                    let addedByUser = data["added_by_user"] as? String ?? ""
+                    let drugDescription = data["description"] as? String ?? ""
+                    let drugDosage = data["prescriptedDosage"] as? String ?? ""
+                    if(addedByUser == self.currentUser!){
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!)
+                        self.dataSource.addDrug(drug: DrugNew)
+                    }
+                }
+            }
+            }
+    }
 
     
 
