@@ -155,13 +155,14 @@ class AddDrugViewController : UIViewController {
     }
     
     func addDrugRequest(){
-        let Drug = Drugs(id: 1, name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!)
+        let Drug = Drugs(name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!)
         dataSource?.addDrug(drug: Drug)
-        print(Drug)
+        //(Drug)
         
         saveData(name: Drug.name, description: Drug.description, prescriptedDosage: Drug.PrescriptedDosage, addedByUser: Drug.addedByUser)
         _ = navigationController?.popToRootViewController(animated: true)
     }
+    
     
     func saveData(name : String, description : String, prescriptedDosage : String, addedByUser : String){
         let db = Firestore.firestore()
@@ -174,4 +175,5 @@ class AddDrugViewController : UIViewController {
             }
         }
     }
+    
 }

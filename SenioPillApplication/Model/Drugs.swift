@@ -8,14 +8,12 @@
 import Foundation
 
 public struct Drugs : Codable{
-    public var id : Int
     public var name : String
     public var description : String
     public var PrescriptedDosage : String
     public var addedByUser : String
     
-    init(id : Int, name : String, description : String, PrescriptedDosage : String, addedByUser : String){
-        self.id = 1
+    init(name : String, description : String, PrescriptedDosage : String, addedByUser : String){
         self.name = name
         self.description = description
         self.PrescriptedDosage = PrescriptedDosage
