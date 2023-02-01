@@ -47,8 +47,8 @@ public class AddDrugToPatientTVCell : UITableViewCell{
         }
         
         titleLabel.text = "\(dataUnwrapped.name)"
-        dosageLabel.text = "Dávkování \(dataUnwrapped.PrescriptedDosage)"
-        infoLabel.text = "Info : \(dataUnwrapped.description)"
+        dosageLabel.text = "Dosage \(dataUnwrapped.PrescriptedDosage)"
+        infoLabel.text = "Information : \(dataUnwrapped.description)"
         //print(dataUnwrapped.name)
         //print(dataUnwrapped.description)
     }

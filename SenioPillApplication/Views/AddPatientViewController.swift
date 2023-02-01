@@ -27,6 +27,9 @@ class AddPatientViewController: UIViewController {
     var dataSource: PatientList?
     let blueColor = UIColor(red: 24, green: 146, blue: 250)
     
+    let x = ""
+    let y = ""
+    
     init(dataSource: PatientList){
         super.init(nibName: nil, bundle: nil)
         self.dataSource = dataSource
@@ -234,17 +237,17 @@ class AddPatientViewController: UIViewController {
    
     
     func addPatientRequest(){
-        let Patient = Patient(/*id: 1,*/ name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!)
+        let Patient = Patient(/*id: 1,*/ name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, assignedDrugs: [x,y])
         dataSource?.addPatient(patient: Patient)
         
-        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
+        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser, assignedDrugs: [x,y])
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
-    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
+    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String, assignedDrugs : [String]){
         let db = Firestore.firestore()
         
-        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser]) { (err) in
+        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser, "assigned_drugs" : assignedDrugs]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)

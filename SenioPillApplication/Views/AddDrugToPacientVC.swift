@@ -10,6 +10,7 @@ class AddDrugToPacientVC: UITableViewController{
     let currentUser = Auth.auth().currentUser?.uid
     
     public var dataSource = DrugsList()
+    public var patientDataSource = PatientList()
     public var noDataLabel = UILabel()
 
     override func viewDidLoad() {
@@ -32,7 +33,7 @@ class AddDrugToPacientVC: UITableViewController{
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Assign a drug"
-        //navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNoDataLabel()
     }
@@ -66,13 +67,18 @@ class AddDrugToPacientVC: UITableViewController{
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DrugsInfoViewController(dataSource: dataSource)
-        vc.data = dataSource.getDrugs()[indexPath.row]
+        let vc = GivenDrugDetailsVC(dataSource: patientDataSource)
+        //vc.data = dataSource.getDrugs()[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func addTapped() {
-        let vc = AddDrugViewController(dataSource: dataSource)
+        let vc = GivenDrugDetailsVC(dataSource: patientDataSource)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func addClickedDrug(){
+        let vc = GivenDrugDetailsVC(dataSource: patientDataSource)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -20,6 +20,8 @@ class PatientViewController: UITableViewController {
     static var isEmpty:Bool = true
     public var noDataLabel = UILabel()
     
+    let x = ""
+    let z = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -112,6 +114,8 @@ class PatientViewController: UITableViewController {
     public func getPatients(){
         let db = Firestore.firestore();
         let ref = db.collection("Patients");
+        
+    
         ref.getDocuments{snapshot, error in
                          guard error == nil else {
             print(error!.localizedDescription)
@@ -128,7 +132,7 @@ class PatientViewController: UITableViewController {
                     let patientInfo = data["patient_info"] as? String ?? ""
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
-                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!)
+                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, assignedDrugs: [self.x,self.z])
                         self.dataSource.addPatient(patient: PatientNew)
                     }
                 }

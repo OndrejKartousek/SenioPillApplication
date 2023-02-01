@@ -16,9 +16,9 @@ public struct Patient : Codable {
     public var patientInfo : String
     public var Gender : String
     public var addedByUser : String
+    public var assignedDrugs : [String]
     
-    
-    init(/*id : Int,*/ name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String){
+    init(/*id : Int,*/ name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String, assignedDrugs : [String]){
         //self.id = 1
         self.name = name
         self.surname = surname
@@ -27,6 +27,7 @@ public struct Patient : Codable {
         self.patientInfo = patientInfo
         self.Gender = Gender
         self.addedByUser = addedByUser
+        self.assignedDrugs = assignedDrugs
     }
 }
 
