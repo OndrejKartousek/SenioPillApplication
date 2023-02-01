@@ -182,8 +182,8 @@ class AddPatientViewController: UIViewController {
     
     func prepareAddPatientBUtton() {
         addPatientButton.setTitle("Add patient!", for: .normal)
-        addPatientButton.setTitleColor(.black, for: .normal)
-        addPatientButton.setTitleColor(.black.withAlphaComponent(0.2), for: .disabled)
+        addPatientButton.setTitleColor(.white, for: .normal)
+        addPatientButton.setTitleColor(.white.withAlphaComponent(0.2), for: .disabled)
         addPatientButton.backgroundColor = blueColor
         addPatientButton.layer.borderWidth = 1
         addPatientButton.layer.cornerRadius = 30

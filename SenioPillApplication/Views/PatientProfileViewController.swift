@@ -84,7 +84,7 @@ class PatientProfileViewController: UIViewController{
     }
     
     func prepareTopImage(){
-        let image = UIImage(named: "person.circle")
+        let image = UIImage(systemName: "person.circle")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)

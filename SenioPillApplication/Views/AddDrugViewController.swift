@@ -1,10 +1,3 @@
-//
-//  AddDrugViewController.swift
-//  SenioPillApplication
-//
-//  Created by Ondřej Kartousek on 20.06.2022.
-//
-
 import Foundation
 import UIKit
 import SnapKit
@@ -17,10 +10,10 @@ class AddDrugViewController : UIViewController {
     let currentUser = Auth.auth().currentUser?.uid
     
     let addDrugButton = UIButton()
+    
     let nameInput = BaseTextField()
     let DescriptionInput = BaseTextField()
     let PrescriptedDosage = BaseTextField()
-    let genderArray = ["Muž", "Žena", "Jiné"]
     var dataSource: DrugsList?
 
     var buttonBottomConstraint : Constraint!
@@ -44,6 +37,7 @@ class AddDrugViewController : UIViewController {
         prepareDescriptionInput()
         preparePrescriptedDosageInput()
         prepareAddDrugBUtton()
+        addDrugButton.isEnabled = false
     }
     
     open func prepareView(){
@@ -119,8 +113,8 @@ class AddDrugViewController : UIViewController {
 
     func prepareAddDrugBUtton() {
         addDrugButton.setTitle("Add drug!", for: .normal)
-        addDrugButton.setTitleColor(.black, for: .normal)
-        addDrugButton.setTitleColor(.black.withAlphaComponent(0.2), for: .disabled)
+        addDrugButton.setTitleColor(.white, for: .normal)
+        addDrugButton.setTitleColor(.white.withAlphaComponent(0.2), for: .disabled)
         addDrugButton.backgroundColor = blueColor
         addDrugButton.layer.borderWidth = 1
         addDrugButton.layer.cornerRadius = 30
@@ -146,7 +140,7 @@ class AddDrugViewController : UIViewController {
     
     @objc open func textFieldChanged() {
         // MARK: - Login button is enabled when username and password is filled
-        addDrugButton.isEnabled = nameInput.text?.isEmpty == false && PrescriptedDosage.text?.isEmpty == false 
+        addDrugButton.isEnabled = nameInput.text?.isEmpty == false && PrescriptedDosage.text?.isEmpty == false
     }
     
     @objc open func addDrug(){

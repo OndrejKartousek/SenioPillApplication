@@ -14,23 +14,19 @@ import FirebaseAuth
 class DrugsViewController: UITableViewController {
     
     let currentUser = Auth.auth().currentUser?.uid
-
+    
     public var noDataLabel = UILabel()
     public var dataSource = DrugsList()
     
     override func viewDidLoad() {
-        updateData()
         super.viewDidLoad()
         prepareView()
         getDrugs()
-        updateData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        updateData()
         super.viewDidAppear(animated)
         updateData()
-        //print(dataSource.getDrugs())
     }
     
     func updateData(){
@@ -44,7 +40,6 @@ class DrugsViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNodataText()
-        updateData()
     }
     
     func prepareTableView() {
@@ -52,7 +47,10 @@ class DrugsViewController: UITableViewController {
         tableView.rowHeight = 90
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = blueColor
-        updateData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     func prepareNodataText(){
@@ -65,10 +63,13 @@ class DrugsViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
+        print("Table view 70")
         return dataSource.getDrugs().count
+
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("Table view 76")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DrugListTVCell.description(), for: indexPath) as? DrugListTVCell else {
             return UITableViewCell()
         }
@@ -77,22 +78,17 @@ class DrugsViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Table view 85")
         let vc = DrugsInfoViewController(dataSource: dataSource)
         vc.data = dataSource.getDrugs()[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let db = Firestore.firestore()
-            let drug = dataSource.getDrugs()[indexPath.row]
-            dataSource.deleteDrug(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
-        }
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        print("Table view 92")
+        return true
     }
-
-    
+ 
     @objc func addTapped() {
         let vc = AddDrugViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
@@ -120,7 +116,7 @@ class DrugsViewController: UITableViewController {
                     }
                 }
             }
-            }
+        }
     }
 
     

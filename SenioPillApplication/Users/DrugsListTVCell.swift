@@ -49,8 +49,8 @@ public class DrugListTVCell : UITableViewCell{
         titleLabel.text = "\(dataUnwrapped.name)"
         dosageLabel.text = "Dosage \(dataUnwrapped.PrescriptedDosage)"
         infoLabel.text = "Information : \(dataUnwrapped.description)"
-        print(dataUnwrapped.name)
-        print(dataUnwrapped.description)
+        //print(dataUnwrapped.name)
+        //print(dataUnwrapped.description)
     }
     
     open func prepareTitleLabel(){
