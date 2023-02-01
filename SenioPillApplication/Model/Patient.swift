@@ -7,8 +7,8 @@
 
 import Foundation
 
-public struct Patient : Identifiable {
-    public var id : Int
+public struct Patient : Codable {
+    //public var id : Int
     public var name : String
     public var surname : String
     public var room : String
@@ -18,8 +18,8 @@ public struct Patient : Identifiable {
     public var addedByUser : String
     
     
-    init(id : Int, name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String){
-        self.id = 1
+    init(/*id : Int,*/ name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String){
+        //self.id = 1
         self.name = name
         self.surname = surname
         self.room = room

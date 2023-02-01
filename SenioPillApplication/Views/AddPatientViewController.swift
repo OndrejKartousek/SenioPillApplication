@@ -234,7 +234,7 @@ class AddPatientViewController: UIViewController {
    
     
     func addPatientRequest(){
-        let Patient = Patient(id: 1, name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!)
+        let Patient = Patient(/*id: 1,*/ name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!)
         dataSource?.addPatient(patient: Patient)
         
         saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)

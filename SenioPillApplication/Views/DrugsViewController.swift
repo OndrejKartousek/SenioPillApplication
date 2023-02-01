@@ -22,16 +22,17 @@ class DrugsViewController: UITableViewController {
         super.viewDidLoad()
         prepareView()
         getDrugs()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         updateData()
     }
     
     func updateData(){
         tableView.reloadData()
         noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateData()
     }
     
     open func prepareView(){

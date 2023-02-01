@@ -48,7 +48,6 @@ class DrugsInfoViewController: UIViewController{
     
     open func prepareView(){
         view.backgroundColor = .white
-        //self.title = "Detail pacienta"
         prepareTopImage()
         prepareInfoLabel()
         prepareDosageLabel()

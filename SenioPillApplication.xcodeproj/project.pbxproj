@@ -44,6 +44,7 @@
 		1187497228643C13001CA200 /* PatientProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1187497128643C13001CA200 /* PatientProfileViewController.swift */; };
 		1187497428644A1B001CA200 /* LabelValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1187497328644A1B001CA200 /* LabelValueView.swift */; };
 		11874976286479BD001CA200 /* DrugsInfoProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */; };
+		119FB0AB298AF12200FF2D2E /* GivenDrugDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119FB0AA298AF12200FF2D2E /* GivenDrugDetailsVC.swift */; };
 		11E85D9E28619C63006C742E /* DrugsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85D9D28619C63006C742E /* DrugsList.swift */; };
 		11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA02861A353006C742E /* PatientListTVCell.swift */; };
 		11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA22861AFFF006C742E /* PatientRepository.swift */; };
@@ -93,6 +94,7 @@
 		1187497128643C13001CA200 /* PatientProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfileViewController.swift; sourceTree = "<group>"; };
 		1187497328644A1B001CA200 /* LabelValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelValueView.swift; sourceTree = "<group>"; };
 		11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsInfoProfileViewController.swift; sourceTree = "<group>"; };
+		119FB0AA298AF12200FF2D2E /* GivenDrugDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenDrugDetailsVC.swift; sourceTree = "<group>"; };
 		11E85D9D28619C63006C742E /* DrugsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsList.swift; sourceTree = "<group>"; };
 		11E85DA02861A353006C742E /* PatientListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListTVCell.swift; sourceTree = "<group>"; };
 		11E85DA22861AFFF006C742E /* PatientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRepository.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */,
 				1155479228658FAB0019E840 /* AddDrugToPacientVC.swift */,
 				115DCC222950B7D900455727 /* UserProfileViewController.swift */,
+				119FB0AA298AF12200FF2D2E /* GivenDrugDetailsVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				111E66EC285C9738004EF32D /* TabBarController.swift in Sources */,
 				115DCC15294F28B900455727 /* AlertManager.swift in Sources */,
 				115DCC09294E698B00455727 /* HomeController.swift in Sources */,
+				119FB0AB298AF12200FF2D2E /* GivenDrugDetailsVC.swift in Sources */,
 				116EE5D1286056D00074576C /* Allocation.swift in Sources */,
 				115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */,
 				11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */,

@@ -49,13 +49,14 @@ public class AddDrugToPatientTVCell : UITableViewCell{
         titleLabel.text = "\(dataUnwrapped.name)"
         dosageLabel.text = "Dávkování \(dataUnwrapped.PrescriptedDosage)"
         infoLabel.text = "Info : \(dataUnwrapped.description)"
-        print(dataUnwrapped.name)
-        print(dataUnwrapped.description)
+        //print(dataUnwrapped.name)
+        //print(dataUnwrapped.description)
     }
     
     open func prepareTitleLabel(){
+        titleLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .heavy)
+        titleLabel.textColor = blueColor
         contentView.addSubview(titleLabel)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 25.0)
         titleLabel.snp.remakeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -66,6 +67,7 @@ public class AddDrugToPatientTVCell : UITableViewCell{
     
     open func prepareDosageLabel(){
         contentView.addSubview(dosageLabel)
+        dosageLabel.font = UIFont.boldSystemFont(ofSize: 16)
         dosageLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
@@ -75,6 +77,7 @@ public class AddDrugToPatientTVCell : UITableViewCell{
     }
     
     open func prepareInfoLabel(){
+        infoLabel.font = UIFont.boldSystemFont(ofSize: 16)
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints{ (make) in
             make.leading.equalToSuperview().offset(20)

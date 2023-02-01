@@ -1,8 +1,13 @@
 import Foundation
 import UIKit
 import SnapKit
+import FirebaseAuth
+import FirebaseFirestore
+
 
 class AddDrugToPacientVC: UITableViewController{
+    
+    let currentUser = Auth.auth().currentUser?.uid
     
     public var dataSource = DrugsList()
     public var noDataLabel = UILabel()
@@ -10,10 +15,7 @@ class AddDrugToPacientVC: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        getDrugs()
         updateData()
     }
     
@@ -22,10 +24,15 @@ class AddDrugToPacientVC: UITableViewController{
         noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateData()
+    }
+    
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Assign a drug"
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNoDataLabel()
     }
@@ -43,7 +50,7 @@ class AddDrugToPacientVC: UITableViewController{
         tableView.register(AddDrugToPatientTVCell.self, forCellReuseIdentifier: AddDrugToPatientTVCell.description())
         tableView.rowHeight = 90
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = .green
+        tableView.separatorColor = blueColor
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
@@ -67,5 +74,29 @@ class AddDrugToPacientVC: UITableViewController{
     @objc func addTapped() {
         let vc = AddDrugViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    public func getDrugs(){
+        let db = Firestore.firestore();
+        let ref = db.collection("Drugs");
+        ref.getDocuments{snapshot, error in
+                         guard error == nil else {
+            print(error!.localizedDescription)
+            return
+        }
+            if let snapshot = snapshot {
+                for document in snapshot.documents{
+                    let data = document.data()
+                    let drugName = data["name"] as? String ?? ""
+                    let addedByUser = data["added_by_user"] as? String ?? ""
+                    let drugDescription = data["description"] as? String ?? ""
+                    let drugDosage = data["prescriptedDosage"] as? String ?? ""
+                    if(addedByUser == self.currentUser!){
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!)
+                        self.dataSource.addDrug(drug: DrugNew)
+                    }
+                }
+            }
+        }
     }
 }
