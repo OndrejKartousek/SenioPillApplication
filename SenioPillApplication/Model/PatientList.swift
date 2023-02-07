@@ -26,7 +26,7 @@ public class PatientList : PatientRepository{
         return patients
     }
     
-    func getPatient(id: Int) -> Patient? {
+    func getPatient(id: String) -> Patient? {
         return patients.first
     }
     

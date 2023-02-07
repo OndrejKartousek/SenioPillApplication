@@ -27,6 +27,8 @@ class PatientProfileViewController: UIViewController{
     let boldGender = "Gender"
     let boldDesc = "Information"
     
+    var userID = ""
+    
     open var data : Any? {
         didSet{
             if data != nil{
@@ -72,7 +74,7 @@ class PatientProfileViewController: UIViewController{
         guard let dataUnwrapped = data as? Patient else{
             return
         }
-        
+        userID = dataUnwrapped.ID ??  ""
         print (dataUnwrapped)
         roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
         bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
@@ -141,7 +143,7 @@ class PatientProfileViewController: UIViewController{
     
     @objc func addTapped(){
         //let rootVC = PatientProfileViewController(dataSource: dataSource)
-        let assignADrug = DrugsAssignmentListVC()
+        let assignADrug = DrugsAssignmentListVC(dataSource: dataSource.getPatient(id: userID) ?? nil)
         present(assignADrug, animated : true)
     }
 

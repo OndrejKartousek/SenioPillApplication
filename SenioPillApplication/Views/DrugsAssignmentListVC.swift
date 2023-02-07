@@ -18,6 +18,17 @@ class DrugsAssignmentListVC : UITableViewController{
     public var DrugsDS = DrugsList()
     public var PatientDS = PatientList()
     
+
+    
+    init(dataSource :Patient?){
+        super.init(nibName: nil, bundle: nil)
+        print(dataSource)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
