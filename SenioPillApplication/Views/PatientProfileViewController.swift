@@ -73,7 +73,7 @@ class PatientProfileViewController: UIViewController{
             return
         }
         
-        //print (dataUnwrapped.Gender)
+        print (dataUnwrapped)
         roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
         bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
         descrptionLabel.text = "Patient's info : \(dataUnwrapped.patientInfo)"
@@ -140,9 +140,9 @@ class PatientProfileViewController: UIViewController{
 
     
     @objc func addTapped(){
-        let vc = AddDrugToPacientVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+        //let rootVC = PatientProfileViewController(dataSource: dataSource)
+        let assignADrug = DrugsAssignmentListVC()
+        present(assignADrug, animated : true)
     }
-    
-    
+
 }

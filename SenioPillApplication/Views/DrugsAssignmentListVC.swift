@@ -1,22 +1,22 @@
 //
-//  DrugsControllerViewController.swift
+//  DrugsAssignmentListVC.swift
 //  SenioPillApplication
 //
-//  Created by Ondřej Kartousek on 15.06.2022.
+//  Created by Ondřej Kartousek on 07.02.2023.
 //
 
-import UIKit
-import SnapKit
 import Foundation
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
+import SnapKit
+import UIKit
 
-class DrugsViewController: UITableViewController {
-    
+class DrugsAssignmentListVC : UITableViewController{
     let currentUser = Auth.auth().currentUser?.uid
     
     public var noDataLabel = UILabel()
-    public var dataSource = DrugsList()
+    public var DrugsDS = DrugsList()
+    public var PatientDS = PatientList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class DrugsViewController: UITableViewController {
     
     func updateData(){
         tableView.reloadData()
-        noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
+        noDataLabel.isHidden = !DrugsDS.getDrugs().isEmpty
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +65,7 @@ class DrugsViewController: UITableViewController {
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
         //print("Table view 70")
-        return dataSource.getDrugs().count
+        return DrugsDS.getDrugs().count
 
     }
     
@@ -74,16 +74,18 @@ class DrugsViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DrugListTVCell.description(), for: indexPath) as? DrugListTVCell else {
             return UITableViewCell()
         }
-        cell.data = dataSource.getDrugs()[indexPath.row]
+        cell.data = DrugsDS.getDrugs()[indexPath.row]
         return cell
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //print("Table view 85")
-        print("šulibrk")
-        let vc = DrugsInfoViewController(dataSource: dataSource)
-        vc.data = dataSource.getDrugs()[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        //print("šulibrk")
+        let vc = GivingDrugDetailsVC(dataSource: PatientDS)
+        //vc.data = DrugsDS.getDrugs()[indexPath.row]
+        present(vc, animated : true)
+
+        //self.navigationController?.pushViewController(vc, animated: true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -92,7 +94,7 @@ class DrugsViewController: UITableViewController {
     }
  
     @objc func addTapped() {
-        let vc = AddDrugViewController(dataSource: dataSource)
+        let vc = AddDrugViewController(dataSource: DrugsDS)
         self.navigationController?.pushViewController(vc, animated: true)
         prepareTableView()
     }
@@ -114,13 +116,10 @@ class DrugsViewController: UITableViewController {
                     let drugDosage = data["prescriptedDosage"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
                         let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!)
-                        self.dataSource.addDrug(drug: DrugNew)
+                        self.DrugsDS.addDrug(drug: DrugNew)
                     }
                 }
             }
         }
     }
-
-    
-
 }

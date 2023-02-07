@@ -115,7 +115,18 @@ class PatientViewController: UITableViewController {
         let db = Firestore.firestore();
         let ref = db.collection("Patients");
         
-    
+        let dbb = Firestore.firestore()
+        dbb.collection("Drugs").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print(document.documentID)
+                    print(document.data())
+                }
+            }
+        }
+        
         ref.getDocuments{snapshot, error in
                          guard error == nil else {
             print(error!.localizedDescription)
@@ -124,6 +135,7 @@ class PatientViewController: UITableViewController {
             if let snapshot = snapshot {
                 for document in snapshot.documents{
                     let data = document.data()
+                    print(document.documentID)
                     let patientName = data["name"] as? String ?? ""
                     let patientSurname = data["surname"] as? String ?? ""
                     let room = data["room"] as? String ?? ""
@@ -132,7 +144,7 @@ class PatientViewController: UITableViewController {
                     let patientInfo = data["patient_info"] as? String ?? ""
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
-                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, assignedDrugs: [self.x,self.z])
+                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, assignedDrugs: [self.x,self.z], ID: document.documentID)
                         self.dataSource.addPatient(patient: PatientNew)
                     }
                 }

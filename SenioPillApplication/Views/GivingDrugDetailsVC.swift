@@ -8,17 +8,17 @@
 import Foundation
 import UIKit
 import SnapKit
+import SwiftUI
 
-class GivenDrugDetailsVC : UIViewController{
+class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate{
     
-    public var drugsDataSource = PatientList()
+    public var drugsDataSource = DrugsList()
+    public var patientDataSource = PatientList()
     let giveDrugButton = UIButton()
     let dosageInput = BaseTextField()
-    let foodOrderInput = UISegmentedControl()
     var dataSource: PatientList?
     let TimePickerTextField = UIDatePicker()
     var buttonBottomConstraint : Constraint!
-
     let mondaySwitch = UISwitch()
     let tuesdaySwitch = UISwitch()
     let wednesdaySwitch = UISwitch()
@@ -35,11 +35,15 @@ class GivenDrugDetailsVC : UIViewController{
     let saturdaySwitchTitle = UILabel()
     let sundaySwitchTitle = UILabel()
 
+    var drugSelectorLabel = UILabel()
+    var drugSelector = UIPickerView()
+
 
     init(dataSource: PatientList){
         super.init(nibName: nil, bundle: nil)
         self.dataSource = dataSource
     }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -70,6 +74,7 @@ class GivenDrugDetailsVC : UIViewController{
         prepareButton()
     }
     
+    
     open func prepareView(){
         self.title = "Insert giving information"
         view.backgroundColor = .white
@@ -95,11 +100,31 @@ class GivenDrugDetailsVC : UIViewController{
         //addPatientButton.isEnabled = nameInput.text?.isEmpty == false && roomInput.text?.isEmpty == false && bedInput.text?.isEmpty == false && surnameInput.text?.isEmpty == false && segmentedControll.selectedSegmentIndex != UISegmentedControl.noSegment
     }
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if component == 0 {
+            return 10
+        } else {
+            return 100
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if component == 0 {
+            return "First \(row)"
+        } else {
+            return "Second \(row)"
+        }
+    }
+    
     func prepareDosageInput(){
         let inputTitle = getInputTitle(text : "Dosage")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(10)
+            make.top.equalToSuperview().offset(20)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(dosageInput, placeholder: "1ml")

@@ -33,7 +33,7 @@ class AddDrugToPacientVC: UITableViewController{
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Assign a drug"
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNoDataLabel()
     }
@@ -65,20 +65,14 @@ class AddDrugToPacientVC: UITableViewController{
         cell.data = dataSource.getDrugs()[indexPath.row]
         return cell
     }
-    
-    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = GivenDrugDetailsVC(dataSource: patientDataSource)
-        //vc.data = dataSource.getDrugs()[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+
     @objc func addTapped() {
-        let vc = GivenDrugDetailsVC(dataSource: patientDataSource)
+        let vc = GivingDrugDetailsVC(dataSource: patientDataSource)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func addClickedDrug(){
-        let vc = GivenDrugDetailsVC(dataSource: patientDataSource)
+        let vc = GivingDrugDetailsVC(dataSource: patientDataSource)
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
