@@ -113,7 +113,7 @@ class DrugsViewController: UITableViewController {
                     let drugDescription = data["description"] as? String ?? ""
                     let drugDosage = data["prescriptedDosage"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
-                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!)
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID)
                         self.dataSource.addDrug(drug: DrugNew)
                     }
                 }

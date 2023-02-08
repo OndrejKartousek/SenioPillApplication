@@ -16,13 +16,20 @@ class DrugsAssignmentListVC : UITableViewController{
     
     public var noDataLabel = UILabel()
     public var DrugsDS = DrugsList()
-    public var PatientDS = PatientList()
+    public var PatientDS: Patient? = nil
     
-
+    var userID = ""
     
+    open var data : Any? {
+        didSet{
+            if data != nil{
+            }
+            
+        }
+    }
     init(dataSource :Patient?){
         super.init(nibName: nil, bundle: nil)
-        print(dataSource)
+        self.PatientDS = dataSource
     }
     
     required init?(coder: NSCoder) {
@@ -49,9 +56,12 @@ class DrugsAssignmentListVC : UITableViewController{
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Drugs"
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNodataText()
+        guard let dataUnwrapped = data as? Patient else{
+            return
+        }
     }
     
     func prepareTableView() {
@@ -90,24 +100,15 @@ class DrugsAssignmentListVC : UITableViewController{
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print("Table view 85")
-        //print("šulibrk")
-        let vc = GivingDrugDetailsVC(dataSource: PatientDS)
-        //vc.data = DrugsDS.getDrugs()[indexPath.row]
-        present(vc, animated : true)
 
-        //self.navigationController?.pushViewController(vc, animated: true)
+        print(DrugsDS.getDrugs()[indexPath.row])
+        let vc = GivingDrugDetailsVC(dataSource: PatientDS, drugDetails: DrugsDS.getDrugs()[indexPath.row])
+        present(vc, animated : true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         //print("Table view 92")
         return true
-    }
- 
-    @objc func addTapped() {
-        let vc = AddDrugViewController(dataSource: DrugsDS)
-        self.navigationController?.pushViewController(vc, animated: true)
-        prepareTableView()
     }
     
     public func getDrugs(){
@@ -121,12 +122,13 @@ class DrugsAssignmentListVC : UITableViewController{
             if let snapshot = snapshot {
                 for document in snapshot.documents{
                     let data = document.data()
+                    
                     let drugName = data["name"] as? String ?? ""
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     let drugDescription = data["description"] as? String ?? ""
                     let drugDosage = data["prescriptedDosage"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
-                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!)
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID)
                         self.DrugsDS.addDrug(drug: DrugNew)
                     }
                 }

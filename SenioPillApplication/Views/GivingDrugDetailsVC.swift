@@ -9,15 +9,22 @@ import Foundation
 import UIKit
 import SnapKit
 import SwiftUI
+import FirebaseAuth
+import FirebaseFirestore
 
-class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerViewDelegate{
+class GivingDrugDetailsVC : UIViewController{
     
-    public var drugsDataSource = DrugsList()
-    public var patientDataSource = PatientList()
+    let currentUser = Auth.auth().currentUser?.uid
+
+    public var drugsDataSource : Drugs?
+    public var patientDataSource : Patient?
     let giveDrugButton = UIButton()
     let dosageInput = BaseTextField()
     var dataSource: PatientList?
-    let TimePickerTextField = UIDatePicker()
+    
+    let timePicker = UIDatePicker()
+    
+    
     var buttonBottomConstraint : Constraint!
     let mondaySwitch = UISwitch()
     let tuesdaySwitch = UISwitch()
@@ -34,14 +41,34 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
     let fridaySwitchTitle = UILabel()
     let saturdaySwitchTitle = UILabel()
     let sundaySwitchTitle = UILabel()
-
-    var drugSelectorLabel = UILabel()
-    var drugSelector = UIPickerView()
-
-
-    init(dataSource: PatientList){
+    
+    var mondayState = false
+    var tuesdayState = false
+    var wednesdayState = false
+    var thursdayState = false
+    var fridayState = false
+    var saturdayState = false
+    var sundayState = false
+    
+    var patientID = ""
+    var drugID = ""
+    open var data : Any? {
+        didSet{
+            if data != nil{
+                updateView()
+            }
+            
+        }
+    }
+    
+    init(dataSource: Patient?, drugDetails: Drugs?){
         super.init(nibName: nil, bundle: nil)
-        self.dataSource = dataSource
+        print(dataSource)
+        print(drugDetails)
+        self.drugsDataSource = drugDetails
+        self.patientDataSource = dataSource
+        patientID = dataSource?.ID ??  ""
+        drugID = drugDetails?.ID ?? ""
     }
 
     
@@ -52,8 +79,10 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+        updateView()
         prepareDosageInput()
         prepareTimeInput()
+        giveDrugButton.isEnabled = false
         
         prepareMondayInput()
         prepareTuesdayInput()
@@ -72,6 +101,13 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
         prepareSundayTitle()
         
         prepareButton()
+    }
+    
+    open func updateView(){
+        guard let dataUnwrapped = data as? Patient else{
+            return
+        }
+        
     }
     
     
@@ -96,28 +132,7 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     @objc open func textFieldChanged() {
-        // MARK: - Login button is enabled when username and password is filled
-        //addPatientButton.isEnabled = nameInput.text?.isEmpty == false && roomInput.text?.isEmpty == false && bedInput.text?.isEmpty == false && surnameInput.text?.isEmpty == false && segmentedControll.selectedSegmentIndex != UISegmentedControl.noSegment
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
-    }
-
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if component == 0 {
-            return 10
-        } else {
-            return 100
-        }
-    }
-
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 0 {
-            return "First \(row)"
-        } else {
-            return "Second \(row)"
-        }
+        giveDrugButton.isEnabled = dosageInput.text?.isEmpty == false && (mondaySwitch.isOn || tuesdaySwitch.isOn || wednesdaySwitch.isOn || thursdaySwitch.isOn || fridaySwitch.isOn || saturdaySwitch.isOn || sundaySwitch.isOn) == true
     }
     
     func prepareDosageInput(){
@@ -140,22 +155,20 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
     }
     
     func prepareTimeInput(){
-        TimePickerTextField.datePickerMode = .time
-        TimePickerTextField.preferredDatePickerStyle = .compact
-        view.addSubview(TimePickerTextField)
-        TimePickerTextField.snp.makeConstraints { make in
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .compact
+        view.addSubview(timePicker)
+        timePicker.snp.makeConstraints { make in
             make.top.equalTo(dosageInput).offset(70)
             make.leading.equalToSuperview().offset(20)
         }
-
     }
-    
-    
-    
+
     func prepareMondayInput(){
         view.addSubview(mondaySwitch)
+        mondaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         mondaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(50)
+            make.top.equalTo(timePicker).offset(50)
             make.leading.equalToSuperview().offset(20)
         }
     }
@@ -169,16 +182,12 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
         }
     }
     
-    
-    
-    
-    
     func prepareTuesdayInput(){
         view.addSubview(tuesdaySwitch)
+        tuesdaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         tuesdaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(85)
+            make.top.equalTo(timePicker).offset(85)
             make.leading.equalToSuperview().offset(20)
-
         }
     }
     
@@ -190,16 +199,13 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
             make.leading.equalToSuperview().offset(80)
         }
     }
-    
-    
-    
-    
+
     func prepareWednesdyInput(){
         view.addSubview(wednesdaySwitch)
+        wednesdaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         wednesdaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(120)
+            make.top.equalTo(timePicker).offset(120)
             make.leading.equalToSuperview().offset(20)
-
         }
     }
     
@@ -212,15 +218,12 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
         }
     }
     
-    
-    
-    
     func prepareThursdayInput(){
         view.addSubview(thursdaySwitch)
+        thursdaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         thursdaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(155)
+            make.top.equalTo(timePicker).offset(155)
             make.leading.equalToSuperview().offset(20)
-
         }
     }
     
@@ -233,13 +236,11 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
         }
     }
     
-    
-    
-    
     func prepareFridayInput(){
         view.addSubview(fridaySwitch)
+        fridaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         fridaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(190)
+            make.top.equalTo(timePicker).offset(190)
             make.leading.equalToSuperview().offset(20)
 
         }
@@ -254,12 +255,11 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
         }
     }
     
-    
-    
     func prepareSaturdayInput(){
         view.addSubview(saturdaySwitch)
+        saturdaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         saturdaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(225)
+            make.top.equalTo(timePicker).offset(225)
             make.leading.equalToSuperview().offset(20)
 
         }
@@ -273,16 +273,13 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
             make.leading.equalToSuperview().offset(80)
         }
     }
-    
-    
-    
-    
+
     func prepareSundayInput(){
         view.addSubview(sundaySwitch)
+        sundaySwitch.addTarget(self, action: #selector(textFieldChanged), for: .allTouchEvents)
         sundaySwitch.snp.makeConstraints { make in
-            make.top.equalTo(TimePickerTextField).offset(260)
+            make.top.equalTo(timePicker).offset(260)
             make.leading.equalToSuperview().offset(20)
-
         }
     }
     
@@ -304,7 +301,7 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
         giveDrugButton.layer.cornerRadius = 30
         giveDrugButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor
         giveDrugButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        //giveDrugButton.addTarget(self, action: #selector(addPatient), for: .primaryActionTriggered)
+        giveDrugButton.addTarget(self, action: #selector(printAll), for: .primaryActionTriggered)
         view.addSubview(giveDrugButton)
         giveDrugButton.snp.makeConstraints {make in
             make.leading.trailing.equalToSuperview().inset(60)
@@ -312,8 +309,44 @@ class GivingDrugDetailsVC : UIViewController, UIPickerViewDataSource, UIPickerVi
             make.bottom.equalToSuperview().offset(50)
             make.height.equalTo(60)
         }
-        giveDrugButton.isEnabled = false
-        
     }
     
+    @objc func printAll(){
+        print("--------------------printAll-------------------------")
+        print(patientID)
+        print(drugID)
+        print(dosageInput.text!)
+        let date = timePicker.date
+        let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+        let hour = components.hour!
+        let minute = components.minute!
+        print(hour)
+        print(minute)
+        mondayState = mondaySwitch.isOn
+        tuesdayState = tuesdaySwitch.isOn
+        wednesdayState = tuesdaySwitch.isOn
+        thursdayState = thursdaySwitch.isOn
+        fridayState = fridaySwitch.isOn
+        saturdayState = fridaySwitch.isOn
+        sundayState = sundaySwitch.isOn
+        print(mondayState)
+        print(tuesdayState)
+        print(wednesdayState)
+        print(thursdayState)
+        print(fridayState)
+        print(saturdayState)
+        print(sundayState)
+        
+        //let completeModel = AssignedModel(creatorID: currentUser!, description: "", patientID: patientID, patientName: patientDataSource!.name, patientSurname: patientDataSource!.surname, patientRoom: patientDataSource!.room, patientBed: patientDataSource!.bed, patientInfo: patientDataSource!.patientInfo, Gender: patientDataSource!.Gender, addedByUser: patientDataSource!.addedByUser, drugID: drugID, drugName: drugsDataSource!.name, drugDescription: drugsDataSource!.description, drugPrescriptedDosage: drugsDataSource!.PrescriptedDosage, givenDrugDosage: dosageInput.text!, givenDrugHour: hour, givenDrugMinute: minute, givenOnMonday: mondayState, givenOnTuesday: tuesdayState, givenOnWednesday: wednesdayState, givenOnThursday: thursdayState, givenOnFriday: fridayState, givenOnSaturday: saturdayState, givenOnSunday: sundayState)
+                
+        let db = Firestore.firestore()
+        
+        db.collection("AssignedDrugs").document().setData(["UserID" : currentUser!, "PatientID" : patientID, "DrugID" : drugID, "Patient_Name" : patientDataSource!.name, "Patient_Surname" : patientDataSource?.surname, "Patient_Bed" : patientDataSource?.bed, "Patient_Room" : patientDataSource?.room, "Patient_Info" : patientDataSource?.patientInfo, "Patient_Gender" : patientDataSource?.Gender, "Added_By_User" : patientDataSource?.addedByUser, "Drug_Name" : drugsDataSource?.name, "Drug_Description" : drugsDataSource?.description, "Drug_Prescripted_Dosage" : drugsDataSource?.PrescriptedDosage,"Given_Dosage" : dosageInput.text!, "Given_Hour" : hour, "Given_Minute" : minute, "Monday" : mondayState, "Tuesday" : tuesdayState, "Wednesday" : wednesdayState, "Thursday" : thursdayState, "Friday" : fridayState, "Saturday" : saturdayState, "Sunday" : sundayState ]) { (err) in
+            
+            if err != nil{
+                print((err?.localizedDescription)!)
+                return
+            }
+        }
+    }
 }

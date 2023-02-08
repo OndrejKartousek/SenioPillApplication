@@ -123,10 +123,26 @@
             filePath = "SenioPillApplication/Views/AddPatientViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
-            landmarkName = "AddPatientViewController"
-            landmarkType = "3">
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "830F8A72-99F2-47B6-80B6-19128014E6BB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SenioPillApplication/Model/AssignedModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "init(creatorID:description:patientID:patientName:patientSurname:patientRoom:patientBed:patientInfo:Gender:addedByUser:drugID:drugName:drugDescription:drugPrescriptedDosage:givenDrugDosage:givenDrugHour:givenDrugMinute:givenOnMonday:givenOnTuesday:givenOnWednesday:givenOnThursday:givenOnFriday:givenOnSaturday:givenOnSunday:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

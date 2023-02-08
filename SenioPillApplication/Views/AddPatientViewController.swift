@@ -38,6 +38,7 @@ class AddPatientViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -118,6 +119,7 @@ class AddPatientViewController: UIViewController {
             make.leading.equalToSuperview().offset(24)
         }
         view.addSubview(segmentedControll)
+        segmentedControll.addTarget(self, action: #selector(textFieldChanged), for: .allEvents)
         segmentedControll.snp.makeConstraints { make in
             make.top.equalTo(genderTitle.snp.bottom).offset(7)
             make.leading.trailing.equalToSuperview().offset(25)
@@ -167,7 +169,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Information")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(bedInput.snp.bottom).offset(10)//(self.view.safeAreaLayoutGuide.snp.top).offset(270)
+            make.top.equalTo(bedInput.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(patientInfo, placeholder: "Additional information")

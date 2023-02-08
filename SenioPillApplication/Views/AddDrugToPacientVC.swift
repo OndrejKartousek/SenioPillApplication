@@ -5,7 +5,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
-class AddDrugToPacientVC: UITableViewController{
+/*class AddDrugToPacientVC: UITableViewController{
     
     let currentUser = Auth.auth().currentUser?.uid
     
@@ -18,6 +18,12 @@ class AddDrugToPacientVC: UITableViewController{
         prepareView()
         getDrugs()
         updateData()
+        print("kokot")
+        print("kokot")
+        print("kokot")
+        print("kokot")
+        print("kokot")
+
     }
     
     func updateData(){
@@ -67,13 +73,13 @@ class AddDrugToPacientVC: UITableViewController{
     }
 
     @objc func addTapped() {
-        let vc = GivingDrugDetailsVC(dataSource: patientDataSource)
-        self.navigationController?.pushViewController(vc, animated: true)
+        //let vc = GivingDrugDetailsVC(dataSource: patientDataSource.getPatient(id: <#T##String#>))
+        //self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func addClickedDrug(){
-        let vc = GivingDrugDetailsVC(dataSource: patientDataSource)
-        self.navigationController?.pushViewController(vc, animated: true)
+        //let vc = GivingDrugDetailsVC(dataSource: patientDataSource)
+        //self.navigationController?.pushViewController(vc, animated: true)
     }
     
     public func getDrugs(){
@@ -99,4 +105,4 @@ class AddDrugToPacientVC: UITableViewController{
             }
         }
     }
-}
+}*/

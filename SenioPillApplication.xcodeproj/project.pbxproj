@@ -46,6 +46,7 @@
 		11874976286479BD001CA200 /* DrugsInfoProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */; };
 		119FB0AB298AF12200FF2D2E /* GivingDrugDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119FB0AA298AF12200FF2D2E /* GivingDrugDetailsVC.swift */; };
 		11CCEB6B299247ED00CAD7A7 /* DrugsAssignmentListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB6A299247ED00CAD7A7 /* DrugsAssignmentListVC.swift */; };
+		11CCEB6D2993C80B00CAD7A7 /* AssignedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB6C2993C80B00CAD7A7 /* AssignedModel.swift */; };
 		11E85D9E28619C63006C742E /* DrugsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85D9D28619C63006C742E /* DrugsList.swift */; };
 		11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA02861A353006C742E /* PatientListTVCell.swift */; };
 		11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA22861AFFF006C742E /* PatientRepository.swift */; };
@@ -97,6 +98,7 @@
 		11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsInfoProfileViewController.swift; sourceTree = "<group>"; };
 		119FB0AA298AF12200FF2D2E /* GivingDrugDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivingDrugDetailsVC.swift; sourceTree = "<group>"; };
 		11CCEB6A299247ED00CAD7A7 /* DrugsAssignmentListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsAssignmentListVC.swift; sourceTree = "<group>"; };
+		11CCEB6C2993C80B00CAD7A7 /* AssignedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedModel.swift; sourceTree = "<group>"; };
 		11E85D9D28619C63006C742E /* DrugsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsList.swift; sourceTree = "<group>"; };
 		11E85DA02861A353006C742E /* PatientListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListTVCell.swift; sourceTree = "<group>"; };
 		11E85DA22861AFFF006C742E /* PatientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRepository.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			children = (
 				116EE5CC2860533F0074576C /* Patient.swift */,
 				116EE5CE286055630074576C /* Drugs.swift */,
+				11CCEB6C2993C80B00CAD7A7 /* AssignedModel.swift */,
 				116EE5D0286056D00074576C /* Allocation.swift */,
 				116EE5D52860873D0074576C /* PatientList.swift */,
 				11E85D9D28619C63006C742E /* DrugsList.swift */,
@@ -397,6 +400,7 @@
 				115DCC03294E693000455727 /* LoginController.swift in Sources */,
 				11EEA1AB2859FCBD00F81B22 /* DrugsViewController.swift in Sources */,
 				116EE5CA2860526F0074576C /* AddPatientViewController.swift in Sources */,
+				11CCEB6D2993C80B00CAD7A7 /* AssignedModel.swift in Sources */,
 				115DCC12294E868300455727 /* WebViewerController.swift in Sources */,
 				11CCEB6B299247ED00CAD7A7 /* DrugsAssignmentListVC.swift in Sources */,
 				111E66EC285C9738004EF32D /* TabBarController.swift in Sources */,

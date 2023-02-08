@@ -149,7 +149,7 @@ class AddDrugViewController : UIViewController {
     }
     
     func addDrugRequest(){
-        let Drug = Drugs(name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!)
+        let Drug = Drugs(name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!, ID: "")
         dataSource?.addDrug(drug: Drug)
         //(Drug)
         

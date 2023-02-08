@@ -10,7 +10,6 @@ import Foundation
 public class PatientList : PatientRepository{
     
     private var patients : [Patient] = []
-    private let patientCount = 3
     
     public init(){
         //for index in 0...patientCount {
@@ -27,6 +26,11 @@ public class PatientList : PatientRepository{
     }
     
     func getPatient(id: String) -> Patient? {
+        for patient in patients {
+            if(patient.ID == id){
+                return patient
+            }
+        }
         return patients.first
     }
     
