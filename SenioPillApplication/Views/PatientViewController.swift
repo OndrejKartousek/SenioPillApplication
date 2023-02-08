@@ -22,6 +22,7 @@ class PatientViewController: UITableViewController {
     
     let x = ""
     let z = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -30,8 +31,6 @@ class PatientViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
         updateData()
         print(PatientViewController.isEmpty)
     }
@@ -106,14 +105,10 @@ class PatientViewController: UITableViewController {
         print(PatientViewController.isEmpty)
     }
     
-    func addClickedProfile(){
-        let vc = PatientProfileViewController(dataSource: dataSource)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+
     public func getPatients(){
-        let db = Firestore.firestore();
-        let ref = db.collection("Patients");
+        let db = Firestore.firestore()
+        let ref = db.collection("Patients")
         
         let dbb = Firestore.firestore()
         dbb.collection("Drugs").getDocuments { (querySnapshot, error) in

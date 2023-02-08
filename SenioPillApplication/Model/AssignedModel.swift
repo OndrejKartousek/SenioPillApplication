@@ -11,7 +11,7 @@ public struct AssignedModel : CustomStringConvertible{
     public var description: String
     
     public var creatorID : String
-    
+    public var ID : String
     public var patientID : String
     public var patientName : String
     public var patientSurname : String
@@ -37,11 +37,11 @@ public struct AssignedModel : CustomStringConvertible{
     public var givenOnSaturday : Bool
     public var givenOnSunday : Bool
     
-    init(creatorID : String, description : String, patientID : String, patientName : String, patientSurname : String, patientRoom : String, patientBed : String, patientInfo : String, Gender : String, addedByUser : String, drugID : String, drugName : String, drugDescription : String, drugPrescriptedDosage : String, givenDrugDosage: String, givenDrugHour: Int, givenDrugMinute: Int, givenOnMonday: Bool, givenOnTuesday: Bool, givenOnWednesday: Bool, givenOnThursday: Bool, givenOnFriday: Bool, givenOnSaturday: Bool, givenOnSunday: Bool) {
+    init(ID : String, creatorID : String, description : String, patientID : String, patientName : String, patientSurname : String, patientRoom : String, patientBed : String, patientInfo : String, Gender : String, addedByUser : String, drugID : String, drugName : String, drugDescription : String, drugPrescriptedDosage : String, givenDrugDosage: String, givenDrugHour: Int, givenDrugMinute: Int, givenOnMonday: Bool, givenOnTuesday: Bool, givenOnWednesday: Bool, givenOnThursday: Bool, givenOnFriday: Bool, givenOnSaturday: Bool, givenOnSunday: Bool) {
          
         self.description = description
         self.creatorID = creatorID
-        
+        self.ID = ID
         self.patientID = patientID
         self.patientName = patientName
         self.patientSurname = patientSurname
