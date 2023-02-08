@@ -27,6 +27,8 @@ class PatientProfileViewController: UIViewController{
     let boldGender = "Gender"
     let boldDesc = "Information"
     
+    var userID = ""
+    
     open var data : Any? {
         didSet{
             if data != nil{
@@ -72,8 +74,8 @@ class PatientProfileViewController: UIViewController{
         guard let dataUnwrapped = data as? Patient else{
             return
         }
-        
-        //print (dataUnwrapped.Gender)
+        userID = dataUnwrapped.ID ??  ""
+        print (dataUnwrapped)
         roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
         bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
         descrptionLabel.text = "Patient's info : \(dataUnwrapped.patientInfo)"
@@ -84,7 +86,7 @@ class PatientProfileViewController: UIViewController{
     }
     
     func prepareTopImage(){
-        let image = UIImage(named: "person.circle")
+        let image = UIImage(systemName: "person.circle")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
@@ -140,9 +142,9 @@ class PatientProfileViewController: UIViewController{
 
     
     @objc func addTapped(){
-        let vc = AddDrugToPacientVC()
-        self.navigationController?.pushViewController(vc, animated: true)
+        //let rootVC = PatientProfileViewController(dataSource: dataSource)
+        let assignADrug = DrugsAssignmentListVC(dataSource: dataSource.getPatient(id: userID) ?? nil)
+        present(assignADrug, animated : true)
     }
-    
-    
+
 }

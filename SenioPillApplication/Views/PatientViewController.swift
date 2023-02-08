@@ -10,16 +10,22 @@ import Foundation
 import UIKit
 import FirebaseFirestore
 import SwiftUI
+import FirebaseAuth
 
 class PatientViewController: UITableViewController {
-        
+    
+    let currentUser = Auth.auth().currentUser?.uid
+
     public var dataSource = PatientList()
     static var isEmpty:Bool = true
     public var noDataLabel = UILabel()
     
+    let x = ""
+    let z = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+        getPatients()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -103,6 +109,47 @@ class PatientViewController: UITableViewController {
     func addClickedProfile(){
         let vc = PatientProfileViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    public func getPatients(){
+        let db = Firestore.firestore();
+        let ref = db.collection("Patients");
+        
+        let dbb = Firestore.firestore()
+        dbb.collection("Drugs").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print(document.documentID)
+                    print(document.data())
+                }
+            }
+        }
+        
+        ref.getDocuments{snapshot, error in
+                         guard error == nil else {
+            print(error!.localizedDescription)
+            return
+        }
+            if let snapshot = snapshot {
+                for document in snapshot.documents{
+                    let data = document.data()
+                    print(document.documentID)
+                    let patientName = data["name"] as? String ?? ""
+                    let patientSurname = data["surname"] as? String ?? ""
+                    let room = data["room"] as? String ?? ""
+                    let bed = data["bed"] as? String ?? ""
+                    let gender = data["gender"] as? String ?? ""
+                    let patientInfo = data["patient_info"] as? String ?? ""
+                    let addedByUser = data["added_by_user"] as? String ?? ""
+                    if(addedByUser == self.currentUser!){
+                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, assignedDrugs: [self.x,self.z], ID: document.documentID)
+                        self.dataSource.addPatient(patient: PatientNew)
+                    }
+                }
+            }
+        }
     }
     
     

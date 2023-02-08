@@ -6,10 +6,12 @@
 //
 
 import UIKit
-
+import SnapKit
 class UserProfileViewController: UIViewController {
 
+    var bottomConstraint : Constraint!
     private let logoutButton = CustomButton(title: "Logout",hasBackground: true, fontSize: .big)
+    
     private let usernameLabel : UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -35,7 +37,9 @@ class UserProfileViewController: UIViewController {
         super.viewDidLoad()
         prepareView()
         prepareTopImage()
-        setupUI()
+        prepareUsernameLabel()
+        prepareEmailLabel()
+        prepareLogoutButton()
         self.logoutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
         
         AuthService.shared.fetchUser{[weak self] user, error in
@@ -57,7 +61,7 @@ class UserProfileViewController: UIViewController {
         self.title = "User Profile"
     }
     func prepareTopImage(){
-        let image = UIImage(named: "person.crop.square")
+        let image = UIImage(systemName: "person.circle")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
@@ -69,28 +73,42 @@ class UserProfileViewController: UIViewController {
         }
     }
     
-    private func setupUI(){
-        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(didTapLogout))
-        self.view.addSubview(logoutButton)
-        logoutButton.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(usernameLabel)
+    func prepareUsernameLabel(){
+        view.addSubview(usernameLabel)
+        usernameLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(emailLabel)
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate([
-            usernameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            usernameLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            emailLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            emailLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 50),
-            self.logoutButton.topAnchor.constraint(equalTo: self.view.layoutMarginsGuide.topAnchor, constant: 500),
-            self.logoutButton.centerXAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 200),
-            self.logoutButton.heightAnchor.constraint(equalToConstant: 44),
-            self.logoutButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            
-            ])
+        usernameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(250)
+            make.centerX.equalToSuperview()
+        }
     }
     
+    func prepareEmailLabel(){
+        self.view.addSubview(emailLabel)
+        emailLabel.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalTo(usernameLabel).offset(50)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    func prepareLogoutButton(){
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.setTitle("Logout", for: .normal)
+        logoutButton.setTitleColor(.white, for: .normal)
+        logoutButton.backgroundColor = blueColor
+        logoutButton.layer.cornerRadius = 30
+        logoutButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor
+        logoutButton.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        view.addSubview(logoutButton)
+        logoutButton.snp.makeConstraints {make in
+            make.leading.trailing.equalToSuperview().inset(60)
+            self.bottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint.update(offset: -30)
+            make.bottom.equalToSuperview().offset(50)
+            make.height.equalTo(60)
+        }
+    }
     
     @objc private func didTapLogout(){
         AuthService.shared.signOut{[weak self] error in

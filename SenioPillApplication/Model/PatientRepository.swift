@@ -9,6 +9,6 @@ import Foundation
 
 protocol PatientRepository {
     func getPatients() -> [Patient]
-    func getPatient(id : Int) -> Patient?
+    func getPatient(id : String) -> Patient?
     func addPatient(patient : Patient) -> Patient?
 }

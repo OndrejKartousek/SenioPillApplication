@@ -48,7 +48,6 @@ class DrugsInfoViewController: UIViewController{
     
     open func prepareView(){
         view.backgroundColor = .white
-        //self.title = "Detail pacienta"
         prepareTopImage()
         prepareInfoLabel()
         prepareDosageLabel()
@@ -66,7 +65,7 @@ class DrugsInfoViewController: UIViewController{
     }
     
     func prepareTopImage(){
-        let image = UIImage(named: "drugs")
+        let image = UIImage(systemName: "pill.circle")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
