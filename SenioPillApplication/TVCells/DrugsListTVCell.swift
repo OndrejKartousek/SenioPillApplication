@@ -17,6 +17,7 @@ public class DrugListTVCell : UITableViewCell{
     var titleLabel = UILabel()
     var dosageLabel = UILabel()
     var infoLabel = UILabel()
+    var image = UIImage()
     
     
     open var data : Any? {
@@ -36,6 +37,7 @@ public class DrugListTVCell : UITableViewCell{
     }
     
     open func prepareView(){
+        prepareImage()
         prepareTitleLabel()
         prepareDosageLabel()
         prepareInfoLabel()
@@ -49,8 +51,48 @@ public class DrugListTVCell : UITableViewCell{
         titleLabel.text = "\(dataUnwrapped.name)"
         dosageLabel.text = "Dosage \(dataUnwrapped.PrescriptedDosage)"
         infoLabel.text = "Information : \(dataUnwrapped.description)"
-        //print(dataUnwrapped.name)
-        //print(dataUnwrapped.description)
+    }
+    
+    func prepareImage(){
+        var n = Int.random(in: 1...3)
+        if n == 1{
+            let image = UIImage(named: "drugs")
+            let imageView = UIImageView(image: image)
+            imageView.tintColor = .black
+            imageView.contentMode = .scaleAspectFit
+            contentView.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(8)
+                make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(10)
+                make.height.equalTo(75)
+                make.width.equalTo(75)
+            }
+        }else if n == 2{
+            let image = UIImage(named: "drugs2")
+            let imageView = UIImageView(image: image)
+            imageView.tintColor = .black
+            imageView.contentMode = .scaleAspectFit
+            contentView.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(8)
+                make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(10)
+                make.height.equalTo(75)
+                make.width.equalTo(75)
+            }
+        }else{
+            let image = UIImage(named: "drugs3")
+            let imageView = UIImageView(image: image)
+            imageView.tintColor = .black
+            imageView.contentMode = .scaleAspectFit
+            contentView.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(8)
+                make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(10)
+                make.height.equalTo(75)
+                make.width.equalTo(75)
+            }
+        }
+        
     }
     
     open func prepareTitleLabel(){
@@ -58,7 +100,7 @@ public class DrugListTVCell : UITableViewCell{
         titleLabel.textColor = blueColor
         contentView.addSubview(titleLabel)
         titleLabel.snp.remakeConstraints{ (make) in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(90)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(-50)
             
@@ -69,7 +111,7 @@ public class DrugListTVCell : UITableViewCell{
         contentView.addSubview(dosageLabel)
         dosageLabel.font = UIFont.boldSystemFont(ofSize: 16)
         dosageLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(90)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(10)
             
@@ -80,7 +122,7 @@ public class DrugListTVCell : UITableViewCell{
         infoLabel.font = UIFont.boldSystemFont(ofSize: 16)
         contentView.addSubview(infoLabel)
         infoLabel.snp.makeConstraints{ (make) in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(90)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(50)
             

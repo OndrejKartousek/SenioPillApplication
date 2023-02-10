@@ -9,7 +9,6 @@ import SnapKit
 import Foundation
 import UIKit
 import FirebaseFirestore
-import SwiftUI
 import FirebaseAuth
 
 class PatientViewController: UITableViewController {
@@ -23,23 +22,42 @@ class PatientViewController: UITableViewController {
     let x = ""
     let z = ""
     
+    
+    open var data : Any? {
+        didSet{
+            if data != nil{
+            }
+            
+        }
+    }
+    init(){
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         getPatients()
+        updateData()
     }
+    
+    func updateData(){
+        print("Karotusek žebrák")
+        tableView.reloadData()
+        noDataLabel.isHidden = !dataSource.getPatients().isEmpty
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateData()
-        print(PatientViewController.isEmpty)
     }
     
-    func updateData(){
-        tableView.reloadData()
-        noDataLabel.isHidden = !dataSource.getPatients().isEmpty
-        }
-    
+ 
     
     open func prepareView(){
         view.backgroundColor = .white
@@ -47,6 +65,9 @@ class PatientViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNoPatientsLabel()
+        guard let dataUnwrapped = data as? Patient else{
+            return
+        }
     }
     
     func prepareTableView() {
@@ -54,7 +75,7 @@ class PatientViewController: UITableViewController {
         tableView.rowHeight = 120
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = blueColor
-        print("xy")
+        print("update ty kokot")
     }
     
     func prepareNoPatientsLabel(){
@@ -67,10 +88,12 @@ class PatientViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
+        print(dataSource.getPatients().count)
         return dataSource.getPatients().count
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        print("update ty kokot3")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PatientListTVCell.description(), for: indexPath) as? PatientListTVCell else {
             return UITableViewCell()
         }
@@ -80,49 +103,33 @@ class PatientViewController: UITableViewController {
     
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("update ty kokot4")
         let vc = PatientProfileViewController(dataSource: dataSource)
         vc.data = dataSource.getPatients()[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            return true
-        }
-        
-    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            dataSource.deletePatient(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            noDataLabel.isHidden = !dataSource.getPatients().isEmpty
-        }
+        print("update ty kokot5")
+        return true
     }
     
     @objc func addTapped() {
+        print("update ty kokot7")
         let vc = AddPatientViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.reloadData()
         PatientViewController.isEmpty = false
-        print(PatientViewController.isEmpty)
+    
     }
     
 
     public func getPatients(){
+        print("update ty kokot8")
         let db = Firestore.firestore()
-        let ref = db.collection("Patients")
+        let refPatients = db.collection("Patients")
         
-        let dbb = Firestore.firestore()
-        dbb.collection("Drugs").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print(document.documentID)
-                    print(document.data())
-                }
-            }
-        }
-        
-        ref.getDocuments{snapshot, error in
+        refPatients.getDocuments{snapshot, error in
                          guard error == nil else {
             print(error!.localizedDescription)
             return
@@ -130,7 +137,6 @@ class PatientViewController: UITableViewController {
             if let snapshot = snapshot {
                 for document in snapshot.documents{
                     let data = document.data()
-                    print(document.documentID)
                     let patientName = data["name"] as? String ?? ""
                     let patientSurname = data["surname"] as? String ?? ""
                     let room = data["room"] as? String ?? ""
@@ -139,14 +145,15 @@ class PatientViewController: UITableViewController {
                     let patientInfo = data["patient_info"] as? String ?? ""
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
-                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, assignedDrugs: [self.x,self.z], ID: document.documentID)
+                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, ID: document.documentID)
                         self.dataSource.addPatient(patient: PatientNew)
                     }
                 }
+
             }
+            self.updateData()
         }
     }
-    
     
 }
 

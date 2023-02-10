@@ -18,6 +18,7 @@ class GivingDrugDetailsVC : UIViewController{
 
     public var drugsDataSource : Drugs?
     public var patientDataSource : Patient?
+    public var completeDS = CompleteList.completeModel
     let giveDrugButton = UIButton()
     let dosageInput = BaseTextField()
     var dataSource: PatientList?
@@ -301,7 +302,7 @@ class GivingDrugDetailsVC : UIViewController{
         giveDrugButton.layer.cornerRadius = 30
         giveDrugButton.layer.borderColor = UIColor(red: 237.0 / 255.0, green: 242.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0).cgColor
         giveDrugButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        giveDrugButton.addTarget(self, action: #selector(printAll), for: .primaryActionTriggered)
+        giveDrugButton.addTarget(self, action: #selector(saveData), for: .primaryActionTriggered)
         view.addSubview(giveDrugButton)
         giveDrugButton.snp.makeConstraints {make in
             make.leading.trailing.equalToSuperview().inset(60)
@@ -311,17 +312,12 @@ class GivingDrugDetailsVC : UIViewController{
         }
     }
     
-    @objc func printAll(){
-        print("--------------------printAll-------------------------")
-        print(patientID)
-        print(drugID)
-        print(dosageInput.text!)
+    @objc func saveData(){
+        giveDrugButton.isEnabled = false
         let date = timePicker.date
         let components = Calendar.current.dateComponents([.hour, .minute], from: date)
         let hour = components.hour!
         let minute = components.minute!
-        print(hour)
-        print(minute)
         mondayState = mondaySwitch.isOn
         tuesdayState = tuesdaySwitch.isOn
         wednesdayState = tuesdaySwitch.isOn
@@ -329,24 +325,22 @@ class GivingDrugDetailsVC : UIViewController{
         fridayState = fridaySwitch.isOn
         saturdayState = fridaySwitch.isOn
         sundayState = sundaySwitch.isOn
-        print(mondayState)
-        print(tuesdayState)
-        print(wednesdayState)
-        print(thursdayState)
-        print(fridayState)
-        print(saturdayState)
-        print(sundayState)
         
-        //let completeModel = AssignedModel(creatorID: currentUser!, description: "", patientID: patientID, patientName: patientDataSource!.name, patientSurname: patientDataSource!.surname, patientRoom: patientDataSource!.room, patientBed: patientDataSource!.bed, patientInfo: patientDataSource!.patientInfo, Gender: patientDataSource!.Gender, addedByUser: patientDataSource!.addedByUser, drugID: drugID, drugName: drugsDataSource!.name, drugDescription: drugsDataSource!.description, drugPrescriptedDosage: drugsDataSource!.PrescriptedDosage, givenDrugDosage: dosageInput.text!, givenDrugHour: hour, givenDrugMinute: minute, givenOnMonday: mondayState, givenOnTuesday: tuesdayState, givenOnWednesday: wednesdayState, givenOnThursday: thursdayState, givenOnFriday: fridayState, givenOnSaturday: saturdayState, givenOnSunday: sundayState)
+        
+        let completeModel = AssignedModel(ID: "xy", creatorID: currentUser!, description: "", patientID: patientID, patientName: patientDataSource!.name, patientSurname: patientDataSource!.surname, patientRoom: patientDataSource!.room, patientBed: patientDataSource!.bed, patientInfo: patientDataSource!.patientInfo, Gender: patientDataSource!.Gender, addedByUser: patientDataSource!.addedByUser, drugID: drugID, drugName: drugsDataSource!.name, drugDescription: drugsDataSource!.description, drugPrescriptedDosage: drugsDataSource!.PrescriptedDosage, givenDrugDosage: dosageInput.text!, givenDrugHour: hour, givenDrugMinute: minute, givenOnMonday: mondayState, givenOnTuesday: tuesdayState, givenOnWednesday: wednesdayState, givenOnThursday: thursdayState, givenOnFriday: fridayState, givenOnSaturday: saturdayState, givenOnSunday: sundayState)
+        
+        completeDS.addData(data: completeModel)
                 
         let db = Firestore.firestore()
         
         db.collection("AssignedDrugs").document().setData(["UserID" : currentUser!, "PatientID" : patientID, "DrugID" : drugID, "Patient_Name" : patientDataSource!.name, "Patient_Surname" : patientDataSource?.surname, "Patient_Bed" : patientDataSource?.bed, "Patient_Room" : patientDataSource?.room, "Patient_Info" : patientDataSource?.patientInfo, "Patient_Gender" : patientDataSource?.Gender, "Added_By_User" : patientDataSource?.addedByUser, "Drug_Name" : drugsDataSource?.name, "Drug_Description" : drugsDataSource?.description, "Drug_Prescripted_Dosage" : drugsDataSource?.PrescriptedDosage,"Given_Dosage" : dosageInput.text!, "Given_Hour" : hour, "Given_Minute" : minute, "Monday" : mondayState, "Tuesday" : tuesdayState, "Wednesday" : wednesdayState, "Thursday" : thursdayState, "Friday" : fridayState, "Saturday" : saturdayState, "Sunday" : sundayState ]) { (err) in
-            
+            let vc = DashboardViewController()
+            self.dismiss(animated: true, completion: {self.navigationController?.pushViewController(vc, animated: true); print("kokotek")})
             if err != nil{
                 print((err?.localizedDescription)!)
                 return
             }
         }
+
     }
 }

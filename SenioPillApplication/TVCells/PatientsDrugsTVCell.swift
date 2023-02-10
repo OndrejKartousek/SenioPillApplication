@@ -1,15 +1,14 @@
 //
-//  DashboardListTVCell.swift
+//  PatientsDrugsTVCell.swift
 //  SenioPillApplication
 //
-//  Created by Ondřej Kartousek on 08.02.2023.
+//  Created by Ondřej Kartousek on 10.02.2023.
 //
 
 import Foundation
 import UIKit
 
-public class DashboardListTVCell : UITableViewCell{
-    var patientName = UILabel()
+class PatientsDrugsTVCell : UITableViewCell{
     var drugName = UILabel()
     
     var day = UILabel()
@@ -33,8 +32,8 @@ public class DashboardListTVCell : UITableViewCell{
     }
     
     open func prepareView(){
-        prepareNameLabel()
         prepareDrugNameLabel()
+        prepareTimeLabel()
     }
     
     open func updateView(){
@@ -42,32 +41,23 @@ public class DashboardListTVCell : UITableViewCell{
             return
         }
         
-        patientName.text = "\(dataUnwrapped.patientName)\(dataUnwrapped.patientSurname)"
         drugName.text = "\(dataUnwrapped.drugName)"
         time.text = "\(dataUnwrapped.givenDrugHour) \(":")\(dataUnwrapped.givenDrugMinute)"
         
     }
     
-    func prepareNameLabel(){
-        patientName.font = UIFont.systemFont(ofSize: 25.0, weight: .heavy)
-        patientName.textColor = blueColor
-        contentView.addSubview(patientName)
-        patientName.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(20)
-        }
-    }
-    
     func prepareDrugNameLabel(){
-        drugName.font = UIFont.boldSystemFont(ofSize: 16)
+        drugName.font = UIFont.systemFont(ofSize: 25.0, weight: .heavy)
+        contentView.addSubview(drugName)
         drugName.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
+            make.top.equalToSuperview().offset(10)
         }
     }
     
     func prepareTimeLabel(){
         time.font = UIFont.boldSystemFont(ofSize: 16)
+        contentView.addSubview(time)
         time.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(20)

@@ -44,6 +44,7 @@ class DrugsAssignmentListVC : UITableViewController{
     }
     
     func updateData(){
+        print("Karotusek žebrák")
         tableView.reloadData()
         noDataLabel.isHidden = !DrugsDS.getDrugs().isEmpty
     }
@@ -85,6 +86,7 @@ class DrugsAssignmentListVC : UITableViewController{
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
+        print(DrugsDS.getDrugs().count)
         //print("Table view 70")
         return DrugsDS.getDrugs().count
 

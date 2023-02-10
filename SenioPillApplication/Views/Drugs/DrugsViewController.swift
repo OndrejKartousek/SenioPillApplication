@@ -64,13 +64,11 @@ class DrugsViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
-        //print("Table view 70")
         return dataSource.getDrugs().count
 
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //print("Table view 76")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DrugListTVCell.description(), for: indexPath) as? DrugListTVCell else {
             return UITableViewCell()
         }
@@ -79,15 +77,12 @@ class DrugsViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print("Table view 85")
-        print("šulibrk")
         let vc = DrugsInfoViewController(dataSource: dataSource)
         vc.data = dataSource.getDrugs()[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        //print("Table view 92")
         return true
     }
  
@@ -118,6 +113,7 @@ class DrugsViewController: UITableViewController {
                     }
                 }
             }
+            self.updateData()
         }
     }
 

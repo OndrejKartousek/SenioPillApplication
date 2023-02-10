@@ -11,7 +11,7 @@ import SnapKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class AddPatientViewController: UIViewController {
+class AddPatientViewController: UIViewController, UIScrollViewDelegate {
     
     let currentUser = Auth.auth().currentUser?.uid
 
@@ -26,9 +26,7 @@ class AddPatientViewController: UIViewController {
     var buttonBottomConstraint : Constraint!
     var dataSource: PatientList?
     let blueColor = UIColor(red: 24, green: 146, blue: 250)
-    
-    let x = ""
-    let y = ""
+
     
     init(dataSource: PatientList){
         super.init(nibName: nil, bundle: nil)
@@ -38,6 +36,14 @@ class AddPatientViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    lazy var scrollView: UIScrollView = {
+         let scroll = UIScrollView()
+         scroll.translatesAutoresizingMaskIntoConstraints = false
+         scroll.delegate = self
+         scroll.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
+         return scroll
+     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +73,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Name")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(30)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(nameInput, placeholder: "Patient's name")
@@ -87,7 +93,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Surname")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(nameInput.snp.bottom).offset(10)
+            make.top.equalTo(nameInput.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(surnameInput, placeholder: "Patient's surname")
@@ -115,7 +121,7 @@ class AddPatientViewController: UIViewController {
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 2)
 
         genderTitle.snp.makeConstraints { make in
-            make.top.equalTo(surnameInput.snp.bottom).offset(10)
+            make.top.equalTo(surnameInput.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
         }
         view.addSubview(segmentedControll)
@@ -131,7 +137,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Room")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(segmentedControll.numberOfSegments).offset(410)
+            make.top.equalTo(segmentedControll.numberOfSegments).offset(380)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(roomInput, placeholder: "Room 206")
@@ -150,7 +156,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Bed")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(roomInput.snp.bottom).offset(10)
+            make.top.equalTo(roomInput.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(bedInput, placeholder: "Bed 3")
@@ -169,7 +175,7 @@ class AddPatientViewController: UIViewController {
         let inputTitle = getInputTitle(text : "Information")
         view.addSubview(inputTitle)
         inputTitle.snp.makeConstraints{ make in
-            make.top.equalTo(bedInput.snp.bottom).offset(10)
+            make.top.equalTo(bedInput.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(patientInfo, placeholder: "Additional information")
@@ -199,7 +205,7 @@ class AddPatientViewController: UIViewController {
         addPatientButton.snp.makeConstraints {make in
             make.leading.trailing.equalToSuperview().inset(60)
             self.buttonBottomConstraint = make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).constraint.update(offset: -30)
-            make.bottom.equalToSuperview().offset(50)
+            make.bottom.equalToSuperview().offset(0)
             make.height.equalTo(60)
         }
         addPatientButton.isEnabled = false
@@ -239,17 +245,17 @@ class AddPatientViewController: UIViewController {
    
     
     func addPatientRequest(){
-        let Patient = Patient(/*id: 1,*/ name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, assignedDrugs: [x,y], ID: "")
+        let Patient = Patient(/*id: 1,*/ name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: "")
         dataSource?.addPatient(patient: Patient)
         
-        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser, assignedDrugs: [x,y])
+        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
-    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String, assignedDrugs : [String]){
+    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
         let db = Firestore.firestore()
         
-        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser, "assigned_drugs" : assignedDrugs]) { (err) in
+        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)

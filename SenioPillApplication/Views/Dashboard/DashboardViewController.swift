@@ -16,7 +16,7 @@ class DashboardViewController : UITableViewController{
     
     let currentUser = Auth.auth().currentUser?.uid
     
-    public var completeDataSource = CompleteList()
+    public var completeDataSource = CompleteList.completeModel
     public static var isEmpty:Bool = true
     
     public var noDataLabel = UILabel()
@@ -113,21 +113,27 @@ class DashboardViewController : UITableViewController{
             if let snapshot = snapshot{
                 for document in snapshot.documents{
                     let data = document.data()
-                    //print(document.documentID)
                     let patientName = data["Patient_Name"] as? String ?? ""
                     let patientSurname = data["Patient_Surname"] as? String ?? ""
                     let name = patientName + " " + patientSurname
                     let addedByUser = data["Added_By_User"] as? String ?? ""
                     let patientID = data["PatientID"] as? String ?? ""
+                    let drugID = data["DataID"] as? String ?? ""
+                    let drugName = data["Drug_Name"] as? String ?? ""
+                    
                     print(name + "jhwjdckhwdehj")
                     
                     if(addedByUser == self.currentUser!){
-                        let newObj = AssignedModel(ID: document.documentID, creatorID: self.currentUser!, description: "", patientID: patientID, patientName: name, patientSurname: "", patientRoom: "", patientBed: "", patientInfo: "", Gender: "", addedByUser: addedByUser, drugID: "", drugName: "", drugDescription: "", drugPrescriptedDosage: "", givenDrugDosage: "", givenDrugHour: 1, givenDrugMinute: 1, givenOnMonday: true, givenOnTuesday: true, givenOnWednesday: true, givenOnThursday: true, givenOnFriday: true, givenOnSaturday: true, givenOnSunday: true)
-                        //self.completeDataSource.addData(data: newObj)
+                        let givenHour = data["Given_Hour"] as? Int ?? 1
+                        let givenMinute = data["Given_Minute"] as? Int ?? 1
+                        let newObj = AssignedModel(ID: document.documentID, creatorID: self.currentUser!, description: "", patientID: patientID, patientName: name, patientSurname: "", patientRoom: "", patientBed: "", patientInfo: "", Gender: "", addedByUser: addedByUser, drugID: drugID, drugName: drugName, drugDescription: "", drugPrescriptedDosage: "", givenDrugDosage: "", givenDrugHour: givenHour ?? 12, givenDrugMinute: givenMinute ?? 10, givenOnMonday: true, givenOnTuesday: true, givenOnWednesday: true, givenOnThursday: true, givenOnFriday: true, givenOnSaturday: true, givenOnSunday: true)
+                        self.completeDataSource.addData(data: newObj)
+                       
                     }
                     
                 }
             }
+            self.updateData()
         }
     }
 

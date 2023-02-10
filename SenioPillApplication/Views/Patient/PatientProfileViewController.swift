@@ -7,11 +7,15 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
+import SnapKit
 
-class PatientProfileViewController: UIViewController{
+class PatientProfileViewController: UITableViewController{
     
     public var titleLabelView = LabelValueView(title: "Name")
     public var dataSource = PatientList()
+    let currentUser = Auth.auth().currentUser?.uid
 
     //public var data : Patient?
     
@@ -19,9 +23,8 @@ class PatientProfileViewController: UIViewController{
     var bedLabel = UILabel()
     var descrptionLabel = UILabel()
     var genderLabel = UILabel()
-    var image = UIImage(systemName: "person.circle")
-    
-    
+    let comleteListDS = CompleteList.completeModel
+    var assigments : [AssignedModel] = []
     let boldRoom = "Patient's room"
     let boldBed = "Patient's bed"
     let boldGender = "Gender"
@@ -34,7 +37,6 @@ class PatientProfileViewController: UIViewController{
             if data != nil{
                 updateView()
             }
-            
         }
     }
 
@@ -49,7 +51,7 @@ class PatientProfileViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prepareView()        
+        prepareView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -59,42 +61,60 @@ class PatientProfileViewController: UIViewController{
     open func prepareView(){
         view.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-
-        //self.title = "Detail pacienta"
-        prepareTopImage()
         prepareGenderLabel()
         prepareRoomLabel()
         prepareBedLabel()
         prepareDescLabel()
-        
-        //print(genderLabel.text)
-    }
+        }
     
     open func updateView(){
         guard let dataUnwrapped = data as? Patient else{
             return
         }
-        userID = dataUnwrapped.ID ??  ""
-        print (dataUnwrapped)
+        userID = dataUnwrapped.ID ??  ""  
+        assigments = comleteListDS.getUserAssignments(patientId: userID)
         roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
         bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
         descrptionLabel.text = "Patient's info : \(dataUnwrapped.patientInfo)"
         genderLabel.text = "Gender : \(dataUnwrapped.Gender)"
         self.title = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        //titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        //infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
+        prepareTopImage(gender: dataUnwrapped.Gender)
     }
     
-    func prepareTopImage(){
-        let image = UIImage(systemName: "person.circle")
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(200)
-            make.width.equalTo(200)
+    func prepareTopImage(gender : String){
+        if gender == "Man"{
+            let image = UIImage(named: "man")
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
+        }else if gender == "Woman"{
+            let image = UIImage(named: "woman")
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
+        }else{
+            let image = UIImage(named: "helicopter")
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
         }
     }
     
@@ -139,12 +159,9 @@ class PatientProfileViewController: UIViewController{
             make.centerX.equalToSuperview()
         }
     }
-
     
     @objc func addTapped(){
-        //let rootVC = PatientProfileViewController(dataSource: dataSource)
         let assignADrug = DrugsAssignmentListVC(dataSource: dataSource.getPatient(id: userID) ?? nil)
-        present(assignADrug, animated : true)
+        self.navigationController?.pushViewController(assignADrug, animated: true)
     }
-
 }

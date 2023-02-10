@@ -60,21 +60,46 @@ class DrugsInfoViewController: UIViewController{
         dosageLabel.text = "Recommended dosage : \(dataUnwrapped.PrescriptedDosage)"
         InfoLabel.text = "Drug info : \(dataUnwrapped.description)"
         self.title = "\(dataUnwrapped.name)"
-        //titleLabel.text = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        //infoLabel.text = "Pokoj : \(dataUnwrapped.room) Lůžko : \(dataUnwrapped.bed) Poznámka : \(dataUnwrapped.patientInfo)"
     }
     
     func prepareTopImage(){
-        let image = UIImage(systemName: "pill.circle")
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(200)
-            make.width.equalTo(200)
+        var n = Int.random(in: 1...3)
+        print(n)
+        if n == 1{
+            let image = UIImage(named: "drugs")
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
+        } else if n == 2{
+            let image = UIImage(named: "drugs2")
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
+        }else{
+            let image = UIImage(named: "drugs3")
+            let imageView = UIImageView(image: image)
+            imageView.contentMode = .scaleAspectFit
+            view.addSubview(imageView)
+            imageView.snp.makeConstraints{ make in
+                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+                make.centerX.equalToSuperview()
+                make.height.equalTo(200)
+                make.width.equalTo(200)
+            }
         }
+        
     }
 
     func prepareDosageLabel(){

@@ -9,12 +9,14 @@ import Foundation
 
 public class CompleteList : CompletePatientRepository{
     
+    static let completeModel = CompleteList()
     private var assignedModelData : [AssignedModel] = []
     
-    public init(){
+    private init(){
         
     }
-    init(arrayOfCompleteObjc : [AssignedModel]){
+    
+    func initiliazer(arrayOfCompleteObjc : [AssignedModel]){
         self.assignedModelData = arrayOfCompleteObjc
     }
 
@@ -25,6 +27,10 @@ public class CompleteList : CompletePatientRepository{
         self.assignedModelData.append(data)
         return data
     }
+    
+    init (dataArray : [AssignedModel]){
+        self.assignedModelData = dataArray
+    }
     func getConcreteData(id: String) -> AssignedModel? {
         for assignedModelDataX in assignedModelData {
             if(assignedModelDataX.ID == id){
@@ -32,5 +38,19 @@ public class CompleteList : CompletePatientRepository{
             }
         }
         return assignedModelData.first
+    }
+    
+    func getUserAssignments(patientId: String) -> [AssignedModel] {
+        var data: [AssignedModel] = []
+        for assignedModelDataX in assignedModelData {
+            if(assignedModelDataX.patientID == patientId){
+                data.append(assignedModelDataX)
+            }
+        }
+        return data
+    }
+    
+    public func setDataList(data : AssignedModel){
+        assignedModelData.append(data)
     }
 }

@@ -10,4 +10,5 @@ import Foundation
 protocol CompletePatientRepository{
     func getAllData() -> [AssignedModel]
     func getConcreteData(id: String) -> AssignedModel?
+    func addData(data : AssignedModel) -> AssignedModel?
 }
