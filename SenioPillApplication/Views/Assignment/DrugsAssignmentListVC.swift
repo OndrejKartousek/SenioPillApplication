@@ -1,22 +1,40 @@
 //
-//  DrugsControllerViewController.swift
+//  DrugsAssignmentListVC.swift
 //  SenioPillApplication
 //
-//  Created by Ondřej Kartousek on 15.06.2022.
+//  Created by Ondřej Kartousek on 07.02.2023.
 //
 
-import UIKit
-import SnapKit
 import Foundation
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
+import SnapKit
+import UIKit
 
-class DrugsViewController: UITableViewController {
-    
+class DrugsAssignmentListVC : UITableViewController{
     let currentUser = Auth.auth().currentUser?.uid
     
     public var noDataLabel = UILabel()
-    public var dataSource = DrugsList()
+    public var DrugsDS = DrugsList()
+    public var PatientDS: Patient? = nil
+    
+    var userID = ""
+    
+    open var data : Any? {
+        didSet{
+            if data != nil{
+            }
+            
+        }
+    }
+    init(dataSource :Patient?){
+        super.init(nibName: nil, bundle: nil)
+        self.PatientDS = dataSource
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +45,7 @@ class DrugsViewController: UITableViewController {
     
     func updateData(){
         tableView.reloadData()
-        noDataLabel.isHidden = !dataSource.getDrugs().isEmpty
+        noDataLabel.isHidden = !DrugsDS.getDrugs().isEmpty
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,9 +56,12 @@ class DrugsViewController: UITableViewController {
     open func prepareView(){
         view.backgroundColor = .white
         self.title = "Drugs"
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        //navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNodataText()
+        guard let dataUnwrapped = data as? Patient else{
+            return
+        }
     }
     
     func prepareTableView() {
@@ -64,37 +85,25 @@ class DrugsViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
-        //print("Table view 70")
-        return dataSource.getDrugs().count
+        return DrugsDS.getDrugs().count
 
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //print("Table view 76")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DrugListTVCell.description(), for: indexPath) as? DrugListTVCell else {
             return UITableViewCell()
         }
-        cell.data = dataSource.getDrugs()[indexPath.row]
+        cell.data = DrugsDS.getDrugs()[indexPath.row]
         return cell
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //print("Table view 85")
-        print("šulibrk")
-        let vc = DrugsInfoViewController(dataSource: dataSource)
-        vc.data = dataSource.getDrugs()[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = GivingDrugDetailsVC(dataSource: PatientDS, drugDetails: DrugsDS.getDrugs()[indexPath.row])
+        present(vc, animated : true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        //print("Table view 92")
         return true
-    }
- 
-    @objc func addTapped() {
-        let vc = AddDrugViewController(dataSource: dataSource)
-        self.navigationController?.pushViewController(vc, animated: true)
-        prepareTableView()
     }
     
     public func getDrugs(){
@@ -108,19 +117,18 @@ class DrugsViewController: UITableViewController {
             if let snapshot = snapshot {
                 for document in snapshot.documents{
                     let data = document.data()
+                    
                     let drugName = data["name"] as? String ?? ""
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     let drugDescription = data["description"] as? String ?? ""
                     let drugDosage = data["prescriptedDosage"] as? String ?? ""
+                    let randomInt = data["randomInt"] as? Int ?? 1
                     if(addedByUser == self.currentUser!){
-                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID)
-                        self.dataSource.addDrug(drug: DrugNew)
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID, randomInt: randomInt)
+                        self.DrugsDS.addDrug(drug: DrugNew)
                     }
                 }
             }
         }
     }
-
-    
-
 }

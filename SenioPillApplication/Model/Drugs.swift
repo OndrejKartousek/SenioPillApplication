@@ -13,12 +13,14 @@ public struct Drugs : Codable{
     public var PrescriptedDosage : String
     public var addedByUser : String
     public var ID : String
+    public var randomInt : Int
     
-    init(name : String, description : String, PrescriptedDosage : String, addedByUser : String, ID : String){
+    init(name : String, description : String, PrescriptedDosage : String, addedByUser : String, ID : String, randomInt : Int){
         self.name = name
         self.description = description
         self.PrescriptedDosage = PrescriptedDosage
         self.addedByUser = addedByUser
         self.ID = ID
+        self.randomInt = randomInt
     }
 }

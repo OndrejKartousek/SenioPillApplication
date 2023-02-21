@@ -8,7 +8,6 @@
 import Foundation
 
 public struct Patient : Codable {
-    //public var id : Int
     public var name : String
     public var surname : String
     public var room : String
@@ -16,11 +15,9 @@ public struct Patient : Codable {
     public var patientInfo : String
     public var Gender : String
     public var addedByUser : String
-    public var assignedDrugs : [String]
     public var ID : String?
     
-    init(/*id : Int,*/ name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String, assignedDrugs : [String], ID : String?){
-        //self.id = 1
+    init(name : String, surname : String, room : String, bed : String, patientInfo : String, Gender : String, addedByUser : String, ID : String?){
         self.name = name
         self.surname = surname
         self.room = room
@@ -28,8 +25,8 @@ public struct Patient : Codable {
         self.patientInfo = patientInfo
         self.Gender = Gender
         self.addedByUser = addedByUser
-        self.assignedDrugs = assignedDrugs
         self.ID = ID
     }
+
 }
 

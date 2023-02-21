@@ -10,6 +10,9 @@ import SnapKit
 class UserProfileViewController: UIViewController {
 
     var bottomConstraint : Constraint!
+    
+    public var dataSource = CompleteList.completeModel
+
     private let logoutButton = CustomButton(title: "Logout",hasBackground: true, fontSize: .big)
     
     private let usernameLabel : UILabel = {
@@ -61,15 +64,15 @@ class UserProfileViewController: UIViewController {
         self.title = "User Profile"
     }
     func prepareTopImage(){
-        let image = UIImage(systemName: "person.circle")
+        let image = UIImage(named: "doctor")
         let imageView = UIImageView(image: image)
         imageView.contentMode = .scaleAspectFit
         view.addSubview(imageView)
         imageView.snp.makeConstraints{ make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(30)
             make.centerX.equalToSuperview()
-            make.height.equalTo(200)
-            make.width.equalTo(200)
+            make.height.equalTo(250)
+            make.width.equalTo(250)
         }
     }
     
@@ -78,7 +81,7 @@ class UserProfileViewController: UIViewController {
         usernameLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         usernameLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(250)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(350)
             make.centerX.equalToSuperview()
         }
     }
@@ -111,13 +114,14 @@ class UserProfileViewController: UIViewController {
     }
     
     @objc private func didTapLogout(){
+        
         AuthService.shared.signOut{[weak self] error in
             guard let self = self else{return}
             if let error = error{
                 AlertManager.showLogoutError(on: self, with: error)
                 return
             }
-            
+            self.dataSource.setEmptyDataList()
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate{
                 sceneDelegate.checkAuthentication()
             }

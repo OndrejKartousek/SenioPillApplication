@@ -10,7 +10,6 @@
 		111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */; };
 		111E66EC285C9738004EF32D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66EB285C9738004EF32D /* TabBarController.swift */; };
 		111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66ED285C9840004EF32D /* DashboardViewController.swift */; };
-		1155479328658FAB0019E840 /* AddDrugToPacientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155479228658FAB0019E840 /* AddDrugToPacientVC.swift */; };
 		11554795286593D30019E840 /* AddDrugToPatientTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11554794286593D30019E840 /* AddDrugToPatientTVCell.swift */; };
 		115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D1BD02859B7B900D5741D /* AppDelegate.swift */; };
 		115D1BD32859B7B900D5741D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D1BD22859B7B900D5741D /* SceneDelegate.swift */; };
@@ -34,6 +33,7 @@
 		115DCC1F294FA8B500455727 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC1E294FA8B500455727 /* Validator.swift */; };
 		115DCC21294FCD3A00455727 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC20294FCD3A00455727 /* User.swift */; };
 		115DCC232950B7D900455727 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DCC222950B7D900455727 /* UserProfileViewController.swift */; };
+		1169A8F4299BE972006A010C /* PateintTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1169A8F3299BE972006A010C /* PateintTVCell.swift */; };
 		116EE5C82860512B0074576C /* AddDrugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5C72860512B0074576C /* AddDrugViewController.swift */; };
 		116EE5CA2860526F0074576C /* AddPatientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5C92860526F0074576C /* AddPatientViewController.swift */; };
 		116EE5CD2860533F0074576C /* Patient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116EE5CC2860533F0074576C /* Patient.swift */; };
@@ -47,6 +47,12 @@
 		119FB0AB298AF12200FF2D2E /* GivingDrugDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119FB0AA298AF12200FF2D2E /* GivingDrugDetailsVC.swift */; };
 		11CCEB6B299247ED00CAD7A7 /* DrugsAssignmentListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB6A299247ED00CAD7A7 /* DrugsAssignmentListVC.swift */; };
 		11CCEB6D2993C80B00CAD7A7 /* AssignedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB6C2993C80B00CAD7A7 /* AssignedModel.swift */; };
+		11CCEB6F2993F82200CAD7A7 /* DashboardListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB6E2993F82200CAD7A7 /* DashboardListTVCell.swift */; };
+		11CCEB712993FC8E00CAD7A7 /* CompleteAssignmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB702993FC8E00CAD7A7 /* CompleteAssignmentRepository.swift */; };
+		11CCEB732993FD0C00CAD7A7 /* CompleteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB722993FD0C00CAD7A7 /* CompleteList.swift */; };
+		11CCEB7B29955E1300CAD7A7 /* empathy.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CCEB7929955E1200CAD7A7 /* empathy.png */; };
+		11CCEB7C29955E1300CAD7A7 /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 11CCEB7A29955E1300CAD7A7 /* man.png */; };
+		11CCEB7E2996384600CAD7A7 /* PatientsDrugsTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CCEB7D2996384600CAD7A7 /* PatientsDrugsTVCell.swift */; };
 		11E85D9E28619C63006C742E /* DrugsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85D9D28619C63006C742E /* DrugsList.swift */; };
 		11E85DA12861A353006C742E /* PatientListTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA02861A353006C742E /* PatientListTVCell.swift */; };
 		11E85DA32861AFFF006C742E /* PatientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E85DA22861AFFF006C742E /* PatientRepository.swift */; };
@@ -60,7 +66,6 @@
 		111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		111E66EB285C9738004EF32D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		111E66ED285C9840004EF32D /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		1155479228658FAB0019E840 /* AddDrugToPacientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrugToPacientVC.swift; sourceTree = "<group>"; };
 		11554794286593D30019E840 /* AddDrugToPatientTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrugToPatientTVCell.swift; sourceTree = "<group>"; };
 		115D1BCD2859B7B900D5741D /* SenioPillApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SenioPillApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		115D1BD02859B7B900D5741D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 		115DCC1E294FA8B500455727 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		115DCC20294FCD3A00455727 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		115DCC222950B7D900455727 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		1169A8F3299BE972006A010C /* PateintTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PateintTVCell.swift; sourceTree = "<group>"; };
 		116EE5C72860512B0074576C /* AddDrugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDrugViewController.swift; sourceTree = "<group>"; };
 		116EE5C92860526F0074576C /* AddPatientViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientViewController.swift; sourceTree = "<group>"; };
 		116EE5CC2860533F0074576C /* Patient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Patient.swift; sourceTree = "<group>"; };
@@ -99,6 +105,12 @@
 		119FB0AA298AF12200FF2D2E /* GivingDrugDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivingDrugDetailsVC.swift; sourceTree = "<group>"; };
 		11CCEB6A299247ED00CAD7A7 /* DrugsAssignmentListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsAssignmentListVC.swift; sourceTree = "<group>"; };
 		11CCEB6C2993C80B00CAD7A7 /* AssignedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssignedModel.swift; sourceTree = "<group>"; };
+		11CCEB6E2993F82200CAD7A7 /* DashboardListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardListTVCell.swift; sourceTree = "<group>"; };
+		11CCEB702993FC8E00CAD7A7 /* CompleteAssignmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteAssignmentRepository.swift; sourceTree = "<group>"; };
+		11CCEB722993FD0C00CAD7A7 /* CompleteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteList.swift; sourceTree = "<group>"; };
+		11CCEB7929955E1200CAD7A7 /* empathy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = empathy.png; sourceTree = "<group>"; };
+		11CCEB7A29955E1300CAD7A7 /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
+		11CCEB7D2996384600CAD7A7 /* PatientsDrugsTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientsDrugsTVCell.swift; sourceTree = "<group>"; };
 		11E85D9D28619C63006C742E /* DrugsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrugsList.swift; sourceTree = "<group>"; };
 		11E85DA02861A353006C742E /* PatientListTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListTVCell.swift; sourceTree = "<group>"; };
 		11E85DA22861AFFF006C742E /* PatientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientRepository.swift; sourceTree = "<group>"; };
@@ -144,10 +156,10 @@
 		115D1BCF2859B7B900D5741D /* SenioPillApplication */ = {
 			isa = PBXGroup;
 			children = (
+				11CCEB782995559400CAD7A7 /* TVCells */,
 				115DCC18294F999500455727 /* AuthService.swift */,
 				115DCC14294F28B900455727 /* AlertManager.swift */,
 				115DCC01294E68DF00455727 /* RegLog */,
-				11E85D9F2861A341006C742E /* Users */,
 				116EE5D228605A050074576C /* Core */,
 				116EE5CB286053240074576C /* Model */,
 				11EEA1AC285A00AC00F81B22 /* Views */,
@@ -155,6 +167,8 @@
 				115D1BD22859B7B900D5741D /* SceneDelegate.swift */,
 				115D1BD62859B7B900D5741D /* Main.storyboard */,
 				115D1BD92859B7B900D5741D /* Assets.xcassets */,
+				11CCEB7929955E1200CAD7A7 /* empathy.png */,
+				11CCEB7A29955E1300CAD7A7 /* man.png */,
 				115D1BDB2859B7B900D5741D /* LaunchScreen.storyboard */,
 				115D1BDE2859B7B900D5741D /* Info.plist */,
 				115DCC11294E868300455727 /* WebViewerController.swift */,
@@ -199,6 +213,8 @@
 				115DCC1A294F9A9600455727 /* RegisterUserRequest.swift */,
 				115DCC1C294FA0C900455727 /* LoginUserRequest.swift */,
 				115DCC20294FCD3A00455727 /* User.swift */,
+				11CCEB702993FC8E00CAD7A7 /* CompleteAssignmentRepository.swift */,
+				11CCEB722993FD0C00CAD7A7 /* CompleteList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -211,33 +227,67 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
-		11E85D9F2861A341006C742E /* Users */ = {
+		11CCEB74299554CC00CAD7A7 /* Patient */ = {
+			isa = PBXGroup;
+			children = (
+				1187497128643C13001CA200 /* PatientProfileViewController.swift */,
+				116EE5C92860526F0074576C /* AddPatientViewController.swift */,
+				115D1BD42859B7B900D5741D /* PatientViewController.swift */,
+			);
+			path = Patient;
+			sourceTree = "<group>";
+		};
+		11CCEB75299554E400CAD7A7 /* Drugs */ = {
+			isa = PBXGroup;
+			children = (
+				116EE5C72860512B0074576C /* AddDrugViewController.swift */,
+				11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */,
+				11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */,
+			);
+			path = Drugs;
+			sourceTree = "<group>";
+		};
+		11CCEB76299554F800CAD7A7 /* Assignment */ = {
+			isa = PBXGroup;
+			children = (
+				11CCEB6A299247ED00CAD7A7 /* DrugsAssignmentListVC.swift */,
+				119FB0AA298AF12200FF2D2E /* GivingDrugDetailsVC.swift */,
+			);
+			path = Assignment;
+			sourceTree = "<group>";
+		};
+		11CCEB772995551F00CAD7A7 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				111E66ED285C9840004EF32D /* DashboardViewController.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		11CCEB782995559400CAD7A7 /* TVCells */ = {
 			isa = PBXGroup;
 			children = (
 				11E85DA02861A353006C742E /* PatientListTVCell.swift */,
 				11E85DA42861E74D006C742E /* DrugsListTVCell.swift */,
 				11554794286593D30019E840 /* AddDrugToPatientTVCell.swift */,
+				11CCEB6E2993F82200CAD7A7 /* DashboardListTVCell.swift */,
+				11CCEB7D2996384600CAD7A7 /* PatientsDrugsTVCell.swift */,
+				1169A8F3299BE972006A010C /* PateintTVCell.swift */,
 			);
-			path = Users;
+			path = TVCells;
 			sourceTree = "<group>";
 		};
 		11EEA1AC285A00AC00F81B22 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				115D1BD42859B7B900D5741D /* PatientViewController.swift */,
-				11EEA1AA2859FCBD00F81B22 /* DrugsViewController.swift */,
+				11CCEB772995551F00CAD7A7 /* Dashboard */,
+				11CCEB76299554F800CAD7A7 /* Assignment */,
+				11CCEB75299554E400CAD7A7 /* Drugs */,
+				11CCEB74299554CC00CAD7A7 /* Patient */,
 				111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */,
 				111E66EB285C9738004EF32D /* TabBarController.swift */,
-				111E66ED285C9840004EF32D /* DashboardViewController.swift */,
-				116EE5C72860512B0074576C /* AddDrugViewController.swift */,
-				116EE5C92860526F0074576C /* AddPatientViewController.swift */,
-				1187497128643C13001CA200 /* PatientProfileViewController.swift */,
 				1187497328644A1B001CA200 /* LabelValueView.swift */,
-				11874975286479BD001CA200 /* DrugsInfoProfileViewController.swift */,
-				1155479228658FAB0019E840 /* AddDrugToPacientVC.swift */,
 				115DCC222950B7D900455727 /* UserProfileViewController.swift */,
-				119FB0AA298AF12200FF2D2E /* GivingDrugDetailsVC.swift */,
-				11CCEB6A299247ED00CAD7A7 /* DrugsAssignmentListVC.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +369,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11CCEB7C29955E1300CAD7A7 /* man.png in Resources */,
+				11CCEB7B29955E1300CAD7A7 /* empathy.png in Resources */,
 				115D1BDD2859B7B900D5741D /* LaunchScreen.storyboard in Resources */,
 				115DCC17294F326600455727 /* GoogleService-Info.plist in Resources */,
 				115D1BDA2859B7B900D5741D /* Assets.xcassets in Resources */,
@@ -377,18 +429,22 @@
 			files = (
 				115DCC0B294E6AE000455727 /* AuthHeaderView.swift in Sources */,
 				115DCC07294E696500455727 /* RegisterController.swift in Sources */,
+				11CCEB732993FD0C00CAD7A7 /* CompleteList.swift in Sources */,
 				11E85D9E28619C63006C742E /* DrugsList.swift in Sources */,
 				116EE5C82860512B0074576C /* AddDrugViewController.swift in Sources */,
-				1155479328658FAB0019E840 /* AddDrugToPacientVC.swift in Sources */,
 				115D1BD52859B7B900D5741D /* PatientViewController.swift in Sources */,
 				11E85DA52861E74D006C742E /* DrugsListTVCell.swift in Sources */,
 				116EE5CF286055630074576C /* Drugs.swift in Sources */,
 				111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */,
 				1187497228643C13001CA200 /* PatientProfileViewController.swift in Sources */,
 				116EE5D428605A1F0074576C /* BaseTextField.swift in Sources */,
+				11CCEB712993FC8E00CAD7A7 /* CompleteAssignmentRepository.swift in Sources */,
+				11CCEB7E2996384600CAD7A7 /* PatientsDrugsTVCell.swift in Sources */,
+				1169A8F4299BE972006A010C /* PateintTVCell.swift in Sources */,
 				11E85DA72862F67E006C742E /* DrugsRepository.swift in Sources */,
 				115DCC05294E694C00455727 /* ForgotPasswordController.swift in Sources */,
 				115DCC1B294F9A9600455727 /* RegisterUserRequest.swift in Sources */,
+				11CCEB6F2993F82200CAD7A7 /* DashboardListTVCell.swift in Sources */,
 				115DCC1D294FA0C900455727 /* LoginUserRequest.swift in Sources */,
 				115DCC1F294FA8B500455727 /* Validator.swift in Sources */,
 				115DCC10294E76EC00455727 /* CustomButton.swift in Sources */,

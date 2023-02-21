@@ -9,10 +9,10 @@ import SnapKit
 import Foundation
 import UIKit
 import FirebaseFirestore
-import SwiftUI
 import FirebaseAuth
 
 class PatientViewController: UITableViewController {
+    
     
     let currentUser = Auth.auth().currentUser?.uid
 
@@ -20,27 +20,40 @@ class PatientViewController: UITableViewController {
     static var isEmpty:Bool = true
     public var noDataLabel = UILabel()
     
-    let x = ""
-    let z = ""
+    open var data : Any? {
+        didSet{
+            if data != nil{
+            }
+            
+        }
+    }
+    init(){
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         getPatients()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
         updateData()
-        print(PatientViewController.isEmpty)
     }
     
     func updateData(){
         tableView.reloadData()
         noDataLabel.isHidden = !dataSource.getPatients().isEmpty
-        }
+    }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateData()
+    }
+    
+ 
     
     open func prepareView(){
         view.backgroundColor = .white
@@ -48,6 +61,9 @@ class PatientViewController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
         prepareTableView()
         prepareNoPatientsLabel()
+        guard let dataUnwrapped = data as? Patient else{
+            return
+        }
     }
     
     func prepareTableView() {
@@ -55,7 +71,6 @@ class PatientViewController: UITableViewController {
         tableView.rowHeight = 120
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = blueColor
-        print("xy")
     }
     
     func prepareNoPatientsLabel(){
@@ -87,15 +102,7 @@ class PatientViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            return true
-        }
-        
-    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            dataSource.deletePatient(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            noDataLabel.isHidden = !dataSource.getPatients().isEmpty
-        }
+        return true
     }
     
     @objc func addTapped() {
@@ -103,31 +110,15 @@ class PatientViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.reloadData()
         PatientViewController.isEmpty = false
-        print(PatientViewController.isEmpty)
+    
     }
     
-    func addClickedProfile(){
-        let vc = PatientProfileViewController(dataSource: dataSource)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
+
     public func getPatients(){
-        let db = Firestore.firestore();
-        let ref = db.collection("Patients");
+        let db = Firestore.firestore()
+        let refPatients = db.collection("Patients")
         
-        let dbb = Firestore.firestore()
-        dbb.collection("Drugs").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print(document.documentID)
-                    print(document.data())
-                }
-            }
-        }
-        
-        ref.getDocuments{snapshot, error in
+        refPatients.getDocuments{snapshot, error in
                          guard error == nil else {
             print(error!.localizedDescription)
             return
@@ -135,7 +126,6 @@ class PatientViewController: UITableViewController {
             if let snapshot = snapshot {
                 for document in snapshot.documents{
                     let data = document.data()
-                    print(document.documentID)
                     let patientName = data["name"] as? String ?? ""
                     let patientSurname = data["surname"] as? String ?? ""
                     let room = data["room"] as? String ?? ""
@@ -144,14 +134,15 @@ class PatientViewController: UITableViewController {
                     let patientInfo = data["patient_info"] as? String ?? ""
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     if(addedByUser == self.currentUser!){
-                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, assignedDrugs: [self.x,self.z], ID: document.documentID)
+                        let PatientNew = Patient(name: patientName, surname: patientSurname, room: room, bed: bed, patientInfo: patientInfo, Gender: gender, addedByUser: self.currentUser!, ID: document.documentID)
                         self.dataSource.addPatient(patient: PatientNew)
                     }
                 }
+
             }
+            self.updateData()
         }
     }
-    
     
 }
 

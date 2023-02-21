@@ -15,13 +15,13 @@ public class PatientListTVCell: UITableViewCell{
     var bedLabel = UILabel()
     var descriptionLabel = UILabel()
     var newColor = UIColor.lightGray.cgColor
-
+    var bool = false
+    
     open var data : Any? {
         didSet{
             if data != nil{
                 updateView()
             }
-            
         }
     }
 
@@ -53,6 +53,45 @@ public class PatientListTVCell: UITableViewCell{
         roomLabel.text = "Room : \(dataUnwrapped.room)"
         bedLabel.text = "Bed : \(dataUnwrapped.bed)"
         descriptionLabel.text = "Information : \(dataUnwrapped.patientInfo)"
+        prepareImage(gender: dataUnwrapped.Gender)
+        }
+    func prepareImage(gender : String){
+            if gender == "Man"{
+                let image = UIImage(named: "man")
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                contentView.addSubview(imageView)
+                imageView.snp.makeConstraints{ make in
+                    make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(8)
+                    make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(10)
+                    make.height.equalTo(100)
+                    make.width.equalTo(100)
+                }
+            }
+            else if gender == "Woman"{
+                let image = UIImage(named: "woman")
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                contentView.addSubview(imageView)
+                imageView.snp.makeConstraints{ make in
+                    make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(8)
+                    make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(10)
+                    make.height.equalTo(100)
+                    make.width.equalTo(100)
+                }
+            }
+            else if gender == "Other"{
+                let image = UIImage(named: "helicopter")
+                let imageView = UIImageView(image: image)
+                imageView.contentMode = .scaleAspectFit
+                contentView.addSubview(imageView)
+                imageView.snp.makeConstraints{ make in
+                    make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(8)
+                    make.leading.equalTo(self.contentView.safeAreaLayoutGuide.snp.leading).offset(10)
+                    make.height.equalTo(100)
+                    make.width.equalTo(100)
+            }
+        }
     }
     
     open func prepareTitleLabel(){
@@ -61,17 +100,16 @@ public class PatientListTVCell: UITableViewCell{
         titleLabel.backgroundColor = .white
         titleLabel.textColor = blueColor
         titleLabel.snp.remakeConstraints{ (make) in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(125)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(-80)
-            
         }
     }
     open func prepareRoomLabel(){
         contentView.addSubview(roomLabel)
         roomLabel.font = UIFont.boldSystemFont(ofSize: 16)
         roomLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(125)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(-25)
         }
@@ -81,10 +119,9 @@ public class PatientListTVCell: UITableViewCell{
         contentView.addSubview(bedLabel)
         bedLabel.font = UIFont.boldSystemFont(ofSize: 16)
         bedLabel.snp.makeConstraints{ (make) in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(125)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(25)
-            
         }
     }
     
@@ -92,7 +129,7 @@ public class PatientListTVCell: UITableViewCell{
         descriptionLabel.font = UIFont.boldSystemFont(ofSize: 16)
         contentView.addSubview(descriptionLabel)
         descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(125)
             make.trailing.equalToSuperview().offset(-20)
             make.height.bottom.equalToSuperview().offset(70)
         }
