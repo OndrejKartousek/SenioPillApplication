@@ -37,7 +37,6 @@ public class DrugListTVCell : UITableViewCell{
     }
     
     open func prepareView(){
-        prepareImage()
         prepareTitleLabel()
         prepareDosageLabel()
         prepareInfoLabel()
@@ -51,10 +50,10 @@ public class DrugListTVCell : UITableViewCell{
         titleLabel.text = "\(dataUnwrapped.name)"
         dosageLabel.text = "Dosage \(dataUnwrapped.PrescriptedDosage)"
         infoLabel.text = "Information : \(dataUnwrapped.description)"
+        prepareImage(int: dataUnwrapped.randomInt)
     }
     
-    func prepareImage(){
-        var n = Int.random(in: 1...3)
+    func prepareImage(int n : Int){
         if n == 1{
             let image = UIImage(named: "drugs")
             let imageView = UIImageView(image: image)

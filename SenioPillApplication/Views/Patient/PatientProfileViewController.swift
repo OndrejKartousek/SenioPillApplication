@@ -12,23 +12,22 @@ import FirebaseFirestore
 import SnapKit
 
 class PatientProfileViewController: UITableViewController{
-    
+
+    public var completeDataSource = CompleteList.completeModel
     public var titleLabelView = LabelValueView(title: "Name")
     public var dataSource = PatientList()
     let currentUser = Auth.auth().currentUser?.uid
-
-    //public var data : Patient?
-    
-    var roomLabel = UILabel()
-    var bedLabel = UILabel()
-    var descrptionLabel = UILabel()
-    var genderLabel = UILabel()
     let comleteListDS = CompleteList.completeModel
     var assigments : [AssignedModel] = []
-    let boldRoom = "Patient's room"
-    let boldBed = "Patient's bed"
-    let boldGender = "Gender"
-    let boldDesc = "Information"
+    var gender = ""
+    public var noDataLabel = UILabel()
+    let headerImageView = UIImageView()
+
+
+    let patientNameLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
+    let roomLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
+    let genderLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
+    let decriptionLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
     
     var userID = ""
     
@@ -52,112 +51,154 @@ class PatientProfileViewController: UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+        prepareTableView()
+    }
+    func updateData(){
+        tableView.reloadData()
+        noDataLabel.isEnabled = !assigments.isEmpty
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    func prepareTableView(){
+        tableView.register(PatientTVCell.self, forCellReuseIdentifier: PatientTVCell.description())
+        tableView.rowHeight = 100
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = blueColor
     }
     
-    open func prepareView(){
-        view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        prepareGenderLabel()
-        prepareRoomLabel()
-        prepareBedLabel()
-        prepareDescLabel()
+    func prepareNoDataLabel(){
+        noDataLabel.isHidden = true
+        noDataLabel.text = "No data added yet."
+        tableView.addSubview(noDataLabel)
+        noDataLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
         }
+    }
     
     open func updateView(){
         guard let dataUnwrapped = data as? Patient else{
             return
         }
-        userID = dataUnwrapped.ID ??  ""  
-        assigments = comleteListDS.getUserAssignments(patientId: userID)
-        roomLabel.text = "Patient's room : \(dataUnwrapped.room)"
-        bedLabel.text = "Patient's bed : \(dataUnwrapped.bed)"
-        descrptionLabel.text = "Patient's info : \(dataUnwrapped.patientInfo)"
+        self.userID = dataUnwrapped.ID ?? ""
+        self.assigments = completeDataSource.getUserAssignments(patientId: dataUnwrapped.ID ?? "")
+        patientNameLabel.text = "\(dataUnwrapped.name) \(" ")\(dataUnwrapped.surname)"
         genderLabel.text = "Gender : \(dataUnwrapped.Gender)"
-        self.title = "\(dataUnwrapped.name) \(dataUnwrapped.surname)"
-        prepareTopImage(gender: dataUnwrapped.Gender)
+        roomLabel.text = "Room : \(dataUnwrapped.room) \(" Bed") \(dataUnwrapped.bed)"
+        decriptionLabel.text = "Info : \(dataUnwrapped.patientInfo)"
+        gender = dataUnwrapped.Gender
+        
     }
     
-    func prepareTopImage(gender : String){
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
+            headerView.backgroundColor = .white
+        
         if gender == "Man"{
-            let image = UIImage(named: "man")
-            let imageView = UIImageView(image: image)
-            imageView.contentMode = .scaleAspectFit
-            view.addSubview(imageView)
-            imageView.snp.makeConstraints{ make in
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+            headerImageView.image = UIImage(named: "man")
+            headerImageView.contentMode = .scaleAspectFit
+            headerView.addSubview(headerImageView)
+            headerImageView.snp.makeConstraints{ make in
+                make.top.equalToSuperview().offset(5)
                 make.centerX.equalToSuperview()
-                make.height.equalTo(200)
-                make.width.equalTo(200)
+                make.height.equalTo(100)
+                make.width.equalTo(100)
             }
         }else if gender == "Woman"{
-            let image = UIImage(named: "woman")
-            let imageView = UIImageView(image: image)
-            imageView.contentMode = .scaleAspectFit
-            view.addSubview(imageView)
-            imageView.snp.makeConstraints{ make in
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
+            headerImageView.image = UIImage(named: "woman")
+            headerImageView.contentMode = .scaleAspectFit
+            headerView.addSubview(headerImageView)
+            headerImageView.snp.makeConstraints{ make in
+                make.top.equalToSuperview().offset(5)
                 make.centerX.equalToSuperview()
-                make.height.equalTo(200)
-                make.width.equalTo(200)
+                make.height.equalTo(100)
+                make.width.equalTo(100)
             }
         }else{
-            let image = UIImage(named: "helicopter")
-            let imageView = UIImageView(image: image)
-            imageView.contentMode = .scaleAspectFit
-            view.addSubview(imageView)
-            imageView.snp.makeConstraints{ make in
-                make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(0)
-                make.centerX.equalToSuperview()
-                make.height.equalTo(200)
-                make.width.equalTo(200)
+                headerImageView.image = UIImage(named: "helicopter")
+                headerImageView.contentMode = .scaleAspectFit
+                headerView.addSubview(headerImageView)
+                headerImageView.snp.makeConstraints{ make in
+                    make.top.equalToSuperview().offset(5)
+                    make.centerX.equalToSuperview()
+                    make.height.equalTo(100)
+                    make.width.equalTo(100)
             }
         }
+        
+        patientNameLabel.textColor = .black
+        patientNameLabel.font = UIFont.systemFont(ofSize: 25.0, weight: .heavy)
+
+        headerView.addSubview(patientNameLabel)
+        patientNameLabel.snp.makeConstraints { make in
+        make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(110)
+        }
+        
+        genderLabel.textColor = .black
+        genderLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        headerView.addSubview(genderLabel)
+            genderLabel.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.top.equalTo(patientNameLabel).offset(30)
+        }
+        
+        roomLabel.textColor = .black
+        headerView.addSubview(roomLabel)
+        roomLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        roomLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(genderLabel).offset(20)
+        }
+        
+        decriptionLabel.textColor = .black
+        decriptionLabel.lineBreakMode = .byTruncatingMiddle
+        decriptionLabel.numberOfLines = 5
+        headerView.addSubview(decriptionLabel)
+        decriptionLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(roomLabel).offset(20)
+        }
+        return headerView
     }
     
-    func prepareGenderLabel(){
-        view.addSubview(genderLabel)
-        genderLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        genderLabel.numberOfLines = 1
-        genderLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(250)
-            make.leading.equalToSuperview().offset(20)
-            make.centerX.equalToSuperview()
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 250
+        }
+    
+    open override func tableView(_ tableView : UITableView, numberOfRowsInSection section : Int) -> Int {
+        return assigments.count
+    }
+    
+    open override func tableView(_ tableView : UITableView, cellForRowAt IndexPath : IndexPath) -> UITableViewCell {
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PatientTVCell.description(), for: IndexPath) as? PatientTVCell
+        else{
+            return UITableViewCell()
+        }
+        cell.data = assigments[IndexPath.row]
+        return cell
+    }
+    
+    open override func tableView(_ tableView : UITableView, didSelectRowAt indexPath : IndexPath){
+    }
+    
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath : IndexPath) -> Bool{
+        return true
+    }
+    
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
         }
     }
     
-    func prepareRoomLabel(){
-        view.addSubview(roomLabel)
-        roomLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
-        roomLabel.snp.makeConstraints{make in
-            make.top.equalTo(genderLabel).offset(50)
-            make.leading.equalToSuperview().offset(20)
-            make.centerX.equalToSuperview()
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
-    
-    func prepareBedLabel(){
-        view.addSubview(bedLabel)
-        bedLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        bedLabel.snp.makeConstraints { make in
-            make.top.equalTo(roomLabel).offset(50)
-            make.leading.equalToSuperview().offset(20)
-            make.centerX.equalToSuperview()
-        }
-    }
-    
-    func prepareDescLabel(){
-        view.addSubview(descrptionLabel)
-        descrptionLabel.font = UIFont.boldSystemFont(ofSize: 20)
-        descrptionLabel.numberOfLines = 7
-        descrptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(bedLabel).offset(50)
-            make.leading.equalToSuperview().offset(20)
-            make.centerX.equalToSuperview()
-        }
+
+    open func prepareView(){
+        view.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
     }
     
     @objc func addTapped(){

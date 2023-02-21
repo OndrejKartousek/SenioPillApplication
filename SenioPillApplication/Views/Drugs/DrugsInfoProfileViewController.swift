@@ -63,8 +63,11 @@ class DrugsInfoViewController: UIViewController{
     }
     
     func prepareTopImage(){
-        var n = Int.random(in: 1...3)
-        print(n)
+        guard let dataUnwrapped = data as? Drugs else{
+            return
+        }
+        let n = dataUnwrapped.randomInt
+
         if n == 1{
             let image = UIImage(named: "drugs")
             let imageView = UIImageView(image: image)

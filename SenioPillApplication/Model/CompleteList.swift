@@ -40,6 +40,10 @@ public class CompleteList : CompletePatientRepository{
         return assignedModelData.first
     }
     
+    func getDataAtIndex(index: Int)-> AssignedModel{
+        return assignedModelData[index]
+    }
+    
     func getUserAssignments(patientId: String) -> [AssignedModel] {
         var data: [AssignedModel] = []
         for assignedModelDataX in assignedModelData {
@@ -52,5 +56,13 @@ public class CompleteList : CompletePatientRepository{
     
     public func setDataList(data : AssignedModel){
         assignedModelData.append(data)
+    }
+    
+    public func setEmptyDataList(){
+        assignedModelData = []
+    }
+    
+    public func deleteData(index: Int){
+        assignedModelData.remove(at: index)
     }
 }

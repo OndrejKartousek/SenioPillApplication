@@ -107,8 +107,10 @@ class DrugsViewController: UITableViewController {
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     let drugDescription = data["description"] as? String ?? ""
                     let drugDosage = data["prescriptedDosage"] as? String ?? ""
+                    let randomInt = data["randomInt"] as? Int ?? 1
+
                     if(addedByUser == self.currentUser!){
-                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID)
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID, randomInt: randomInt)
                         self.dataSource.addDrug(drug: DrugNew)
                     }
                 }

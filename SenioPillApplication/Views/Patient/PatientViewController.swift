@@ -13,15 +13,12 @@ import FirebaseAuth
 
 class PatientViewController: UITableViewController {
     
+    
     let currentUser = Auth.auth().currentUser?.uid
 
     public var dataSource = PatientList()
     static var isEmpty:Bool = true
     public var noDataLabel = UILabel()
-    
-    let x = ""
-    let z = ""
-    
     
     open var data : Any? {
         didSet{
@@ -46,7 +43,6 @@ class PatientViewController: UITableViewController {
     }
     
     func updateData(){
-        print("Karotusek žebrák")
         tableView.reloadData()
         noDataLabel.isHidden = !dataSource.getPatients().isEmpty
     }
@@ -75,7 +71,6 @@ class PatientViewController: UITableViewController {
         tableView.rowHeight = 120
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = blueColor
-        print("update ty kokot")
     }
     
     func prepareNoPatientsLabel(){
@@ -88,12 +83,10 @@ class PatientViewController: UITableViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
-        print(dataSource.getPatients().count)
         return dataSource.getPatients().count
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("update ty kokot3")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: PatientListTVCell.description(), for: indexPath) as? PatientListTVCell else {
             return UITableViewCell()
         }
@@ -103,19 +96,16 @@ class PatientViewController: UITableViewController {
     
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("update ty kokot4")
         let vc = PatientProfileViewController(dataSource: dataSource)
         vc.data = dataSource.getPatients()[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        print("update ty kokot5")
         return true
     }
     
     @objc func addTapped() {
-        print("update ty kokot7")
         let vc = AddPatientViewController(dataSource: dataSource)
         self.navigationController?.pushViewController(vc, animated: true)
         tableView.reloadData()
@@ -125,7 +115,6 @@ class PatientViewController: UITableViewController {
     
 
     public func getPatients(){
-        print("update ty kokot8")
         let db = Firestore.firestore()
         let refPatients = db.collection("Patients")
         

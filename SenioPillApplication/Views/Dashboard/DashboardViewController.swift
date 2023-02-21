@@ -20,7 +20,7 @@ class DashboardViewController : UITableViewController{
     public static var isEmpty:Bool = true
     
     public var noDataLabel = UILabel()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
@@ -65,6 +65,7 @@ class DashboardViewController : UITableViewController{
     }
     
     open override func tableView(_ tableView : UITableView, cellForRowAt IndexPath : IndexPath) -> UITableViewCell {
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DashboardListTVCell.description(), for: IndexPath) as? DashboardListTVCell
         else{
             return UITableViewCell()
@@ -74,7 +75,6 @@ class DashboardViewController : UITableViewController{
     }
     
     open override func tableView(_ tableView : UITableView, didSelectRowAt indexPath : IndexPath){
-        
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath : IndexPath) -> Bool{
@@ -83,59 +83,68 @@ class DashboardViewController : UITableViewController{
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            //
-            //
-            //
+            let id = completeDataSource.getDataAtIndex(index: indexPath[1]).ID
+            completeDataSource.deleteData(index: indexPath[1])
+            print(id)
+            //deleteData(id: id)
+            updateData()
         }
     }
-  
-    func getAllData(){
-        let db = Firestore.firestore()
-        let ref = db.collection("AssignedDrugs")
-        
-        let dbb = Firestore.firestore()
-        dbb.collection("AssignedDrugs").getDocuments{ (QuerySnapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error)")
-            } else{
-                for document in QuerySnapshot!.documents{
-                    print(document.documentID)
-                    print(document.data())
-                }
-            }
-        }
-        
-        ref.getDocuments{snapshot, error in
-            guard error == nil else {
-                print(error!.localizedDescription)
-                return
-            }
-            if let snapshot = snapshot{
-                for document in snapshot.documents{
-                    let data = document.data()
-                    let patientName = data["Patient_Name"] as? String ?? ""
-                    let patientSurname = data["Patient_Surname"] as? String ?? ""
-                    let name = patientName + " " + patientSurname
-                    let addedByUser = data["Added_By_User"] as? String ?? ""
-                    let patientID = data["PatientID"] as? String ?? ""
-                    let drugID = data["DataID"] as? String ?? ""
-                    let drugName = data["Drug_Name"] as? String ?? ""
-                    
-                    print(name + "jhwjdckhwdehj")
-                    
-                    if(addedByUser == self.currentUser!){
-                        let givenHour = data["Given_Hour"] as? Int ?? 1
-                        let givenMinute = data["Given_Minute"] as? Int ?? 1
-                        let newObj = AssignedModel(ID: document.documentID, creatorID: self.currentUser!, description: "", patientID: patientID, patientName: name, patientSurname: "", patientRoom: "", patientBed: "", patientInfo: "", Gender: "", addedByUser: addedByUser, drugID: drugID, drugName: drugName, drugDescription: "", drugPrescriptedDosage: "", givenDrugDosage: "", givenDrugHour: givenHour ?? 12, givenDrugMinute: givenMinute ?? 10, givenOnMonday: true, givenOnTuesday: true, givenOnWednesday: true, givenOnThursday: true, givenOnFriday: true, givenOnSaturday: true, givenOnSunday: true)
-                        self.completeDataSource.addData(data: newObj)
-                       
-                    }
-                    
-                }
-            }
-            self.updateData()
-        }
-    }
-
     
-}
+    func deleteData(id : String){
+        let db = Firestore.firestore()
+        db.collection("AssignedDrugs").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+        
+        func getAllData(){
+            let db = Firestore.firestore()
+            let ref = db.collection("AssignedDrugs")
+            
+            let dbb = Firestore.firestore()
+            dbb.collection("AssignedDrugs").getDocuments{ (QuerySnapshot, error) in
+                if let error = error {
+                    print("Error getting documents: \(error)")
+                } else{
+                }
+            }
+            
+            ref.getDocuments{snapshot, error in
+                guard error == nil else {
+                    print(error!.localizedDescription)
+                    return
+                }
+                if let snapshot = snapshot{
+                    for document in snapshot.documents{
+                        let data = document.data()
+                        let patientName = data["Patient_Name"] as? String ?? ""
+                        let patientSurname = data["Patient_Surname"] as? String ?? ""
+                        let name = patientName + " " + patientSurname
+                        let addedByUser = data["Added_By_User"] as? String ?? ""
+                        let patientID = data["PatientID"] as? String ?? ""
+                        let drugID = data["DataID"] as? String ?? ""
+                        let drugName = data["Drug_Name"] as? String ?? ""
+                        let gender = data["Patient_Gender"] as? String ?? ""
+                        let room = data["Patient_Room"] as? String ?? ""
+                        let bed = data["Patient_Bed"] as? String ?? ""
+                        let drugDosage = data["Given_Dosage"] as? String ?? ""
+                        
+                        if(addedByUser == self.currentUser!){
+                            let givenHour = data["Given_Hour"] as? Int ?? 1
+                            let givenMinute = data["Given_Minute"] as? Int ?? 1
+                            let newObj = AssignedModel(ID: document.documentID, creatorID: self.currentUser!, description: "", patientID: patientID, patientName: name, patientSurname: "", patientRoom: room, patientBed: bed, patientInfo: "", Gender: gender, addedByUser: addedByUser, drugID: drugID, drugName: drugName, drugDescription: "", drugPrescriptedDosage: "", givenDrugDosage: drugDosage, givenDrugHour: givenHour ?? 12, givenDrugMinute: givenMinute ?? 10, givenOnMonday: true, givenOnTuesday: true, givenOnWednesday: true, givenOnThursday: true, givenOnFriday: true, givenOnSaturday: true, givenOnSunday: true)
+                            self.completeDataSource.addData(data: newObj)
+                            
+                        }
+                        
+                    }
+                }
+                self.updateData()
+            }
+        }
+    }

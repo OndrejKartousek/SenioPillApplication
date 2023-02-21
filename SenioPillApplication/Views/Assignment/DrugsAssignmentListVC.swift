@@ -44,7 +44,6 @@ class DrugsAssignmentListVC : UITableViewController{
     }
     
     func updateData(){
-        print("Karotusek žebrák")
         tableView.reloadData()
         noDataLabel.isHidden = !DrugsDS.getDrugs().isEmpty
     }
@@ -86,14 +85,11 @@ class DrugsAssignmentListVC : UITableViewController{
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
-        print(DrugsDS.getDrugs().count)
-        //print("Table view 70")
         return DrugsDS.getDrugs().count
 
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //print("Table view 76")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DrugListTVCell.description(), for: indexPath) as? DrugListTVCell else {
             return UITableViewCell()
         }
@@ -102,14 +98,11 @@ class DrugsAssignmentListVC : UITableViewController{
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        print(DrugsDS.getDrugs()[indexPath.row])
         let vc = GivingDrugDetailsVC(dataSource: PatientDS, drugDetails: DrugsDS.getDrugs()[indexPath.row])
         present(vc, animated : true)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        //print("Table view 92")
         return true
     }
     
@@ -129,8 +122,9 @@ class DrugsAssignmentListVC : UITableViewController{
                     let addedByUser = data["added_by_user"] as? String ?? ""
                     let drugDescription = data["description"] as? String ?? ""
                     let drugDosage = data["prescriptedDosage"] as? String ?? ""
+                    let randomInt = data["randomInt"] as? Int ?? 1
                     if(addedByUser == self.currentUser!){
-                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID)
+                        let DrugNew = Drugs(name: drugName, description: drugDescription, PrescriptedDosage: drugDosage, addedByUser: self.currentUser!, ID: document.documentID, randomInt: randomInt)
                         self.DrugsDS.addDrug(drug: DrugNew)
                     }
                 }

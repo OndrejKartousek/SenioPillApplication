@@ -10,7 +10,6 @@ import UIKit
 
 public class PatientListTVCell: UITableViewCell{
     
-    
     var titleLabel = UILabel()
     var roomLabel = UILabel()
     var bedLabel = UILabel()
@@ -23,7 +22,6 @@ public class PatientListTVCell: UITableViewCell{
             if data != nil{
                 updateView()
             }
-            
         }
     }
 

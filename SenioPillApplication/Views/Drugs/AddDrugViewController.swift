@@ -149,19 +149,21 @@ class AddDrugViewController : UIViewController {
     }
     
     func addDrugRequest(){
-        let Drug = Drugs(name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!, ID: "")
+        var n = Int.random(in: 1...3)
+
+        let Drug = Drugs(name: nameInput.text!, description: DescriptionInput.text!, PrescriptedDosage: PrescriptedDosage.text!, addedByUser: currentUser!, ID: "", randomInt: n)
         dataSource?.addDrug(drug: Drug)
         //(Drug)
         
-        saveData(name: Drug.name, description: Drug.description, prescriptedDosage: Drug.PrescriptedDosage, addedByUser: Drug.addedByUser)
+        saveData(name: Drug.name, description: Drug.description, prescriptedDosage: Drug.PrescriptedDosage, addedByUser: Drug.addedByUser, randomInt: Drug.randomInt)
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
     
-    func saveData(name : String, description : String, prescriptedDosage : String, addedByUser : String){
+    func saveData(name : String, description : String, prescriptedDosage : String, addedByUser : String, randomInt : Int){
         let db = Firestore.firestore()
         
-        db.collection("Drugs").document().setData(["name": name, "description" : description, "prescriptedDosage" : prescriptedDosage, "added_by_user" : addedByUser]) { (err) in
+        db.collection("Drugs").document().setData(["name": name, "description" : description, "prescriptedDosage" : prescriptedDosage, "added_by_user" : addedByUser, "randomInt" : randomInt]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)
