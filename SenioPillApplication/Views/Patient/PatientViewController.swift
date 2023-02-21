@@ -93,7 +93,26 @@ class PatientViewController: UITableViewController {
         cell.data = dataSource.getPatients()[indexPath.row]
         return cell
     }
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let id = dataSource.getDataAtIndex(index: indexPath[1]).ID
+            print(("ID : \(id)"))
+            dataSource.deleteData(index: indexPath[1])
+            deleteData(id: id ?? "nefunguju :)")
+            updateData()
+        }
+    }
     
+    func deleteData(id : String){
+        let db = Firestore.firestore()
+        db.collection("Patients").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = PatientProfileViewController(dataSource: dataSource)

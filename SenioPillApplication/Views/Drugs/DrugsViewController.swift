@@ -82,6 +82,27 @@ class DrugsViewController: UITableViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let id = dataSource.getDataAtIndex(index: indexPath[1]).ID
+            print(("ID : \(id)"))
+            dataSource.deleteData(index: indexPath[1])
+            deleteData(id: id ?? "nefunguju :)")
+            updateData()
+        }
+    }
+    
+    func deleteData(id : String){
+        let db = Firestore.firestore()
+        db.collection("Drugs").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
+    
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }

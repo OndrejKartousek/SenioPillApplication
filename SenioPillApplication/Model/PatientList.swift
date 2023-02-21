@@ -25,6 +25,10 @@ public class PatientList : PatientRepository{
         return patients
     }
     
+    func getDataAtIndex(index: Int)-> Patient{
+        return patients[index]
+    }
+    
     func getPatient(id: String) -> Patient? {
         for patient in patients {
             if(patient.ID == id){
@@ -50,6 +54,10 @@ public class PatientList : PatientRepository{
     
     public func setPatientList(patient : Patient){
         patients.append(patient)
+    }
+    
+    public func deleteData(index: Int){
+        patients.remove(at: index)
     }
     
 }
