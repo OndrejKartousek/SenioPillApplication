@@ -13,8 +13,8 @@ import FirebaseAuth
 
 class PatientViewController: UITableViewController {
     
-    
     let currentUser = Auth.auth().currentUser?.uid
+    public var completeDataSource = CompleteList.completeModel
 
     public var dataSource = PatientList()
     static var isEmpty:Bool = true
@@ -93,7 +93,49 @@ class PatientViewController: UITableViewController {
         cell.data = dataSource.getPatients()[indexPath.row]
         return cell
     }
+    open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            var patientName = dataSource.getDataAtIndex(index: indexPath[1]).name
+            var patientsID = dataSource.getDataAtIndex(index: indexPath[1]).ID
+            var pateintsIDAssignment = completeDataSource.getDataAtIndex(index: indexPath[1]).patientID
+            let assgignedDrugPatientID =  completeDataSource.getAllData()
+            print("Patient name : \(patientName)")
+            patientName = patientName + "  "
+            for assignments in assgignedDrugPatientID{
+                print("assignment \(assignments.patientName)")
+                let assignedName = assignments.patientName
+            }
+            for completeDataModel in completeDataSource.getAllData(){
+                print(completeDataModel.ID + "kokot")
+                if completeDataModel.patientID == pateintsIDAssignment{
+                    print(completeDataModel.ID)
+                    let db = Firestore.firestore()
+                    completeDataSource.deleteData(index: indexPath[1])
+                    db.collection("AssignedDrugs").document(completeDataModel.ID).delete() { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Document successfully removed!")
+                        }
+                    }
+                }
+            }
+            dataSource.deleteData(index: indexPath[1])
+            deleteData(id: patientsID ?? "nefunguju :)")
+            updateData()
+        }
+    }
     
+    func deleteData(id : String){
+        let db = Firestore.firestore()
+        db.collection("Patients").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
+    }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = PatientProfileViewController(dataSource: dataSource)

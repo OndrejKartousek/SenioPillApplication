@@ -45,4 +45,11 @@ public class DrugsList : DrugsRepository{
         drugs.append(drug)
     }
     
+    func getDataAtIndex(index: Int) -> Drugs{
+        return drugs[index]
+    }
+    
+    public func deleteData(index: Int){
+        drugs.remove(at: index)
+    }
 }

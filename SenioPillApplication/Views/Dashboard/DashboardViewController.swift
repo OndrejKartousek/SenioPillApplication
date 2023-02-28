@@ -24,6 +24,7 @@ class DashboardViewController : UITableViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
+        updateData()
         getAllData()
     }
     
@@ -84,9 +85,9 @@ class DashboardViewController : UITableViewController{
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             let id = completeDataSource.getDataAtIndex(index: indexPath[1]).ID
+            print(("ID : \(id)"))
             completeDataSource.deleteData(index: indexPath[1])
-            print(id)
-            //deleteData(id: id)
+            deleteData(id: id)
             updateData()
         }
     }

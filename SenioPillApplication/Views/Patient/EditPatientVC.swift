@@ -1,17 +1,17 @@
 //
-//  AddPatientViewController.swift
+//  EditPatientVC.swift
 //  SenioPillApplication
 //
-//  Created by Ondřej Kartousek on 20.06.2022.
+//  Created by Ondřej Kartousek on 27.02.2023.
 //
 
 import Foundation
 import UIKit
-import SnapKit
-import FirebaseFirestore
 import FirebaseAuth
+import FirebaseFirestore
+import SnapKit
 
-class AddPatientViewController: UIViewController, UIScrollViewDelegate {
+class EditPatientVC : UIViewController{
     
     let currentUser = Auth.auth().currentUser?.uid
 
@@ -26,24 +26,45 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
     var buttonBottomConstraint : Constraint!
     var dataSource: PatientList?
     let blueColor = UIColor(red: 24, green: 146, blue: 250)
+    public var PatientDS: PatientList? = nil
+    var userID = "empty"
+    var name = ""
+    var surname = ""
+    var room = ""
+    var bed = ""
+    var info = ""
+    var gender = ""
 
-    
-    init(dataSource: PatientList){
+    init(dataSource: PatientList?){
         super.init(nibName: nil, bundle: nil)
         self.dataSource = dataSource
+    }
+    
+    open var data : Any? {
+        didSet{
+            if data != nil{
+                updateView()
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var scrollView: UIScrollView = {
-         let scroll = UIScrollView()
-         scroll.translatesAutoresizingMaskIntoConstraints = false
-         scroll.delegate = self
-         scroll.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
-         return scroll
-     }()
+    open func updateView(){
+        guard let dataUnwrapped = data as? Patient else{
+            return
+        }
+        self.userID = dataUnwrapped.ID ?? ""
+        self.name = dataUnwrapped.name
+        self.surname = dataUnwrapped.surname
+        self.room = dataUnwrapped.room
+        self.bed = dataUnwrapped.bed
+        self.info = dataUnwrapped.bed
+        self.gender = dataUnwrapped.Gender
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +98,7 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(nameInput, placeholder: "Patient's name")
+        nameInput.text = "\(self.name)"
         nameInput.autocapitalizationType = .none
         nameInput.autocorrectionType = .no
         view.addSubview(nameInput)
@@ -97,6 +119,7 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(surnameInput, placeholder: "Patient's surname")
+        surnameInput.text = "\(self.surname)"
         surnameInput.autocapitalizationType = .none
         surnameInput.autocorrectionType = .no
         view.addSubview(surnameInput)
@@ -113,25 +136,44 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
         let segmentWidth = (deviceWidth - 50) / 3
         segmentedControll = UISegmentedControl(items: items)
         let genderTitle = getInputTitle(text: "Gender")
+        
         view.addSubview(genderTitle)
         segmentedControll.backgroundColor = .clear
         segmentedControll.selectedSegmentTintColor = blueColor
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 0)
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 1)
         segmentedControll.setWidth(segmentWidth, forSegmentAt: 2)
-
+        
         genderTitle.snp.makeConstraints { make in
             make.top.equalTo(surnameInput.snp.bottom).offset(7)
             make.leading.equalToSuperview().offset(24)
         }
-        view.addSubview(segmentedControll)
-        segmentedControll.addTarget(self, action: #selector(textFieldChanged), for: .allEvents)
-        segmentedControll.snp.makeConstraints { make in
+        if(gender == "Man"){
+            segmentedControll.selectedSegmentIndex = 0
+            view.addSubview(segmentedControll)
+            segmentedControll.addTarget(self, action: #selector(textFieldChanged), for: .allEvents)
+            segmentedControll.snp.makeConstraints { make in
             make.top.equalTo(genderTitle.snp.bottom).offset(7)
             make.leading.trailing.equalToSuperview().offset(25)
+            }
+        }else if(gender == "Woman"){
+            segmentedControll.selectedSegmentIndex = 1
+            view.addSubview(segmentedControll)
+            segmentedControll.addTarget(self, action: #selector(textFieldChanged), for: .allEvents)
+            segmentedControll.snp.makeConstraints { make in
+            make.top.equalTo(genderTitle.snp.bottom).offset(7)
+            make.leading.trailing.equalToSuperview().offset(25)
+            }
+        }else{
+            segmentedControll.selectedSegmentIndex = 2
+            view.addSubview(segmentedControll)
+            segmentedControll.addTarget(self, action: #selector(textFieldChanged), for: .allEvents)
+            segmentedControll.snp.makeConstraints { make in
+            make.top.equalTo(genderTitle.snp.bottom).offset(7)
+            make.leading.trailing.equalToSuperview().offset(25)
+            }
         }
     }
-
     
     func prepareRoomInput(){
         let inputTitle = getInputTitle(text : "Room")
@@ -141,6 +183,7 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(roomInput, placeholder: "Room 206")
+        roomInput.text = "\(self.room)"
         roomInput.autocapitalizationType = .none
         roomInput.autocorrectionType = .no
         view.addSubview(roomInput)
@@ -160,6 +203,7 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
             make.leading.equalToSuperview().offset(24)
         }
         prepareInput(bedInput, placeholder: "Bed 3")
+        bedInput.text = "\(self.bed)"
         bedInput.autocapitalizationType = .none
         bedInput.autocorrectionType = .no
         view.addSubview(bedInput)
@@ -181,6 +225,7 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
         prepareInput(patientInfo, placeholder: "Additional information")
         patientInfo.autocapitalizationType = .none
         patientInfo.autocorrectionType = .no
+        patientInfo.text = "\(self.info)"
         view.addSubview(patientInfo)
         patientInfo.snp.remakeConstraints{ make in
             make.top.equalTo(inputTitle.snp.bottom).offset(7)
@@ -192,7 +237,7 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
 
     
     func prepareAddPatientBUtton() {
-        addPatientButton.setTitle("Add patient!", for: .normal)
+        addPatientButton.setTitle("Update patient data!", for: .normal)
         addPatientButton.setTitleColor(.white, for: .normal)
         addPatientButton.setTitleColor(.white.withAlphaComponent(0.2), for: .disabled)
         addPatientButton.backgroundColor = blueColor
@@ -245,27 +290,22 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
    
     
     func addPatientRequest(){
+        let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: userID)
+        print("addPatientRequest")
+        dataSource?.editPatient(patient: Patient)
+        
+        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
+        _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
         let db = Firestore.firestore()
-        let ref = db.collection("Patients").document()
-        let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: ref.documentID)
-        dataSource?.addPatient(patient: Patient)
-        
-        //saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
-   
-        
-        
-        ref.setData(["name": Patient.name, "surname" : Patient.surname, "room" : Patient.room, "bed" : Patient.bed, "gender" : Patient.Gender, "patient_info" : Patient.patientInfo, "added_by_user" : Patient.addedByUser]) { (err) in
+        db.collection("Patients").document(self.userID).updateData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)
                 return
             }
         }
-        _ = navigationController?.popToRootViewController(animated: true)
-    }
-    
-    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
-     
-
     }
 }
