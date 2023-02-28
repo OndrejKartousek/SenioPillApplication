@@ -23,6 +23,8 @@ public class CompleteList : CompletePatientRepository{
     func getAllData() -> [AssignedModel] {
         return assignedModelData
     }
+    
+    
     func addData(data: AssignedModel) -> AssignedModel? {
         self.assignedModelData.append(data)
         return data

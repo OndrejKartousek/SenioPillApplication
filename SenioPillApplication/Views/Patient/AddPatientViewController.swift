@@ -245,22 +245,27 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
    
     
     func addPatientRequest(){
-        let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: "")
+        let db = Firestore.firestore()
+        let ref = db.collection("Patients").document()
+        let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: ref.documentID)
         dataSource?.addPatient(patient: Patient)
         
-        saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
-        _ = navigationController?.popToRootViewController(animated: true)
-    }
-    
-    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
-        let db = Firestore.firestore()
+        //saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
+   
         
-        db.collection("Patients").document().setData(["name": name, "surname" : surname, "room" : room, "bed" : bed, "gender" : gender, "patient_info" : patientInfo, "added_by_user" : addedByUser]) { (err) in
+        
+        ref.setData(["name": Patient.name, "surname" : Patient.surname, "room" : Patient.room, "bed" : Patient.bed, "gender" : Patient.Gender, "patient_info" : Patient.patientInfo, "added_by_user" : Patient.addedByUser]) { (err) in
             
             if err != nil{
                 print((err?.localizedDescription)!)
                 return
             }
         }
+        _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func saveData(name : String, surname : String, room : String, bed : String, gender : String, patientInfo : String, addedByUser : String){
+     
+
     }
 }

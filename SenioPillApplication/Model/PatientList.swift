@@ -12,9 +12,6 @@ public class PatientList : PatientRepository{
     private var patients : [Patient] = []
     
     public init(){
-        //for index in 0...patientCount {
-        //    patients.append(Patient(id: index, name: "Jméno", surname: "Příjmení", room: "Pokoj 206", bed: "Lůžko 3", patientInfo: "yy"))
-        //}
     }
     
     func deletePatient(at index: Int) {
@@ -44,9 +41,7 @@ public class PatientList : PatientRepository{
     }
     
     func editPatient(patient: Patient) -> Patient?{
-        print("sracka")
         for (index, patientos) in patients.enumerated(){
-            print("kokot")
             print(patient.ID)
             if patient.ID! == patientos.ID{
                 print(patient.ID)
@@ -73,5 +68,7 @@ public class PatientList : PatientRepository{
     public func deleteData(index: Int){
         patients.remove(at: index)
     }
+    
+    
     
 }
