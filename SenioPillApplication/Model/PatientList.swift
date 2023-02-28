@@ -42,6 +42,20 @@ public class PatientList : PatientRepository{
         self.patients.append(patient)
         return patient
     }
+    
+    func editPatient(patient: Patient) -> Patient?{
+        print("sracka")
+        for (index, patientos) in patients.enumerated(){
+            print("kokot")
+            print(patient.ID)
+            if patient.ID! == patientos.ID{
+                print(patient.ID)
+                patients[index] = patient
+                
+            }
+        }
+        return patient
+    }
 
     init (arrayOfPatiens : [Patient]){
         self.patients = arrayOfPatiens

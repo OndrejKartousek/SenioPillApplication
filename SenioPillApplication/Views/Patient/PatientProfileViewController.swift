@@ -198,11 +198,22 @@ class PatientProfileViewController: UITableViewController{
 
     open func prepareView(){
         view.backgroundColor = .white
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped)),
+            UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit))
+        ]
+
+
     }
     
     @objc func addTapped(){
         let assignADrug = DrugsAssignmentListVC(dataSource: dataSource.getPatient(id: userID) ?? nil)
         self.navigationController?.pushViewController(assignADrug, animated: true)
+    }
+    
+    @objc func edit(){
+        let vc = EditPatientVC(dataSource:dataSource)
+        vc.data = dataSource.getPatient(id: userID)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

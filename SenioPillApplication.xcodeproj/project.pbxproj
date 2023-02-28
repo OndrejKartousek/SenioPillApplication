@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110D73A129ACE7FF00FD04A6 /* EditPatientVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110D73A029ACE7FF00FD04A6 /* EditPatientVC.swift */; };
 		111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */; };
 		111E66EC285C9738004EF32D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66EB285C9738004EF32D /* TabBarController.swift */; };
 		111E66EE285C9840004EF32D /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111E66ED285C9840004EF32D /* DashboardViewController.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		110D73A029ACE7FF00FD04A6 /* EditPatientVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPatientVC.swift; sourceTree = "<group>"; };
 		111E66E9285C64F8004EF32D /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		111E66EB285C9738004EF32D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		111E66ED285C9840004EF32D /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				1187497128643C13001CA200 /* PatientProfileViewController.swift */,
 				116EE5C92860526F0074576C /* AddPatientViewController.swift */,
 				115D1BD42859B7B900D5741D /* PatientViewController.swift */,
+				110D73A029ACE7FF00FD04A6 /* EditPatientVC.swift */,
 			);
 			path = Patient;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 				115D1BD12859B7B900D5741D /* AppDelegate.swift in Sources */,
 				115DCC21294FCD3A00455727 /* User.swift in Sources */,
 				115DCC0E294E723300455727 /* CustomTextField.swift in Sources */,
+				110D73A129ACE7FF00FD04A6 /* EditPatientVC.swift in Sources */,
 				111E66EA285C64F8004EF32D /* LoadingScreenViewController.swift in Sources */,
 				11554795286593D30019E840 /* AddDrugToPatientTVCell.swift in Sources */,
 				115DCC03294E693000455727 /* LoginController.swift in Sources */,

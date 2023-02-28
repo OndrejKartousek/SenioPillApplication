@@ -13,8 +13,8 @@ import FirebaseAuth
 
 class PatientViewController: UITableViewController {
     
-    
     let currentUser = Auth.auth().currentUser?.uid
+    public var completeDataSource = CompleteList.completeModel
 
     public var dataSource = PatientList()
     static var isEmpty:Bool = true
@@ -95,10 +95,23 @@ class PatientViewController: UITableViewController {
     }
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            let id = dataSource.getDataAtIndex(index: indexPath[1]).ID
-            print(("ID : \(id)"))
-            dataSource.deleteData(index: indexPath[1])
-            deleteData(id: id ?? "nefunguju :)")
+            var patientName = dataSource.getDataAtIndex(index: indexPath[1]).name
+            let assgignedDrugPatientID =  completeDataSource.getAllData()
+            print("Patient name : \(patientName)")
+            patientName = patientName + "  "
+            for assignments in assgignedDrugPatientID{
+                print("assignment \(assignments.patientName)")
+                let assignedName = assignments.patientName
+                if (patientName == assignedName){
+                    print("Assigned name \(assignments.patientName)")
+                }
+                else{
+                    print("Patient name != AssignedName \(patientName)\("")\(assignedName)\("kokot")")
+                }
+            }
+            //NEDOSADÍ SE ID DO NOVÉHO PACIENTA
+            //dataSource.deleteData(index: indexPath[1])
+            //deleteData(id: patientID ?? "nefunguju :)")
             updateData()
         }
     }
