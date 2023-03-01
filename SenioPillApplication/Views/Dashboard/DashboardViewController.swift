@@ -31,7 +31,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     var pickerTextField = UITextField()
      
-    let daysInWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    let daysInWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
      
      
     public var completeDataSource = CompleteList.completeModel
@@ -102,14 +102,14 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
-            headerView.backgroundColor = .white
+        let headerView = UIView.init(frame: CGRect.init(x: 100, y: 0, width: 100, height: 0))
+            headerView.backgroundColor = .clear
         
         let pickerView = UIPickerView()
         pickerView.delegate = self
         
         pickerTextField.adjustsFontSizeToFitWidth = true
-        pickerTextField.text = "Monday"
+        pickerTextField.text = "Mon"
         pickerTextField.textAlignment = .center
         pickerTextField.inputView = pickerView
         pickerTextField.borderStyle = .roundedRect
@@ -123,8 +123,8 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         pickerTextField.allowsEditingTextAttributes = false
         headerView.addSubview(pickerTextField)
         pickerTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.top.equalToSuperview().inset(-15)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(15)
         }
         return headerView
     }
