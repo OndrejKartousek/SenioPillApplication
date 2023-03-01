@@ -140,6 +140,13 @@ class RegisterController: UIViewController {
             return
         }
         
+        if passwordField.text != passwordConfirmField.text{
+            AlertManager.showInvalidEmailAlert(on: self)
+            print(passwordField.text)
+            print(passwordConfirmField.text)
+            return
+        }
+        
         AuthService.shared.registerUser(with: registerUserRequest) { [weak self]
             wasRegistered, error in
             guard let self = self else {return}

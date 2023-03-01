@@ -25,6 +25,7 @@ class EditPatientVC : UIViewController{
     let items = ["Man 👨🏼‍🦳","Woman 👵🏼","Other 🚁"]
     var buttonBottomConstraint : Constraint!
     var dataSource: PatientList?
+    var completeDS : CompleteList = CompleteList.completeModel
     let blueColor = UIColor(red: 24, green: 146, blue: 250)
     public var PatientDS: PatientList? = nil
     var userID = "empty"
@@ -34,6 +35,31 @@ class EditPatientVC : UIViewController{
     var bed = ""
     var info = ""
     var gender = ""
+    
+    
+    var completeID = ""
+    var creatorID = ""
+    var desc = ""
+    var patientName = ""
+    var patientSurname = ""
+    var patientRoom = ""
+    var patientBed = ""
+    var patientsInfo = ""
+    var patientGender = ""
+    var drugID = ""
+    var drugName = ""
+    var drugDesc = ""
+    var drugPrescriptedDosage = ""
+    var givenDosage = ""
+    var drugHour = 0
+    var drugMinute = 0
+    var giveMon = false
+    var givenTue = false
+    var givenWed = false
+    var givenThur = false
+    var givenFri = false
+    var givenSat = false
+    var givenSun = false
 
     init(dataSource: PatientList?){
         super.init(nibName: nil, bundle: nil)
@@ -41,6 +67,14 @@ class EditPatientVC : UIViewController{
     }
     
     open var data : Any? {
+        didSet{
+            if data != nil{
+                updateView()
+            }
+        }
+    }
+    
+    open var completeData : Any? {
         didSet{
             if data != nil{
                 updateView()
@@ -61,8 +95,39 @@ class EditPatientVC : UIViewController{
         self.surname = dataUnwrapped.surname
         self.room = dataUnwrapped.room
         self.bed = dataUnwrapped.bed
-        self.info = dataUnwrapped.bed
+        self.info = dataUnwrapped.patientInfo
         self.gender = dataUnwrapped.Gender
+        
+        print("dataunwrappedcomplete xy")
+        guard let dataUnwrappedComplete = completeData as? AssignedModel else{
+            return
+        }
+        print("\(dataUnwrappedComplete.patientID) dataunwrappedcomplete")
+        
+        self.completeID = dataUnwrappedComplete.ID
+        self.creatorID = dataUnwrappedComplete.creatorID
+        self.desc = dataUnwrappedComplete.description
+        self.patientName = dataUnwrappedComplete.patientName
+        self.patientSurname = dataUnwrappedComplete.patientSurname
+        self.patientRoom = dataUnwrappedComplete.patientRoom
+        self.patientBed = dataUnwrappedComplete.patientBed
+        self.patientsInfo = dataUnwrappedComplete.patientInfo
+        self.patientGender = dataUnwrappedComplete.Gender
+        self.drugID = dataUnwrappedComplete.drugID
+        self.drugName = dataUnwrappedComplete.drugName
+        self.drugDesc = dataUnwrappedComplete.drugDescription
+        self.drugPrescriptedDosage = dataUnwrappedComplete.drugPrescriptedDosage
+        self.givenDosage = dataUnwrappedComplete.givenDrugDosage
+        self.drugHour = dataUnwrappedComplete.givenDrugHour
+        self.drugMinute = dataUnwrappedComplete.givenDrugMinute
+        self.giveMon = dataUnwrappedComplete.givenOnMonday
+        self.givenTue = dataUnwrappedComplete.givenOnTuesday
+        self.givenWed = dataUnwrappedComplete.givenOnWednesday
+        self.givenThur = dataUnwrappedComplete.givenOnThursday
+        self.givenFri = dataUnwrappedComplete.givenOnFriday
+        self.givenSat = dataUnwrappedComplete.givenOnSaturday
+        self.givenSun = dataUnwrappedComplete.givenOnSunday
+        
         
     }
     
@@ -287,12 +352,14 @@ class EditPatientVC : UIViewController{
         }
         return ""
     }
-   
-    
+
     func addPatientRequest(){
+
         let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: userID)
         print("addPatientRequest")
         dataSource?.editPatient(patient: Patient)
+        
+        completeDS.updateDashboard(pacient: Patient)
         
         saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
         _ = navigationController?.popToRootViewController(animated: true)

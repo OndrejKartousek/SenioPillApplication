@@ -18,7 +18,8 @@ class DashboardViewController : UITableViewController{
     
     public var completeDataSource = CompleteList.completeModel
     public static var isEmpty:Bool = true
-    
+    let headerImageView = UIImageView()
+
     public var noDataLabel = UILabel()
     
     override func viewDidLoad() {
@@ -26,6 +27,7 @@ class DashboardViewController : UITableViewController{
         prepareView()
         updateData()
         getAllData()
+        noDataLabel.isEnabled = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -42,7 +44,15 @@ class DashboardViewController : UITableViewController{
     
     func updateData(){
         tableView.reloadData()
-        noDataLabel.isEnabled = !completeDataSource.getAllData().isEmpty
+        if(completeDataSource.getAllData().isEmpty == true){
+            noDataLabel.isEnabled = true
+            noDataLabel.isHidden = false
+            print("kokotek")
+        }else{
+            print("kokotek druhy")
+            noDataLabel.isEnabled = false
+            noDataLabel.isHidden = true
+        }
     }
     
     func prepareTableView(){
@@ -59,6 +69,24 @@ class DashboardViewController : UITableViewController{
         noDataLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
+            headerView.backgroundColor = .white
+        
+        headerImageView.image = UIImage(named: "man")
+        headerImageView.contentMode = .scaleAspectFit
+        headerView.addSubview(headerImageView)
+        headerImageView.snp.makeConstraints{ make in
+            make.top.equalToSuperview().offset(5)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+        }
+
+        return headerView
     }
     
     open override func tableView(_ tableView : UITableView, numberOfRowsInSection section : Int) -> Int {
@@ -81,6 +109,8 @@ class DashboardViewController : UITableViewController{
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath : IndexPath) -> Bool{
         return true
     }
+    
+    
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{

@@ -250,10 +250,6 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
         let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: ref.documentID)
         dataSource?.addPatient(patient: Patient)
         
-        //saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
-   
-        
-        
         ref.setData(["name": Patient.name, "surname" : Patient.surname, "room" : Patient.room, "bed" : Patient.bed, "gender" : Patient.Gender, "patient_info" : Patient.patientInfo, "added_by_user" : Patient.addedByUser]) { (err) in
             
             if err != nil{

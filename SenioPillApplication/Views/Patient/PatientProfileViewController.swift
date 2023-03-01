@@ -200,10 +200,7 @@ class PatientProfileViewController: UITableViewController{
         view.backgroundColor = .white
         navigationItem.rightBarButtonItems = [
             UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped)),
-            UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit))
-        ]
-
-
+            UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(edit))]
     }
     
     @objc func addTapped(){
@@ -213,7 +210,9 @@ class PatientProfileViewController: UITableViewController{
     
     @objc func edit(){
         let vc = EditPatientVC(dataSource:dataSource)
+        print(completeDataSource.getConcreteData(id: userID))
         vc.data = dataSource.getPatient(id: userID)
+        vc.completeData = completeDataSource.getConcreteData(id: userID)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
