@@ -12,20 +12,52 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
-class DashboardViewController : UITableViewController{
+class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
     
-    let currentUser = Auth.auth().currentUser?.uid
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return daysInWeek.count
+    }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+        return daysInWeek[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerTextField.text = daysInWeek[row]
+    }
+    
+    var pickerTextField = UITextField()
+     
+    let daysInWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+     
+     
     public var completeDataSource = CompleteList.completeModel
     public static var isEmpty:Bool = true
-    
+    let headerImageView = UIImageView()
     public var noDataLabel = UILabel()
     
+    let currentUser = Auth.auth().currentUser?.uid
+
+    private let dayPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerView
+    }()
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int { return 1 }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         updateData()
         getAllData()
+        noDataLabel.isEnabled = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,11 +70,18 @@ class DashboardViewController : UITableViewController{
         self.title = "Dashboard"
         prepareTableView()
         prepareNoDataLabel()
+        
     }
     
     func updateData(){
         tableView.reloadData()
-        noDataLabel.isEnabled = !completeDataSource.getAllData().isEmpty
+        if(completeDataSource.getAllData().isEmpty == true){
+            noDataLabel.isEnabled = true
+            noDataLabel.isHidden = false
+        }else{
+            noDataLabel.isEnabled = false
+            noDataLabel.isHidden = true
+        }
     }
     
     func prepareTableView(){
@@ -59,6 +98,35 @@ class DashboardViewController : UITableViewController{
         noDataLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView.init(frame: CGRect.init(x: 100, y: 0, width: 100, height: 0))
+            headerView.backgroundColor = .clear
+        
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        
+        pickerTextField.adjustsFontSizeToFitWidth = true
+        pickerTextField.text = "Mon"
+        pickerTextField.textAlignment = .center
+        pickerTextField.inputView = pickerView
+        pickerTextField.borderStyle = .roundedRect
+        pickerTextField.layer.cornerRadius = pickerTextField.bounds.height / 2.0
+        pickerTextField.layer.masksToBounds = true
+        pickerTextField.textColor = .white
+        pickerTextField.font = UIFont.boldSystemFont(ofSize: 20)
+        pickerTextField.backgroundColor = blueColor
+        pickerTextField.layer.borderColor = blueColor.cgColor
+        pickerTextField.layer.borderWidth = 1
+        pickerTextField.allowsEditingTextAttributes = false
+        headerView.addSubview(pickerTextField)
+        pickerTextField.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(15)
+        }
+        return headerView
     }
     
     open override func tableView(_ tableView : UITableView, numberOfRowsInSection section : Int) -> Int {
@@ -81,6 +149,8 @@ class DashboardViewController : UITableViewController{
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath : IndexPath) -> Bool{
         return true
     }
+    
+    
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
@@ -148,4 +218,8 @@ class DashboardViewController : UITableViewController{
                 self.updateData()
             }
         }
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
     }

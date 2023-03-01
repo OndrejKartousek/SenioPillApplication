@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 public class CompleteList : CompletePatientRepository{
     
@@ -66,5 +67,32 @@ public class CompleteList : CompletePatientRepository{
     
     public func deleteData(index: Int){
         assignedModelData.remove(at: index)
+    }
+    
+    public func updateDashboard(pacient : Patient){
+        for (index, assignment) in assignedModelData.enumerated(){
+            if assignment.patientID == pacient.ID{
+                
+                let updatedModel = AssignedModel(ID: assignment.ID, creatorID: assignment.creatorID, description: assignment.description, patientID: pacient.ID!, patientName: pacient.name, patientSurname: pacient.surname, patientRoom: pacient.room, patientBed: pacient.bed, patientInfo: pacient.patientInfo, Gender: pacient.Gender, addedByUser: assignment.addedByUser, drugID: assignment.drugID, drugName: assignment.drugName, drugDescription: assignment.drugDescription, drugPrescriptedDosage: assignment.drugPrescriptedDosage, givenDrugDosage: assignment.givenDrugDosage, givenDrugHour: assignment.givenDrugHour, givenDrugMinute: assignment.givenDrugMinute, givenOnMonday: assignment.givenOnMonday, givenOnTuesday: assignment.givenOnTuesday, givenOnWednesday: assignment.givenOnWednesday, givenOnThursday: assignment.givenOnThursday, givenOnFriday: assignment.givenOnFriday, givenOnSaturday: assignment.givenOnSaturday, givenOnSunday: assignment.givenOnSunday)
+                
+                assignedModelData[index] = updatedModel
+                
+                let db = Firestore.firestore()
+                db.collection("AssignedDrugs").document(updatedModel.ID).updateData(["Patient_Name": updatedModel.patientName, "Patient_Surname" : updatedModel.patientSurname, "Patient_Room" : updatedModel.patientRoom, "Patient_Bed" : updatedModel.patientBed, "gender" : updatedModel.Gender, "Patient_Info" : updatedModel.patientInfo])
+            }
+        }
+    }
+    
+    func editModel(model: AssignedModel) -> AssignedModel?{
+        
+        for (index, modelos) in assignedModelData.enumerated(){
+            print(model.ID)
+            if model.ID == modelos.ID{
+                print(model.ID)
+                assignedModelData[index] = model
+                
+            }
+        }
+        return model
     }
 }

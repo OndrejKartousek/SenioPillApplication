@@ -25,9 +25,15 @@ class LoginController: UIViewController {
         self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
         self.newUserButton.addTarget(self, action: #selector(didTapNewUser), for: .touchUpInside)
         self.forgotPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
-
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

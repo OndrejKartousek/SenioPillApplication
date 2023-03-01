@@ -48,8 +48,15 @@ class RegisterController: UIViewController {
         
         self.signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
         self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
 
 
     override func viewWillAppear(_ animated: Bool) {
@@ -137,6 +144,13 @@ class RegisterController: UIViewController {
         //password
         if !Validator.isPasswordValid(for: registerUserRequest.password){
             AlertManager.showInvalidPasswordAlert(on: self)
+            return
+        }
+        
+        if passwordField.text != passwordConfirmField.text{
+            AlertManager.showInvalidEmailAlert(on: self)
+            print(passwordField.text)
+            print(passwordConfirmField.text)
             return
         }
         

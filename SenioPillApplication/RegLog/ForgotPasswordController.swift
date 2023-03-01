@@ -11,13 +11,21 @@ class ForgotPasswordController: UIViewController {
 
     private let headerView = AuthHeaderView(title: "Forgot Password?", subTitle: "Reset it via your email.")
     private let emailField = CustomTextField(fieldType: .email)
-    private let resetPasswordButton = CustomButton(title: "Sign Up", hasBackground: true, fontSize: .big)
+    private let resetPasswordButton = CustomButton(title: "Send reset password link!", hasBackground: true, fontSize: .big)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
         
         self.resetPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {

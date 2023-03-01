@@ -55,6 +55,14 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
         prepareInfoInput()
         prepareSegmentedControll()
         prepareAddPatientBUtton()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     open func prepareView(){
@@ -249,10 +257,6 @@ class AddPatientViewController: UIViewController, UIScrollViewDelegate {
         let ref = db.collection("Patients").document()
         let Patient = Patient(name: nameInput.text!, surname: surnameInput.text!, room: roomInput.text!, bed: bedInput.text!, patientInfo: patientInfo.text!, Gender: getGender(sender: segmentedControll), addedByUser: currentUser!, ID: ref.documentID)
         dataSource?.addPatient(patient: Patient)
-        
-        //saveData(name: Patient.name, surname: Patient.surname, room: Patient.room, bed: Patient.bed, gender: Patient.Gender, patientInfo: Patient.patientInfo, addedByUser: Patient.addedByUser)
-   
-        
         
         ref.setData(["name": Patient.name, "surname" : Patient.surname, "room" : Patient.room, "bed" : Patient.bed, "gender" : Patient.Gender, "patient_info" : Patient.patientInfo, "added_by_user" : Patient.addedByUser]) { (err) in
             
