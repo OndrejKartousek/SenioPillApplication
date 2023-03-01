@@ -127,8 +127,6 @@ class EditPatientVC : UIViewController{
         self.givenFri = dataUnwrappedComplete.givenOnFriday
         self.givenSat = dataUnwrappedComplete.givenOnSaturday
         self.givenSun = dataUnwrappedComplete.givenOnSunday
-        
-        
     }
     
     override func viewDidLoad() {
@@ -141,6 +139,14 @@ class EditPatientVC : UIViewController{
         prepareInfoInput()
         prepareSegmentedControll()
         prepareAddPatientBUtton()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
     }
     
     open func prepareView(){

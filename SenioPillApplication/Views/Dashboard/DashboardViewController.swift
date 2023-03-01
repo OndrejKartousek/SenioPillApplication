@@ -12,22 +12,47 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
-class DashboardViewController : UITableViewController{
+class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource{
     
-    let currentUser = Auth.auth().currentUser?.uid
+    let dataArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    let UIPicker: UIPickerView = UIPickerView()
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+          return 1
+       }
+       func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+          return dataArray.count
+       }
+       func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+          let row = dataArray[row]
+          return row
+       }
+    
+    
     
     public var completeDataSource = CompleteList.completeModel
     public static var isEmpty:Bool = true
     let headerImageView = UIImageView()
-
     public var noDataLabel = UILabel()
     
+    let currentUser = Auth.auth().currentUser?.uid
+
+    private let dayPickerView: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        return pickerView
+    }()
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int { return 1 }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareView()
         updateData()
         getAllData()
         noDataLabel.isEnabled = true
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,17 +100,15 @@ class DashboardViewController : UITableViewController{
         
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
             headerView.backgroundColor = .white
-        
-        headerImageView.image = UIImage(named: "man")
-        headerImageView.contentMode = .scaleAspectFit
-        headerView.addSubview(headerImageView)
-        headerImageView.snp.makeConstraints{ make in
-            make.top.equalToSuperview().offset(5)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(100)
-            make.width.equalTo(100)
-        }
 
+        let UIPicker: UIPickerView = UIPickerView()
+            UIPicker.delegate = self as UIPickerViewDelegate
+            UIPicker.dataSource = self as UIPickerViewDataSource
+            headerView.addSubview(UIPicker)
+            UIPicker.snp.makeConstraints { make in
+                make.centerX.equalToSuperview()
+                make.centerY.equalToSuperview().offset(-25)
+        }
         return headerView
     }
     
