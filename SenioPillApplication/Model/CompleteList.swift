@@ -67,7 +67,6 @@ public class CompleteList : CompletePatientRepository{
     
     public func deleteData(index: Int){
         assignedModelData.remove(at: index)
-        print("kokot")
     }
     
     public func updateDashboard(pacient : Patient){
