@@ -12,24 +12,28 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
-class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource{
-    
-    let dataArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    let UIPicker: UIPickerView = UIPickerView()
-
+class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-          return 1
-       }
-       func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-          return dataArray.count
-       }
-       func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-          let row = dataArray[row]
-          return row
-       }
+        return 1
+    }
     
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return daysInWeek.count
+    }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+        return daysInWeek[row]
+    }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerTextField.text = daysInWeek[row]
+    }
+    
+    var pickerTextField = UITextField()
+     
+    let daysInWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+     
+     
     public var completeDataSource = CompleteList.completeModel
     public static var isEmpty:Bool = true
     let headerImageView = UIImageView()
@@ -52,7 +56,8 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         getAllData()
         noDataLabel.isEnabled = true
         
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,6 +70,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         self.title = "Dashboard"
         prepareTableView()
         prepareNoDataLabel()
+        
     }
     
     func updateData(){
@@ -72,9 +78,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         if(completeDataSource.getAllData().isEmpty == true){
             noDataLabel.isEnabled = true
             noDataLabel.isHidden = false
-            print("kokotek")
         }else{
-            print("kokotek druhy")
             noDataLabel.isEnabled = false
             noDataLabel.isHidden = true
         }
@@ -100,14 +104,27 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         
         let headerView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
             headerView.backgroundColor = .white
-
-        let UIPicker: UIPickerView = UIPickerView()
-            UIPicker.delegate = self as UIPickerViewDelegate
-            UIPicker.dataSource = self as UIPickerViewDataSource
-            headerView.addSubview(UIPicker)
-            UIPicker.snp.makeConstraints { make in
-                make.centerX.equalToSuperview()
-                make.centerY.equalToSuperview().offset(-25)
+        
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        
+        pickerTextField.adjustsFontSizeToFitWidth = true
+        pickerTextField.text = "Monday"
+        pickerTextField.textAlignment = .center
+        pickerTextField.inputView = pickerView
+        pickerTextField.borderStyle = .roundedRect
+        pickerTextField.layer.cornerRadius = pickerTextField.bounds.height / 2.0
+        pickerTextField.layer.masksToBounds = true
+        pickerTextField.textColor = .white
+        pickerTextField.font = UIFont.boldSystemFont(ofSize: 20)
+        pickerTextField.backgroundColor = blueColor
+        pickerTextField.layer.borderColor = blueColor.cgColor
+        pickerTextField.layer.borderWidth = 1
+        pickerTextField.allowsEditingTextAttributes = false
+        headerView.addSubview(pickerTextField)
+        pickerTextField.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(20)
+            make.top.equalToSuperview().inset(-15)
         }
         return headerView
     }
@@ -201,4 +218,8 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
                 self.updateData()
             }
         }
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
     }
