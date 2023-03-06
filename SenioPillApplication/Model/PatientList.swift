@@ -22,7 +22,7 @@ public class PatientList : PatientRepository{
         return patients
     }
     
-    func getDataAtIndex(index: Int)-> Patient{
+    func getDataAtIndex(index: Int)-> Patient?{
         return patients[index]
     }
     
@@ -66,6 +66,7 @@ public class PatientList : PatientRepository{
     }
     
     public func deleteData(index: Int){
+        print(index)
         patients.remove(at: index)
     }
     

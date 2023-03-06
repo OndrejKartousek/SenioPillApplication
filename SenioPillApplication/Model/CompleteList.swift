@@ -44,7 +44,9 @@ public class CompleteList : CompletePatientRepository{
     }
     
     func getDataAtIndex(index: Int)-> AssignedModel{
-        return assignedModelData[index]
+        print("getCompleteModel")
+        print(CompleteList.completeModel.assignedModelData)
+        return CompleteList.completeModel.assignedModelData[index]
     }
     
     func getUserAssignments(patientId: String) -> [AssignedModel] {
@@ -67,6 +69,10 @@ public class CompleteList : CompletePatientRepository{
     
     public func deleteData(index: Int){
         assignedModelData.remove(at: index)
+    }
+    
+    public func removeWithPatientId(id:String){
+        assignedModelData.removeAll{$0.patientID == id}
     }
     
     public func updateDashboard(pacient : Patient){

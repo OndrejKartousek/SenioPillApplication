@@ -12,7 +12,40 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
+struct dayInPicker {
+    var title: String
+    var date: Date
+}
+let today = Date()
+var calendar = Calendar.current
+let midnight = calendar.startOfDay(for: today)
+
+
+
 class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
+    let dateFormatter = DateFormatter()
+
+    var daysInWeek: [dayInPicker] = []
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "en-US")
+        daysInWeek = [
+            dayInPicker(title: "Today", date: today),
+            dayInPicker(title: "Tomorrow", date: calendar.date(byAdding: .day, value: 1, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 2, to: today)!), date: calendar.date(byAdding: .day, value: 2, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 3, to: today)!), date: calendar.date(byAdding: .day, value: 3, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 4, to: today)!), date: calendar.date(byAdding: .day, value: 4, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 5, to: today)!), date: calendar.date(byAdding: .day, value: 5, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 6, to: today)!), date: calendar.date(byAdding: .day, value: 6, to: today)!),
+        ]
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -22,16 +55,17 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-        return daysInWeek[row]
+        print(daysInWeek[row].date)
+        return daysInWeek[row].title
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pickerTextField.text = daysInWeek[row]
+        pickerTextField.text = daysInWeek[row].title
     }
     
     var pickerTextField = UITextField()
      
-    let daysInWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  
      
      
     public var completeDataSource = CompleteList.completeModel
@@ -109,7 +143,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         pickerView.delegate = self
         
         pickerTextField.adjustsFontSizeToFitWidth = true
-        pickerTextField.text = "Mon"
+        pickerTextField.text = "Today"
         pickerTextField.textAlignment = .center
         pickerTextField.inputView = pickerView
         pickerTextField.borderStyle = .roundedRect
