@@ -71,6 +71,11 @@ public class CompleteList : CompletePatientRepository{
         assignedModelData.remove(at: index)
     }
     
+    public func deleteById(id:String){
+        assignedModelData.removeAll(where: {$0.ID == id})
+    }
+    
+    
     public func removeWithPatientId(id:String){
         assignedModelData.removeAll{$0.patientID == id}
     }
@@ -79,7 +84,7 @@ public class CompleteList : CompletePatientRepository{
         for (index, assignment) in assignedModelData.enumerated(){
             if assignment.patientID == pacient.ID{
                 
-                let updatedModel = AssignedModel(ID: assignment.ID, creatorID: assignment.creatorID, description: assignment.description, patientID: pacient.ID!, patientName: pacient.name, patientSurname: pacient.surname, patientRoom: pacient.room, patientBed: pacient.bed, patientInfo: pacient.patientInfo, Gender: pacient.Gender, addedByUser: assignment.addedByUser, drugID: assignment.drugID, drugName: assignment.drugName, drugDescription: assignment.drugDescription, drugPrescriptedDosage: assignment.drugPrescriptedDosage, givenDrugDosage: assignment.givenDrugDosage, givenDrugHour: assignment.givenDrugHour, givenDrugMinute: assignment.givenDrugMinute, givenOnMonday: assignment.givenOnMonday, givenOnTuesday: assignment.givenOnTuesday, givenOnWednesday: assignment.givenOnWednesday, givenOnThursday: assignment.givenOnThursday, givenOnFriday: assignment.givenOnFriday, givenOnSaturday: assignment.givenOnSaturday, givenOnSunday: assignment.givenOnSunday)
+                let updatedModel = AssignedModel(ID: assignment.ID, creatorID: assignment.creatorID, description: assignment.description, patientID: pacient.ID!, patientName: pacient.name, patientSurname: pacient.surname, patientRoom: pacient.room, patientBed: pacient.bed, patientInfo: pacient.patientInfo, Gender: pacient.Gender, addedByUser: assignment.addedByUser, drugID: assignment.drugID, drugName: assignment.drugName, drugDescription: assignment.drugDescription, drugPrescriptedDosage: assignment.drugPrescriptedDosage, givenDrugDosage: assignment.givenDrugDosage, givenDrugHour: assignment.givenDrugHour, givenDrugMinute: assignment.givenDrugMinute, givenOnMonday: assignment.givenOnMonday, givenOnTuesday: assignment.givenOnTuesday, givenOnWednesday: assignment.givenOnWednesday, givenOnThursday: assignment.givenOnThursday, givenOnFriday: assignment.givenOnFriday, givenOnSaturday: assignment.givenOnSaturday, givenOnSunday: assignment.givenOnSunday, NextDateToGive: assignment.nextDateToGive)
                 
                 assignedModelData[index] = updatedModel
                 

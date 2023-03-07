@@ -17,6 +17,7 @@ public class DashboardListTVCell : UITableViewCell{
     var room = UILabel()
     var bed = UILabel()
     var dosage = UILabel()
+    var date = UILabel()
     
     let separatorView: UIView = {
        let view = UIView()
@@ -53,6 +54,7 @@ public class DashboardListTVCell : UITableViewCell{
         prepareRoomLabel()
         prepareBedLabel()
         prepareDosageLabel()
+        prepareDateLabel()
         updateView()
         
     }
@@ -70,9 +72,13 @@ public class DashboardListTVCell : UITableViewCell{
         }else{
             time.text = "\(dataUnwrapped.givenDrugHour) \(": ")\(dataUnwrapped.givenDrugMinute)"
         }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
         room.text = "room : \(dataUnwrapped.patientRoom)"
         bed.text = "bed : \(dataUnwrapped.patientBed)"
         dosage.text = "dosage : \(dataUnwrapped.givenDrugDosage)"
+        date.text = dateFormatter.string(from: dataUnwrapped.nextDateToGive)
+        //dateFormatter.string(from: dataUnwrapped.nextDateToGive)
         prepareImage(gender: dataUnwrapped.Gender)
 
     }
@@ -170,6 +176,16 @@ public class DashboardListTVCell : UITableViewCell{
         time.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(130)
             make.leading.equalToSuperview().offset(20)
+        }
+    }
+    
+    func prepareDateLabel(){
+        date.font = UIFont.systemFont(ofSize: 30, weight: .thin)
+        date.textAlignment = .center
+        contentView.addSubview(date)
+        date.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(60)
+            make.leading.equalToSuperview().offset(120)
         }
     }
 }
