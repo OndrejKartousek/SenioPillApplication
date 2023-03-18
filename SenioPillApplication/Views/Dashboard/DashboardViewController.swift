@@ -20,6 +20,7 @@ let today = Date()
 var calendar = Calendar.current
 let midnight = calendar.startOfDay(for: today)
 
+let greenColor = UIColor(red: 64, green: 227, blue: 32)
 
 
 class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
@@ -180,6 +181,8 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         if(displayingToday && Calendar.current.component(.day, from: Date()) == Calendar.current.component(.day, from:displayAssignments[IndexPath.row].nextDateToGive)){
             if(Calendar.current.component(.hour, from: Date()) > displayAssignments[IndexPath.row].givenDrugHour){
                 cell.backgroundColor = .systemRed
+                cell.prepareAlert()
+
             }else if(Calendar.current.component(.hour, from: Date()) == displayAssignments[IndexPath.row].givenDrugHour && Calendar.current.component(.minute, from: Date()) > displayAssignments[IndexPath.row].givenDrugMinute){
                 cell.backgroundColor = .systemRed
             }
@@ -209,6 +212,17 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
             updateData()
         }
     }
+    
+    open override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+         let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+             print("Update action ...")
+             success(true)
+         })
+         modifyAction.image = UIImage(named: "hammer")
+         modifyAction.backgroundColor = greenColor
+     
+         return UISwipeActionsConfiguration(actions: [modifyAction])
+     }
     
     func deleteData(id : String){
         let db = Firestore.firestore()

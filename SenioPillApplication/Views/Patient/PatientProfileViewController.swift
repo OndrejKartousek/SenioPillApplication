@@ -28,6 +28,15 @@ class PatientProfileViewController: UITableViewController{
     let roomLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
     let genderLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
     let decriptionLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
+    let daysLabel = UILabel()
+    
+    var monday = "Monday"
+    var tuesday = "Tuesday"
+    var wednesday = "Wednesday"
+    var thursday = "Thursday"
+    var friday = "Friday"
+    var saturday = "Saturday"
+    var sunday = "Sunday"
     
     var userID = ""
     
@@ -84,6 +93,7 @@ class PatientProfileViewController: UITableViewController{
         genderLabel.text = "Gender : \(dataUnwrapped.Gender)"
         roomLabel.text = "Room : \(dataUnwrapped.room) \(" Bed") \(dataUnwrapped.bed)"
         decriptionLabel.text = "Info : \(dataUnwrapped.patientInfo)"
+        daysLabel.text = "Days : "
         gender = dataUnwrapped.Gender
         
     }
@@ -158,6 +168,7 @@ class PatientProfileViewController: UITableViewController{
             make.centerX.equalToSuperview()
             make.top.equalTo(roomLabel).offset(20)
         }
+        
         return headerView
     }
     

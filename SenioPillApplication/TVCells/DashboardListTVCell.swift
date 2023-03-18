@@ -132,6 +132,18 @@ public class DashboardListTVCell : UITableViewCell{
         }
     }
     
+    public func prepareAlert(){
+        let image = UIImage(named: "danger")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFit
+        contentView.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.top.equalTo(self.contentView.safeAreaLayoutGuide.snp.top).offset(10)
+            make.trailing.equalTo(self.contentView.safeAreaLayoutGuide.snp.trailing).inset(20)
+            make.height.equalTo(60)
+            make.width.equalTo(60)
+        }
+    }
     
     func prepareRoomLabel(){
         room.font = UIFont.systemFont(ofSize: 16, weight: .bold)
