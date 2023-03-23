@@ -12,12 +12,11 @@ import FirebaseFirestore
 import SnapKit
 
 class PatientProfileViewController: UITableViewController{
-
+    
     public var completeDataSource = CompleteList.completeModel
     public var titleLabelView = LabelValueView(title: "Name")
     public var dataSource = PatientList()
     let currentUser = Auth.auth().currentUser?.uid
-    let comleteListDS = CompleteList.completeModel
     var assigments : [AssignedModel] = []
     var gender = ""
     public var noDataLabel = UILabel()
@@ -200,8 +199,15 @@ class PatientProfileViewController: UITableViewController{
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
+            let id = assigments[indexPath[1]].ID
+            print(("ID : \(id)"))
+            deleteData(id: id)
+            completeDataSource.deleteById(id: id)
+            assigments.removeAll(where: {$0.ID == id})
+            updateData()
         }
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -225,5 +231,16 @@ class PatientProfileViewController: UITableViewController{
         vc.data = dataSource.getPatient(id: userID)
         vc.completeData = completeDataSource.getConcreteData(id: userID)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func deleteData(id : String){
+        let db = Firestore.firestore()
+        db.collection("AssignedDrugs").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
     }
 }

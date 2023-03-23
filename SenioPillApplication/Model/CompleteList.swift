@@ -34,7 +34,7 @@ public class CompleteList : CompletePatientRepository{
     init (dataArray : [AssignedModel]){
         self.assignedModelData = dataArray
     }
-    func getConcreteData(id: String) -> AssignedModel? {
+    public func getConcreteData(id: String) -> AssignedModel? {
         for assignedModelDataX in assignedModelData {
             if(assignedModelDataX.ID == id){
                 return assignedModelDataX
@@ -42,6 +42,21 @@ public class CompleteList : CompletePatientRepository{
         }
         return assignedModelData.first
     }
+    
+    public func updateData(id: String)  {
+        var data:AssignedModel
+        for (index, _) in assignedModelData.enumerated() {
+            if(assignedModelData[index].ID == id){
+                assignedModelData[index].getNextDateToGive(includeToday: false)
+                data = assignedModelData[index]
+                //uložit proměnou data do firebasu ty plešata mrdko mám z tebe nervy
+                print(data.nextDateToGive)
+            }
+        }
+     
+
+    }
+    
     
     func getDataAtIndex(index: Int)-> AssignedModel{
         print("getCompleteModel")

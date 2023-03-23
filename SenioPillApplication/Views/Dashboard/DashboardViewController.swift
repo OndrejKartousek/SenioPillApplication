@@ -27,12 +27,14 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     let dateFormatter = DateFormatter()
     var displayingToday = true;
     var daysInWeek: [dayInPicker] = []
+
     
     init() {
+      
         super.init(nibName: nil, bundle: nil)
         dateFormatter.dateFormat = "EEEE"
         dateFormatter.locale = Locale(identifier: "en-US")
-        daysInWeek = [
+        self.daysInWeek = [
             dayInPicker(title: "Today", date: today),
             dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 1, to: today)!), date: calendar.date(byAdding: .day, value: 1, to: today)!),
             dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 2, to: today)!), date: calendar.date(byAdding: .day, value: 2, to: today)!),
@@ -62,6 +64,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.displayingToday = daysInWeek[row].title == "Today"
+    
         filterAssigments(date: daysInWeek[row].date, title: daysInWeek[row].title)
         pickerTextField.text = daysInWeek[row].title
     }
@@ -215,12 +218,19 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     open override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
          let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-             print("Update action ...")
+             
+             if(!self.displayingToday){return;}
+             let id = self.displayAssignments[indexPath[1]].ID
+             self.completeDataSource.updateData(id: id)
+                                                                                                        
+             self.filterAssigments(date: Date(), title: "Today")
+             self.updateData()
              success(true)
          })
+        if(!self.displayingToday){return nil;}
          modifyAction.image = UIImage(named: "hammer")
          modifyAction.backgroundColor = greenColor
-     
+        
          return UISwipeActionsConfiguration(actions: [modifyAction])
      }
     
@@ -245,10 +255,12 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
      
         for ass in completeDataSource.getAllData(){
             if(formatter1.string(from: date) == formatter1.string(from: ass.nextDateToGive)){
+                print("tu")
                 displayAssignments.append(ass)
             } else if(Int(formatter2.string(from: date))! >= Int(formatter2.string(from: ass.nextDateToGive))!){
-                if(title=="today"){break;}
-                print(title == "Monday" && ass.givenOnMonday)
+                print("tady")
+                print(title)
+               
                 if(title == "Sunday" && ass.givenOnSunday){
                     displayAssignments.append(ass)
                 }else if(title == "Saturday" && ass.givenOnSaturday){
@@ -262,6 +274,13 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
                 }else if(title == "Wednesday" && ass.givenOnWednesday){
                     displayAssignments.append(ass)
                 }else if(title == "Thursday" && ass.givenOnThursday){
+                    displayAssignments.append(ass)
+                }
+            }else {
+                print(Int(formatter2.string(from: date))!)
+                print(Int(formatter2.string(from: ass.nextDateToGive))!)
+                print(Int(formatter2.string(from: date))! > Int(formatter2.string(from: ass.nextDateToGive))!)
+                if(title == "Today" && Int(formatter2.string(from: date))! > Int(formatter2.string(from: ass.nextDateToGive))!){
                     displayAssignments.append(ass)
                 }
             }

@@ -82,7 +82,9 @@ public struct AssignedModel : CustomStringConvertible{
     }
     
     public mutating func getNextDateToGive(includeToday: Bool){
+        
         let dayInWeek = Calendar.current.dateComponents([.weekday], from: Date()).weekday
+        print(dayInWeek)
         switch dayInWeek {
         case 1:
                 if(includeToday && givenOnSunday){
@@ -99,6 +101,8 @@ public struct AssignedModel : CustomStringConvertible{
                     self.nextDateToGive = getDateByDistance(howManyDays: 5)
                 } else if(givenOnSaturday){
                     self.nextDateToGive = getDateByDistance(howManyDays: 6)
+                }else if(givenOnSunday){
+                    self.nextDateToGive = getDateByDistance(howManyDays: 7)
                 }
         case 2:
             if(includeToday && givenOnMonday){
@@ -115,6 +119,8 @@ public struct AssignedModel : CustomStringConvertible{
                 self.nextDateToGive = getDateByDistance(howManyDays: 5)
             } else if(givenOnSunday){
                 self.nextDateToGive = getDateByDistance(howManyDays: 6)
+            }else if(givenOnMonday){
+                self.nextDateToGive = getDateByDistance(howManyDays: 7)
             }
         case 3:
             if(includeToday && givenOnTuesday){
@@ -131,6 +137,8 @@ public struct AssignedModel : CustomStringConvertible{
                 self.nextDateToGive = getDateByDistance(howManyDays: 5)
             } else if(givenOnMonday){
                 self.nextDateToGive = getDateByDistance(howManyDays: 6)
+            }else if(givenOnTuesday){
+                self.nextDateToGive = getDateByDistance(howManyDays: 7)
             }
         case 4:
             if(includeToday && givenOnWednesday){
@@ -147,6 +155,8 @@ public struct AssignedModel : CustomStringConvertible{
                 self.nextDateToGive = getDateByDistance(howManyDays: 5)
             } else if(givenOnTuesday){
                 self.nextDateToGive = getDateByDistance(howManyDays: 6)
+            }else if(givenOnWednesday){
+                self.nextDateToGive = getDateByDistance(howManyDays: 7)
             }
         case 5:
             if(includeToday && givenOnThursday){
@@ -163,6 +173,8 @@ public struct AssignedModel : CustomStringConvertible{
                 self.nextDateToGive = getDateByDistance(howManyDays: 5)
             } else if(givenOnWednesday){
                 self.nextDateToGive = getDateByDistance(howManyDays: 6)
+            } else if(givenOnThursday){
+                self.nextDateToGive = getDateByDistance(howManyDays: 7)
             }
         case 6:
             if(includeToday && givenOnFriday){
@@ -179,6 +191,8 @@ public struct AssignedModel : CustomStringConvertible{
                 self.nextDateToGive = getDateByDistance(howManyDays: 5)
             } else if(givenOnThursday){
                 self.nextDateToGive = getDateByDistance(howManyDays: 6)
+            }else if(givenOnFriday){
+                self.nextDateToGive = getDateByDistance(howManyDays: 7)
             }
         case 7:
             if(includeToday && givenOnSaturday){
@@ -195,6 +209,8 @@ public struct AssignedModel : CustomStringConvertible{
                 self.nextDateToGive = getDateByDistance(howManyDays: 5)
             } else if(givenOnFriday){
                 self.nextDateToGive = getDateByDistance(howManyDays: 6)
+            }else if(givenOnSaturday){
+                self.nextDateToGive = getDateByDistance(howManyDays: 7)
             }
         case .none:
             return
@@ -202,7 +218,7 @@ public struct AssignedModel : CustomStringConvertible{
             return
         }
         
-        print("Další den \(nextDateToGive)")
+        print("Další den \(self.nextDateToGive)")
     }
     
     public func getDateByDistance(howManyDays:Int)->Date{

@@ -329,7 +329,7 @@ class GivingDrugDetailsVC : UIViewController{
         wednesdayState = tuesdaySwitch.isOn
         thursdayState = thursdaySwitch.isOn
         fridayState = fridaySwitch.isOn
-        saturdayState = fridaySwitch.isOn
+        saturdayState = saturdaySwitch.isOn
         sundayState = sundaySwitch.isOn
         
         let db = Firestore.firestore()
