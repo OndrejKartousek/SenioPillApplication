@@ -49,9 +49,11 @@ public class CompleteList : CompletePatientRepository{
             if(assignedModelData[index].ID == id){
                 assignedModelData[index].getNextDateToGive(includeToday: false)
                 data = assignedModelData[index]
-                //uložit proměnou data do firebasu ty plešata mrdko mám z tebe nervy
-                print(data.nextDateToGive)
-            }
+                
+                let db = Firestore.firestore()
+                let ref =  db.collection("AssignedDrugs").document()
+                db.collection("AssignedDrugs").document(id).updateData(["nextDateToGive" : data.nextDateToGive])
+                }
         }
      
 

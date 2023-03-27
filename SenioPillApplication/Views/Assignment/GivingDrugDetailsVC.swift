@@ -326,7 +326,7 @@ class GivingDrugDetailsVC : UIViewController{
         let minute = components.minute!
         mondayState = mondaySwitch.isOn
         tuesdayState = tuesdaySwitch.isOn
-        wednesdayState = tuesdaySwitch.isOn
+        wednesdayState = wednesdaySwitch.isOn
         thursdayState = thursdaySwitch.isOn
         fridayState = fridaySwitch.isOn
         saturdayState = saturdaySwitch.isOn

@@ -253,35 +253,32 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         formatter2.dateFormat = "d"
      
      
-        for ass in completeDataSource.getAllData(){
-            if(formatter1.string(from: date) == formatter1.string(from: ass.nextDateToGive)){
+        for CDSData in completeDataSource.getAllData(){
+            if(formatter1.string(from: date) == formatter1.string(from: CDSData.nextDateToGive)){
                 print("tu")
-                displayAssignments.append(ass)
-            } else if(Int(formatter2.string(from: date))! >= Int(formatter2.string(from: ass.nextDateToGive))!){
+                displayAssignments.append(CDSData)
+            } else if(date > CDSData.nextDateToGive){
                 print("tady")
-                print(title)
+                print(title + "kokot")
                
-                if(title == "Sunday" && ass.givenOnSunday){
-                    displayAssignments.append(ass)
-                }else if(title == "Saturday" && ass.givenOnSaturday){
-                    displayAssignments.append(ass)
-                }else if(title == "Friday" && ass.givenOnFriday){
-                    displayAssignments.append(ass)
-                }else if(title == "Monday" && ass.givenOnMonday){
-                    displayAssignments.append(ass)
-                }else if(title == "Tuesday" && ass.givenOnTuesday){
-                    displayAssignments.append(ass)
-                }else if(title == "Wednesday" && ass.givenOnWednesday){
-                    displayAssignments.append(ass)
-                }else if(title == "Thursday" && ass.givenOnThursday){
-                    displayAssignments.append(ass)
+                if(title == "Sunday" && CDSData.givenOnSunday){
+                    displayAssignments.append(CDSData)
+                }else if(title == "Saturday" && CDSData.givenOnSaturday){
+                    displayAssignments.append(CDSData)
+                }else if(title == "Friday" && CDSData.givenOnFriday){
+                    displayAssignments.append(CDSData)
+                }else if(title == "Monday" && CDSData.givenOnMonday){
+                    displayAssignments.append(CDSData)
+                }else if(title == "Tuesday" && CDSData.givenOnTuesday){
+                    displayAssignments.append(CDSData)
+                }else if(title == "Wednesday" && CDSData.givenOnWednesday){
+                    displayAssignments.append(CDSData)
+                }else if(title == "Thursday" && CDSData.givenOnThursday){
+                    displayAssignments.append(CDSData)
                 }
             }else {
-                print(Int(formatter2.string(from: date))!)
-                print(Int(formatter2.string(from: ass.nextDateToGive))!)
-                print(Int(formatter2.string(from: date))! > Int(formatter2.string(from: ass.nextDateToGive))!)
-                if(title == "Today" && Int(formatter2.string(from: date))! > Int(formatter2.string(from: ass.nextDateToGive))!){
-                    displayAssignments.append(ass)
+                if(title == "Today" && Int(formatter2.string(from: date))! > Int(formatter2.string(from: CDSData.nextDateToGive))!){
+                    displayAssignments.append(CDSData)
                 }
             }
         }
@@ -346,7 +343,6 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
             }
         }
     @objc func dismissKeyboard() {
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     }
