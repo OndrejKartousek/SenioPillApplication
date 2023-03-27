@@ -34,7 +34,7 @@ public class CompleteList : CompletePatientRepository{
     init (dataArray : [AssignedModel]){
         self.assignedModelData = dataArray
     }
-    func getConcreteData(id: String) -> AssignedModel? {
+    public func getConcreteData(id: String) -> AssignedModel? {
         for assignedModelDataX in assignedModelData {
             if(assignedModelDataX.ID == id){
                 return assignedModelDataX
@@ -43,8 +43,25 @@ public class CompleteList : CompletePatientRepository{
         return assignedModelData.first
     }
     
+    public func updateData(id: String)  {
+        var data:AssignedModel
+        for (index, _) in assignedModelData.enumerated() {
+            if(assignedModelData[index].ID == id){
+                assignedModelData[index].getNextDateToGive(includeToday: false)
+                data = assignedModelData[index]
+                //uložit proměnou data do firebasu ty plešata mrdko mám z tebe nervy
+                print(data.nextDateToGive)
+            }
+        }
+     
+
+    }
+    
+    
     func getDataAtIndex(index: Int)-> AssignedModel{
-        return assignedModelData[index]
+        print("getCompleteModel")
+        print(CompleteList.completeModel.assignedModelData)
+        return CompleteList.completeModel.assignedModelData[index]
     }
     
     func getUserAssignments(patientId: String) -> [AssignedModel] {
@@ -69,11 +86,20 @@ public class CompleteList : CompletePatientRepository{
         assignedModelData.remove(at: index)
     }
     
+    public func deleteById(id:String){
+        assignedModelData.removeAll(where: {$0.ID == id})
+    }
+    
+    
+    public func removeWithPatientId(id:String){
+        assignedModelData.removeAll{$0.patientID == id}
+    }
+    
     public func updateDashboard(pacient : Patient){
         for (index, assignment) in assignedModelData.enumerated(){
             if assignment.patientID == pacient.ID{
                 
-                let updatedModel = AssignedModel(ID: assignment.ID, creatorID: assignment.creatorID, description: assignment.description, patientID: pacient.ID!, patientName: pacient.name, patientSurname: pacient.surname, patientRoom: pacient.room, patientBed: pacient.bed, patientInfo: pacient.patientInfo, Gender: pacient.Gender, addedByUser: assignment.addedByUser, drugID: assignment.drugID, drugName: assignment.drugName, drugDescription: assignment.drugDescription, drugPrescriptedDosage: assignment.drugPrescriptedDosage, givenDrugDosage: assignment.givenDrugDosage, givenDrugHour: assignment.givenDrugHour, givenDrugMinute: assignment.givenDrugMinute, givenOnMonday: assignment.givenOnMonday, givenOnTuesday: assignment.givenOnTuesday, givenOnWednesday: assignment.givenOnWednesday, givenOnThursday: assignment.givenOnThursday, givenOnFriday: assignment.givenOnFriday, givenOnSaturday: assignment.givenOnSaturday, givenOnSunday: assignment.givenOnSunday)
+                let updatedModel = AssignedModel(ID: assignment.ID, creatorID: assignment.creatorID, description: assignment.description, patientID: pacient.ID!, patientName: pacient.name, patientSurname: pacient.surname, patientRoom: pacient.room, patientBed: pacient.bed, patientInfo: pacient.patientInfo, Gender: pacient.Gender, addedByUser: assignment.addedByUser, drugID: assignment.drugID, drugName: assignment.drugName, drugDescription: assignment.drugDescription, drugPrescriptedDosage: assignment.drugPrescriptedDosage, givenDrugDosage: assignment.givenDrugDosage, givenDrugHour: assignment.givenDrugHour, givenDrugMinute: assignment.givenDrugMinute, givenOnMonday: assignment.givenOnMonday, givenOnTuesday: assignment.givenOnTuesday, givenOnWednesday: assignment.givenOnWednesday, givenOnThursday: assignment.givenOnThursday, givenOnFriday: assignment.givenOnFriday, givenOnSaturday: assignment.givenOnSaturday, givenOnSunday: assignment.givenOnSunday, NextDateToGive: assignment.nextDateToGive)
                 
                 assignedModelData[index] = updatedModel
                 

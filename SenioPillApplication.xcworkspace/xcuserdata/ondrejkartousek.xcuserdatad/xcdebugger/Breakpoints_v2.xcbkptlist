@@ -139,9 +139,9 @@
             filePath = "SenioPillApplication/Model/AssignedModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "init(ID:creatorID:description:patientID:patientName:patientSurname:patientRoom:patientBed:patientInfo:Gender:addedByUser:drugID:drugName:drugDescription:drugPrescriptedDosage:givenDrugDosage:givenDrugHour:givenDrugMinute:givenOnMonday:givenOnTuesday:givenOnWednesday:givenOnThursday:givenOnFriday:givenOnSaturday:givenOnSunday:)"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "init(ID:creatorID:description:patientID:patientName:patientSurname:patientRoom:patientBed:patientInfo:Gender:addedByUser:drugID:drugName:drugDescription:drugPrescriptedDosage:givenDrugDosage:givenDrugHour:givenDrugMinute:givenOnMonday:givenOnTuesday:givenOnWednesday:givenOnThursday:givenOnFriday:givenOnSaturday:givenOnSunday:NextDateToGive:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

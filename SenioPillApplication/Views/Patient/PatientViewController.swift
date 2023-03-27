@@ -95,22 +95,18 @@ class PatientViewController: UITableViewController {
     }
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            var patientName = dataSource.getDataAtIndex(index: indexPath[1]).name
-            var patientsID = dataSource.getDataAtIndex(index: indexPath[1]).ID
-            var pateintsIDAssignment = completeDataSource.getDataAtIndex(index: indexPath[1]).patientID
-            let assgignedDrugPatientID =  completeDataSource.getAllData()
-            print("Patient name : \(patientName)")
+            var patientName = dataSource.getDataAtIndex(index: indexPath[1])!.name
+            let patientID = dataSource.getDataAtIndex(index: indexPath[1])!.ID
+            print("id pacienta")
+            print(patientID)
             patientName = patientName + "  "
-            for assignments in assgignedDrugPatientID{
-                print("assignment \(assignments.patientName)")
-                let assignedName = assignments.patientName
-            }
+            print("delka arraye")
+            print(completeDataSource.getAllData().count)
             for completeDataModel in completeDataSource.getAllData(){
-                print(completeDataModel.ID + "kokot")
-                if completeDataModel.patientID == pateintsIDAssignment{
-                    print(completeDataModel.ID)
+                print("jiny")
+                if completeDataModel.patientID == patientID! {
+                    print("stejny" + completeDataModel.ID)
                     let db = Firestore.firestore()
-                    completeDataSource.deleteData(index: indexPath[1])
                     db.collection("AssignedDrugs").document(completeDataModel.ID).delete() { err in
                         if let err = err {
                             print("Error removing document: \(err)")
@@ -120,8 +116,9 @@ class PatientViewController: UITableViewController {
                     }
                 }
             }
+            completeDataSource.removeWithPatientId(id: patientID!)
             dataSource.deleteData(index: indexPath[1])
-            deleteData(id: patientsID ?? "nefunguju :)")
+            deleteData(id: patientID ?? "nefunguju :)")
             updateData()
         }
     }

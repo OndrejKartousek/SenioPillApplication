@@ -12,7 +12,43 @@ import SwiftUI
 import FirebaseFirestore
 import FirebaseAuth
 
+struct dayInPicker {
+    var title: String
+    var date: Date
+}
+let today = Date()
+var calendar = Calendar.current
+let midnight = calendar.startOfDay(for: today)
+
+let greenColor = UIColor(red: 64, green: 227, blue: 32)
+
+
 class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
+    let dateFormatter = DateFormatter()
+    var displayingToday = true;
+    var daysInWeek: [dayInPicker] = []
+
+    
+    init() {
+      
+        super.init(nibName: nil, bundle: nil)
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "en-US")
+        self.daysInWeek = [
+            dayInPicker(title: "Today", date: today),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 1, to: today)!), date: calendar.date(byAdding: .day, value: 1, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 2, to: today)!), date: calendar.date(byAdding: .day, value: 2, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 3, to: today)!), date: calendar.date(byAdding: .day, value: 3, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 4, to: today)!), date: calendar.date(byAdding: .day, value: 4, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 5, to: today)!), date: calendar.date(byAdding: .day, value: 5, to: today)!),
+            dayInPicker(title: dateFormatter.string(from: calendar.date(byAdding: .day, value: 6, to: today)!), date: calendar.date(byAdding: .day, value: 6, to: today)!),
+        ]
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -22,19 +58,24 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
-        return daysInWeek[row]
+        
+        return daysInWeek[row].title
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pickerTextField.text = daysInWeek[row]
+        self.displayingToday = daysInWeek[row].title == "Today"
+    
+        filterAssigments(date: daysInWeek[row].date, title: daysInWeek[row].title)
+        pickerTextField.text = daysInWeek[row].title
     }
     
     var pickerTextField = UITextField()
      
-    let daysInWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  
      
      
     public var completeDataSource = CompleteList.completeModel
+    public var displayAssignments: [AssignedModel] = []
     public static var isEmpty:Bool = true
     let headerImageView = UIImageView()
     public var noDataLabel = UILabel()
@@ -62,6 +103,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        filterAssigments(date: Date(), title: "Today")
         updateData()
     }
     
@@ -75,7 +117,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     func updateData(){
         tableView.reloadData()
-        if(completeDataSource.getAllData().isEmpty == true){
+        if(displayAssignments.isEmpty == true){
             noDataLabel.isEnabled = true
             noDataLabel.isHidden = false
         }else{
@@ -109,7 +151,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         pickerView.delegate = self
         
         pickerTextField.adjustsFontSizeToFitWidth = true
-        pickerTextField.text = "Mon"
+        pickerTextField.text = "Today"
         pickerTextField.textAlignment = .center
         pickerTextField.inputView = pickerView
         pickerTextField.borderStyle = .roundedRect
@@ -130,7 +172,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     }
     
     open override func tableView(_ tableView : UITableView, numberOfRowsInSection section : Int) -> Int {
-        return completeDataSource.getAllData().count
+        return displayAssignments.count
     }
     
     open override func tableView(_ tableView : UITableView, cellForRowAt IndexPath : IndexPath) -> UITableViewCell {
@@ -139,7 +181,18 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
         else{
             return UITableViewCell()
         }
-        cell.data = completeDataSource.getAllData()[IndexPath.row]
+        if(displayingToday && Calendar.current.component(.day, from: Date()) == Calendar.current.component(.day, from:displayAssignments[IndexPath.row].nextDateToGive)){
+            if(Calendar.current.component(.hour, from: Date()) > displayAssignments[IndexPath.row].givenDrugHour){
+                cell.backgroundColor = .systemRed
+                cell.prepareAlert()
+
+            }else if(Calendar.current.component(.hour, from: Date()) == displayAssignments[IndexPath.row].givenDrugHour && Calendar.current.component(.minute, from: Date()) > displayAssignments[IndexPath.row].givenDrugMinute){
+                cell.backgroundColor = .systemRed
+            }
+        }else {
+            cell.backgroundColor = .white
+        }
+        cell.data = displayAssignments[IndexPath.row]
         return cell
     }
     
@@ -154,13 +207,32 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            let id = completeDataSource.getDataAtIndex(index: indexPath[1]).ID
+            let id = displayAssignments[indexPath[1]].ID
             print(("ID : \(id)"))
-            completeDataSource.deleteData(index: indexPath[1])
+            completeDataSource.deleteById(id: id)
+            displayAssignments.remove(at: indexPath[1])
             deleteData(id: id)
             updateData()
         }
     }
+    
+    open override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+         let modifyAction = UIContextualAction(style: .normal, title:  "Update", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+             
+             if(!self.displayingToday){return;}
+             let id = self.displayAssignments[indexPath[1]].ID
+             self.completeDataSource.updateData(id: id)
+                                                                                                        
+             self.filterAssigments(date: Date(), title: "Today")
+             self.updateData()
+             success(true)
+         })
+        if(!self.displayingToday){return nil;}
+         modifyAction.image = UIImage(named: "hammer")
+         modifyAction.backgroundColor = greenColor
+        
+         return UISwipeActionsConfiguration(actions: [modifyAction])
+     }
     
     func deleteData(id : String){
         let db = Firestore.firestore()
@@ -171,6 +243,49 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
                 print("Document successfully removed!")
             }
         }
+    }
+    
+    func filterAssigments(date:Date, title:String){
+        displayAssignments = []
+        let formatter1 = DateFormatter()
+        let formatter2 = DateFormatter()
+        formatter1.dateFormat = "d"
+        formatter2.dateFormat = "d"
+     
+     
+        for ass in completeDataSource.getAllData(){
+            if(formatter1.string(from: date) == formatter1.string(from: ass.nextDateToGive)){
+                print("tu")
+                displayAssignments.append(ass)
+            } else if(Int(formatter2.string(from: date))! >= Int(formatter2.string(from: ass.nextDateToGive))!){
+                print("tady")
+                print(title)
+               
+                if(title == "Sunday" && ass.givenOnSunday){
+                    displayAssignments.append(ass)
+                }else if(title == "Saturday" && ass.givenOnSaturday){
+                    displayAssignments.append(ass)
+                }else if(title == "Friday" && ass.givenOnFriday){
+                    displayAssignments.append(ass)
+                }else if(title == "Monday" && ass.givenOnMonday){
+                    displayAssignments.append(ass)
+                }else if(title == "Tuesday" && ass.givenOnTuesday){
+                    displayAssignments.append(ass)
+                }else if(title == "Wednesday" && ass.givenOnWednesday){
+                    displayAssignments.append(ass)
+                }else if(title == "Thursday" && ass.givenOnThursday){
+                    displayAssignments.append(ass)
+                }
+            }else {
+                print(Int(formatter2.string(from: date))!)
+                print(Int(formatter2.string(from: ass.nextDateToGive))!)
+                print(Int(formatter2.string(from: date))! > Int(formatter2.string(from: ass.nextDateToGive))!)
+                if(title == "Today" && Int(formatter2.string(from: date))! > Int(formatter2.string(from: ass.nextDateToGive))!){
+                    displayAssignments.append(ass)
+                }
+            }
+        }
+        updateData()
     }
         
         func getAllData(){
@@ -193,6 +308,7 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
                 if let snapshot = snapshot{
                     for document in snapshot.documents{
                         let data = document.data()
+                        print(data)
                         let patientName = data["Patient_Name"] as? String ?? ""
                         let patientSurname = data["Patient_Surname"] as? String ?? ""
                         let name = patientName + " " + patientSurname
@@ -204,17 +320,28 @@ class DashboardViewController : UITableViewController, UIPickerViewDelegate, UIP
                         let room = data["Patient_Room"] as? String ?? ""
                         let bed = data["Patient_Bed"] as? String ?? ""
                         let drugDosage = data["Given_Dosage"] as? String ?? ""
+                        let monday = data["Monday"] as! Bool
+                        let tuesday = data["Tuesday"] as! Bool
+                        let wednesday = data["Wednesday"] as! Bool
+                        let thursday = data["Thursday"] as! Bool
+                        let friday = data["Friday"] as! Bool
+                        let saturday = data["Saturday"] as! Bool
+                        let sunday = data["Sunday"] as! Bool
+                        let timestamp = data["nextDateToGive"] as! Timestamp
+                        
+                   
                         
                         if(addedByUser == self.currentUser!){
                             let givenHour = data["Given_Hour"] as? Int ?? 1
                             let givenMinute = data["Given_Minute"] as? Int ?? 1
-                            let newObj = AssignedModel(ID: document.documentID, creatorID: self.currentUser!, description: "", patientID: patientID, patientName: name, patientSurname: "", patientRoom: room, patientBed: bed, patientInfo: "", Gender: gender, addedByUser: addedByUser, drugID: drugID, drugName: drugName, drugDescription: "", drugPrescriptedDosage: "", givenDrugDosage: drugDosage, givenDrugHour: givenHour ?? 12, givenDrugMinute: givenMinute ?? 10, givenOnMonday: true, givenOnTuesday: true, givenOnWednesday: true, givenOnThursday: true, givenOnFriday: true, givenOnSaturday: true, givenOnSunday: true)
+                            let newObj = AssignedModel(ID: document.documentID, creatorID: self.currentUser!, description: "", patientID: patientID, patientName: name, patientSurname: "", patientRoom: room, patientBed: bed, patientInfo: "", Gender: gender, addedByUser: addedByUser, drugID: drugID, drugName: drugName, drugDescription: "", drugPrescriptedDosage: "", givenDrugDosage: drugDosage, givenDrugHour: givenHour ?? 12, givenDrugMinute: givenMinute ?? 10, givenOnMonday: monday, givenOnTuesday: tuesday, givenOnWednesday: wednesday, givenOnThursday: thursday, givenOnFriday: friday, givenOnSaturday: saturday, givenOnSunday: sunday, NextDateToGive: timestamp.dateValue())
                             self.completeDataSource.addData(data: newObj)
                             
                         }
                         
                     }
                 }
+                self.filterAssigments(date: Date(), title:"Today")
                 self.updateData()
             }
         }

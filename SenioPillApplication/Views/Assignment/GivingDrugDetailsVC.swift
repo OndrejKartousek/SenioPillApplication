@@ -329,11 +329,13 @@ class GivingDrugDetailsVC : UIViewController{
         wednesdayState = tuesdaySwitch.isOn
         thursdayState = thursdaySwitch.isOn
         fridayState = fridaySwitch.isOn
-        saturdayState = fridaySwitch.isOn
+        saturdayState = saturdaySwitch.isOn
         sundayState = sundaySwitch.isOn
         
+        let db = Firestore.firestore()
+        let ref =  db.collection("AssignedDrugs").document()
         
-        let completeModel = AssignedModel(ID: "xy", creatorID: currentUser!, description: "", patientID: patientDataSource?.ID ?? "", patientName: patientDataSource!.name, patientSurname: patientDataSource!.surname, patientRoom: patientDataSource!.room, patientBed: patientDataSource!.bed, patientInfo: patientDataSource!.patientInfo, Gender: patientDataSource!.Gender, addedByUser: patientDataSource!.addedByUser, drugID: drugID, drugName: drugsDataSource!.name, drugDescription: drugsDataSource!.description, drugPrescriptedDosage: drugsDataSource!.PrescriptedDosage, givenDrugDosage: dosageInput.text!, givenDrugHour: hour, givenDrugMinute: minute, givenOnMonday: mondayState, givenOnTuesday: tuesdayState, givenOnWednesday: wednesdayState, givenOnThursday: thursdayState, givenOnFriday: fridayState, givenOnSaturday: saturdayState, givenOnSunday: sundayState)
+        let completeModel = AssignedModel(ID: ref.documentID, creatorID: currentUser!, description: "", patientID: patientDataSource?.ID ?? "", patientName: patientDataSource!.name, patientSurname: patientDataSource!.surname, patientRoom: patientDataSource!.room, patientBed: patientDataSource!.bed, patientInfo: patientDataSource!.patientInfo, Gender: patientDataSource!.Gender, addedByUser: patientDataSource!.addedByUser, drugID: drugID, drugName: drugsDataSource!.name, drugDescription: drugsDataSource!.description, drugPrescriptedDosage: drugsDataSource!.PrescriptedDosage, givenDrugDosage: dosageInput.text!, givenDrugHour: hour, givenDrugMinute: minute, givenOnMonday: mondayState, givenOnTuesday: tuesdayState, givenOnWednesday: wednesdayState, givenOnThursday: thursdayState, givenOnFriday: fridayState, givenOnSaturday: saturdayState, givenOnSunday: sundayState, NextDateToGive: nil)
         
         print("ID : \(completeModel.patientID)")
         print("NAME : \(completeModel.patientName)")
@@ -341,9 +343,9 @@ class GivingDrugDetailsVC : UIViewController{
         print(patientName)
         completeDS.addData(data: completeModel)
                 
-        let db = Firestore.firestore()
+
         
-        db.collection("AssignedDrugs").document().setData(["UserID" : currentUser!, "PatientID" : patientID, "DrugID" : drugID, "Patient_Name" : patientDataSource!.name, "Patient_Surname" : patientDataSource?.surname, "Patient_Bed" : patientDataSource?.bed, "Patient_Room" : patientDataSource?.room, "Patient_Info" : patientDataSource?.patientInfo, "Patient_Gender" : patientDataSource?.Gender, "Added_By_User" : patientDataSource?.addedByUser, "Drug_Name" : drugsDataSource?.name, "Drug_Description" : drugsDataSource?.description, "Drug_Prescripted_Dosage" : drugsDataSource?.PrescriptedDosage,"Given_Dosage" : dosageInput.text!, "Given_Hour" : hour, "Given_Minute" : minute, "Monday" : mondayState, "Tuesday" : tuesdayState, "Wednesday" : wednesdayState, "Thursday" : thursdayState, "Friday" : fridayState, "Saturday" : saturdayState, "Sunday" : sundayState ]) { (err) in
+        ref.setData(["UserID" : currentUser!, "PatientID" : patientID, "DrugID" : drugID, "Patient_Name" : patientDataSource!.name, "Patient_Surname" : patientDataSource?.surname, "Patient_Bed" : patientDataSource?.bed, "Patient_Room" : patientDataSource?.room, "Patient_Info" : patientDataSource?.patientInfo, "Patient_Gender" : patientDataSource?.Gender, "Added_By_User" : patientDataSource?.addedByUser, "Drug_Name" : drugsDataSource?.name, "Drug_Description" : drugsDataSource?.description, "Drug_Prescripted_Dosage" : drugsDataSource?.PrescriptedDosage,"Given_Dosage" : dosageInput.text!, "Given_Hour" : hour, "Given_Minute" : minute, "Monday" : mondayState, "Tuesday" : tuesdayState, "Wednesday" : wednesdayState, "Thursday" : thursdayState, "Friday" : fridayState, "Saturday" : saturdayState, "Sunday" : sundayState, "nextDateToGive": completeModel.nextDateToGive ]) { (err) in
             let vc = DashboardViewController()
             self.dismiss(animated: true, completion: {self.navigationController?.pushViewController(vc, animated: true)})
             if err != nil{

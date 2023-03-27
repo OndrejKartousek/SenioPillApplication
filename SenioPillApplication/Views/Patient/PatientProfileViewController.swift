@@ -12,12 +12,11 @@ import FirebaseFirestore
 import SnapKit
 
 class PatientProfileViewController: UITableViewController{
-
+    
     public var completeDataSource = CompleteList.completeModel
     public var titleLabelView = LabelValueView(title: "Name")
     public var dataSource = PatientList()
     let currentUser = Auth.auth().currentUser?.uid
-    let comleteListDS = CompleteList.completeModel
     var assigments : [AssignedModel] = []
     var gender = ""
     public var noDataLabel = UILabel()
@@ -28,6 +27,15 @@ class PatientProfileViewController: UITableViewController{
     let roomLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
     let genderLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
     let decriptionLabel = UILabel(frame: CGRect.init(x: 10, y: 0, width: 300, height: 200))
+    let daysLabel = UILabel()
+    
+    var monday = "Monday"
+    var tuesday = "Tuesday"
+    var wednesday = "Wednesday"
+    var thursday = "Thursday"
+    var friday = "Friday"
+    var saturday = "Saturday"
+    var sunday = "Sunday"
     
     var userID = ""
     
@@ -84,6 +92,7 @@ class PatientProfileViewController: UITableViewController{
         genderLabel.text = "Gender : \(dataUnwrapped.Gender)"
         roomLabel.text = "Room : \(dataUnwrapped.room) \(" Bed") \(dataUnwrapped.bed)"
         decriptionLabel.text = "Info : \(dataUnwrapped.patientInfo)"
+        daysLabel.text = "Days : "
         gender = dataUnwrapped.Gender
         
     }
@@ -158,6 +167,7 @@ class PatientProfileViewController: UITableViewController{
             make.centerX.equalToSuperview()
             make.top.equalTo(roomLabel).offset(20)
         }
+        
         return headerView
     }
     
@@ -189,8 +199,15 @@ class PatientProfileViewController: UITableViewController{
     
     open override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
+            let id = assigments[indexPath[1]].ID
+            print(("ID : \(id)"))
+            deleteData(id: id)
+            completeDataSource.deleteById(id: id)
+            assigments.removeAll(where: {$0.ID == id})
+            updateData()
         }
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -214,5 +231,16 @@ class PatientProfileViewController: UITableViewController{
         vc.data = dataSource.getPatient(id: userID)
         vc.completeData = completeDataSource.getConcreteData(id: userID)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func deleteData(id : String){
+        let db = Firestore.firestore()
+        db.collection("AssignedDrugs").document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+            }
+        }
     }
 }
