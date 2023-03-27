@@ -42,7 +42,8 @@ Temporary Items
 Objective-C.gitignore & Swift.gitignore
 
 ## User settings
-xcuserdata/
+SenioPillApplication/xcuserdata/
+UserInterfaceState.xcuserstate
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting 
 Xcode 9)
